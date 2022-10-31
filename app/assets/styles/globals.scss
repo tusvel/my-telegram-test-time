@@ -1,3 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './react-select';
+
 html,
 body {
   padding: 0;
@@ -13,4 +19,27 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: white;
+    background: black;
+  }
+}
+
+:root {
+  --primary-color: #e30b13;
+}
+
+input[type='file'],
+input[type='file']::-webkit-file-upload-button {
+  @apply cursor-pointer focus:outline-none;
+}
+
+input:focus {
+  box-shadow: none !important;
 }

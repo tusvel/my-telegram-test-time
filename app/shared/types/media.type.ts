@@ -1,1 +1,1 @@
-export type MediaType = 'photo' | 'video'; //audio TODO
+export type MediaType = 'photo' | 'video' | 'voice' | 'video_note';
