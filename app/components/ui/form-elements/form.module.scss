@@ -9,6 +9,7 @@
     @apply block;
   }
 }
+
 .editorWrapper {
   @apply border-0;
   .wrapper {
@@ -25,7 +26,7 @@
     }
 
     .editor {
-      @apply h-96 border rounded-b-lg border-gray-700 px-4 overflow-hidden;
+      @apply h-96 border rounded-b-lg border-gray-700 overflow-hidden;
     }
   }
 }
