@@ -26,10 +26,6 @@ a {
   padding: 0 18px;
 }
 
-:root {
-  --primary-color: #e30b13;
-}
-
 input[type='file'],
 input[type='file']::-webkit-file-upload-button {
   @apply cursor-pointer focus:outline-none;
@@ -37,4 +33,17 @@ input[type='file']::-webkit-file-upload-button {
 
 input:focus {
   box-shadow: none !important;
+}
+
+em-emoji-picker {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 428px;
+  transform: translate(100%, 0);
+  z-index: 2;
+}
+
+.focus\:ring-2:focus {
+  --tw-ring-shadow: none !important;
 }

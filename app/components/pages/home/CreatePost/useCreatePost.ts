@@ -11,6 +11,7 @@ export const useCreatePost = () => {
   );
 
   const onSubmit: SubmitHandler<IPostInput> = async (data) => {
+    console.log(data);
     await mutateAsync(data);
   };
 

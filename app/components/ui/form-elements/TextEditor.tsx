@@ -1,12 +1,17 @@
+import data from '@emoji-mart/data';
+import Picker from '@emoji-mart/react';
 import cn from 'classnames';
-import { ContentState, EditorState, convertToRaw } from 'draft-js';
+import { ContentState, EditorState, Modifier, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
+import Image from 'next/image';
 import { FC, useEffect, useState } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import { ITextEditor } from '@/ui/form-elements/form.interface';
+
+import emojiSmile from '@/assets/icons/emojiSmile.svg';
 
 import styles from './form.module.scss';
 
@@ -17,9 +22,8 @@ const TextEditor: FC<ITextEditor> = ({
   error
 }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-
   const [isUpdated, setIsUpdated] = useState(false);
-
+  const [isOpenIcons, setIsOpenIcons] = useState(false);
   useEffect(() => {
     if (isUpdated) return;
 
@@ -38,6 +42,25 @@ const TextEditor: FC<ITextEditor> = ({
     setEditorState(editorState);
 
     return onChange(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+  };
+
+  const insertText = (text: string) => {
+    let contentState = editorState.getCurrentContent();
+    const selectionState = editorState.getSelection();
+    const contentStateWithEntity = contentState.createEntity(
+      'MY_ENTITY_TYPE',
+      'IMMUTABLE'
+    );
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+
+    contentState = Modifier.insertText(contentState, selectionState, text);
+    let newState = EditorState.push(
+      editorState,
+      contentState,
+      'insert-characters'
+    );
+
+    setEditorState(newState);
   };
 
   return (
@@ -65,6 +88,20 @@ const TextEditor: FC<ITextEditor> = ({
               }
             }}
           />
+          <div
+            className={styles.icon}
+            onClick={() => setIsOpenIcons((prev) => !prev)}
+          >
+            <Image src={emojiSmile} alt="icons" />
+          </div>
+          <div>
+            {isOpenIcons && (
+              <Picker
+                data={data}
+                onEmojiSelect={(e: any) => insertText(e.shortcodes)}
+              />
+            )}
+          </div>
         </div>
 
         {error && <div className={styles.error}>{error.message}</div>}
