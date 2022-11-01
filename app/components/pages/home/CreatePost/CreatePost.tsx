@@ -10,7 +10,12 @@ import { useTypedSelector } from '@/hooks/useTypedSelector';
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
 });
-
+const DynamicTextEditor = dynamic(
+  () => import('@/ui/form-elements/TextEditor'),
+  {
+    ssr: false
+  }
+);
 const CreatePost: FC = () => {
   const {
     handleSubmit,
@@ -45,6 +50,19 @@ const CreatePost: FC = () => {
               isMulti={false}
               placeholder="Выберите канал:"
               error={error}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="text"
+          defaultValue=""
+          render={({ field: { value, onChange }, fieldState: { error } }) => (
+            <DynamicTextEditor
+              onChange={onChange}
+              value={value}
+              error={error}
+              placeholder="Text"
             />
           )}
         />

@@ -2,15 +2,13 @@ import { FC } from 'react';
 
 import { IChannel } from '@/shared/types/channel.interface';
 
-import styles from './ChannelItem.module.scss';
-
 const ChannelItem: FC<{ item: IChannel }> = ({ item }) => {
   return (
-    <div className={styles.item}>
+    <li className={'overflow-hidden rounded-md bg-white px-6 py-4 shadow w-96'}>
       <div>
         <div>{item.title}</div>
       </div>
-    </div>
+    </li>
   );
 };
 
