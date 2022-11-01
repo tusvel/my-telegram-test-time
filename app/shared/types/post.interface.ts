@@ -10,6 +10,6 @@ export interface IPost extends IBasic {
   button_url: string;
   media: IMedia[];
   media_style: string | boolean;
-  schedule_date: any; //TODO
+  schedule_date: Date; //TODO
   is_published: boolean;
 }

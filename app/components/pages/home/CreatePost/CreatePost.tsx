@@ -37,6 +37,7 @@ const CreatePost: FC = () => {
   const { items: chanelItems, isLoading } = useTypedSelector(
     (state) => state.channel
   );
+  const [value, onChange] = useState(new Date());
   const optionsItems = chanelItems?.map((item) => ({
     value: item.id,
     label: item.title
@@ -71,7 +72,7 @@ const CreatePost: FC = () => {
                 onChange={onChange}
                 value={value}
                 error={error}
-                placeholder="Text"
+                placeholder="Текст поста"
               />
             )}
           />
@@ -129,6 +130,28 @@ const CreatePost: FC = () => {
                 placeholder="Выберите тип медиа:"
                 error={error}
               />
+            )}
+          />
+        </div>
+        {/*        <div className="mb-5">
+          <Controller
+            control={control}
+            name="schedule_date"
+            render={({ field: { value, onChange } }) => (
+              <div>
+                <input type="date" onChange={onChange} />
+              </div>
+            )}
+          />
+        </div>*/}
+        <div className="mb-5">
+          <Controller
+            control={control}
+            name="schedule_date"
+            render={({ field: { value, onChange } }) => (
+              <div>
+                <input type="time" onChange={onChange} />
+              </div>
             )}
           />
         </div>
