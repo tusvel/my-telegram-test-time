@@ -4,7 +4,7 @@ import { Options } from 'react-select';
 import { IFieldProps } from '@/ui/form-elements/form.interface';
 
 export interface IOption {
-  value: string;
+  value: string | boolean;
   label: string;
 }
 

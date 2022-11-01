@@ -92,7 +92,7 @@ const CreatePost: FC = () => {
           />
         </div>
         {hasButton && (
-          <div>
+          <div className="mb-5">
             <div>
               <Field
                 {...register('text_button')}
@@ -111,10 +111,28 @@ const CreatePost: FC = () => {
             </div>
           </div>
         )}
-        <Button
-          onClick={() => reset()}
-          className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
+        <div className="mb-5">
+          <Controller
+            control={control}
+            name="media_style"
+            render={({ field, fieldState: { error } }) => (
+              <DynamicSelect
+                field={field}
+                options={
+                  [
+                    { value: 'true', label: 'Полноценно' },
+                    { value: 'false', label: 'Превью' }
+                  ] || []
+                }
+                isLoading={isLoading}
+                isMulti={false}
+                placeholder="Выберите тип медиа:"
+                error={error}
+              />
+            )}
+          />
+        </div>
+        <Button className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
           Send
         </Button>
       </form>

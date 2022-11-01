@@ -11,6 +11,7 @@ export const useCreatePost = () => {
   );
 
   const onSubmit: SubmitHandler<IPostInput> = async (data) => {
+    data.media_style = data.media_style !== 'false';
     console.log(data);
     await mutateAsync(data);
   };

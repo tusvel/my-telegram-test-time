@@ -9,7 +9,7 @@ export interface IPost extends IBasic {
   text_button: string;
   button_url: string;
   media: IMedia[];
-  media_style: boolean;
+  media_style: string | boolean;
   schedule_date: any; //TODO
   is_published: boolean;
 }
