@@ -71,7 +71,7 @@ const CreatePost: FC = () => {
           />
         </div>
         <SelectText />
-        <div className="flex max-w-screen-xl justify-between mb-5">
+        <div className="flex max-w-screen-xl justify-between mb-5 min-w-[1280px]">
           <div className="mr-10">
             <Controller
               control={control}

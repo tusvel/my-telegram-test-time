@@ -64,7 +64,7 @@ const TextEditor: FC<ITextEditor> = ({
   };
 
   return (
-    <div className={cn(styles.common, styles.editorWrapper, 'animate-fade')}>
+    <div className={cn(styles.common, styles.editorWrapper)}>
       <label>
         <span>{placeholder}</span>
         <div className={styles.wrapper}>

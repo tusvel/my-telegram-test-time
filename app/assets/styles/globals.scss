@@ -47,3 +47,7 @@ em-emoji-picker {
 .focus\:ring-2:focus {
   --tw-ring-shadow: none !important;
 }
+
+.flex.flex-grow.flex-col.overflow-y-auto.border-r.border-gray-200.bg-white.pt-5.pb-4.grow-0.min-h-screen.fixed.top-0.left-0.right-0.w-72 {
+  height: 999999px;
+}
