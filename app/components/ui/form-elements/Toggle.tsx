@@ -2,9 +2,9 @@ import { Switch } from '@headlessui/react';
 import cn from 'classnames';
 import { FC, useEffect } from 'react';
 
-const Toggle: FC<any> = ({ setHasButton, value, onChange }) => {
+const Toggle: FC<any> = ({ setHas, value, onChange }) => {
   useEffect(() => {
-    setHasButton(value);
+    setHas && setHas(value);
   }, [value]);
 
   return (

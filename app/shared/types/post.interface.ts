@@ -1,6 +1,5 @@
 import { IBasic } from '@/shared/types/basic.interface';
 import { IChannel } from '@/shared/types/channel.interface';
-import { IMedia } from '@/shared/types/media.interface';
 
 export interface IPost extends IBasic {
   channel: IChannel;
@@ -8,8 +7,11 @@ export interface IPost extends IBasic {
   has_button: boolean;
   text_button: string;
   button_url: string;
-  media: IMedia[];
+  media: any; //TODO
+  old_media: string; //TODO
   media_style: string | boolean;
-  schedule_date: Date; //TODO
+  schedule_date: Date | string;
+  schedule_time: Date;
+  send_time: boolean;
   is_published: boolean;
 }

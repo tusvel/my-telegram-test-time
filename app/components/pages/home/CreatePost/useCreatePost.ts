@@ -12,6 +12,7 @@ export const useCreatePost = () => {
 
   const onSubmit: SubmitHandler<IPostInput> = async (data) => {
     data.media_style = data.media_style !== 'false';
+    data.schedule_date = `${data.schedule_date} ${data.schedule_time}`;
     console.log(data);
     await mutateAsync(data);
   };

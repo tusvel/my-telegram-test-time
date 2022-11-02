@@ -98,7 +98,7 @@ const TextEditor: FC<ITextEditor> = ({
             {isOpenIcons && (
               <Picker
                 data={data}
-                onEmojiSelect={(e: any) => insertText(e.shortcodes)}
+                onEmojiSelect={(e: any) => insertText(e.native)}
               />
             )}
           </div>

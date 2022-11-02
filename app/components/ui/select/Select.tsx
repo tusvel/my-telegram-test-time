@@ -13,7 +13,8 @@ const Select: FC<ISelect> = ({
   isMulti,
   options,
   placeholder,
-  isLoading
+  isLoading,
+  classNamePrefix = 'custom-select'
 }) => {
   const onChange = (newValue: unknown | OnChangeValue<IOption, boolean>) => {
     field.onChange(
@@ -38,7 +39,7 @@ const Select: FC<ISelect> = ({
       <label>
         <span>{placeholder}</span>
         <ReactSelect
-          classNamePrefix="custom-select"
+          classNamePrefix={classNamePrefix}
           options={options}
           value={getValue()}
           isMulti={isMulti}
