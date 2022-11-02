@@ -74,24 +74,13 @@ const CreatePost: FC = () => {
         <div className="flex max-w-screen-xl justify-between mb-5 min-w-[1280px]">
           <div>
             <div className="mt-5">
+              <div>Медиа Полноценно/Превью</div>
               <Controller
                 control={control}
                 name="media_style"
-                defaultValue={'true'}
-                render={({ field, fieldState: { error } }) => (
-                  <DynamicSelect
-                    field={field}
-                    options={
-                      [
-                        { value: 'true', label: 'Полноценно' },
-                        { value: 'false', label: 'Превью' }
-                      ] || []
-                    }
-                    isLoading={isLoading}
-                    isMulti={false}
-                    placeholder="Выберите тип медиа"
-                    error={error}
-                  />
+                defaultValue={false}
+                render={({ field: { value, onChange } }) => (
+                  <Toggle value={value} onChange={onChange} />
                 )}
               />
             </div>
@@ -226,17 +215,6 @@ const CreatePost: FC = () => {
                 </div>
               </div>
             )}
-            <div className="mb-5">
-              <div>Опубликован ли пост</div>
-              <Controller
-                control={control}
-                name="is_published"
-                defaultValue={false}
-                render={({ field: { value, onChange } }) => (
-                  <Toggle value={value} onChange={onChange} />
-                )}
-              />
-            </div>
           </div>
         </div>
       </form>
