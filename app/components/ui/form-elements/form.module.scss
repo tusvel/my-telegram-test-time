@@ -27,7 +27,7 @@
     }
 
     .editor {
-      @apply h-96 border rounded-b-lg border-gray-700 overflow-hidden;
+      @apply min-h-[185px] border rounded-b-lg border-gray-700 overflow-hidden;
     }
   }
 }

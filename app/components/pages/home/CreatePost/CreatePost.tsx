@@ -72,25 +72,6 @@ const CreatePost: FC = () => {
         </div>
         <SelectText />
         <div className="flex max-w-screen-xl justify-between mb-5 min-w-[1280px]">
-          <div className="mr-10">
-            <Controller
-              control={control}
-              name="text"
-              defaultValue=""
-              render={({
-                field: { value, onChange },
-                fieldState: { error }
-              }) => (
-                <DynamicTextEditor
-                  onChange={onChange}
-                  value={value}
-                  error={error}
-                  placeholder="Текст поста"
-                />
-              )}
-            />
-            <Button className="mt-7">Создать</Button>
-          </div>
           <div>
             <div className="mt-5">
               <Controller
@@ -146,6 +127,25 @@ const CreatePost: FC = () => {
                 )}
               />
             </div>
+            <Button className="mt-7">Создать</Button>
+          </div>
+          <div className="mr-10">
+            <Controller
+              control={control}
+              name="text"
+              defaultValue=""
+              render={({
+                field: { value, onChange },
+                fieldState: { error }
+              }) => (
+                <DynamicTextEditor
+                  onChange={onChange}
+                  value={value}
+                  error={error}
+                  placeholder="Текст поста"
+                />
+              )}
+            />
           </div>
           <div className="mr-10 w-[300px] mt-5">
             <div className="mb-5">
