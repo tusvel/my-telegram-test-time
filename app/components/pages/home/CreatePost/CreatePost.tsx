@@ -7,9 +7,9 @@ import { useCreatePost } from '@/pages/home/CreatePost/useCreatePost';
 import SelectText from '@/pages/home/SelectText/SelectText';
 
 import Button from '@/ui/form-elements/Button';
+import { Dropzone } from '@/ui/form-elements/Dropzone';
 import Field from '@/ui/form-elements/Field';
 import Toggle from '@/ui/form-elements/Toggle';
-import UploadField from '@/ui/form-elements/UploadField/UploadField';
 
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
@@ -20,6 +20,7 @@ const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
 });
 const CreatePost: FC = () => {
+  const [files, setFiles] = useState<any>([]);
   const [hasButton, setHasButton] = useState();
   const [hasDate, setHasDate] = useState();
   const {
@@ -48,6 +49,13 @@ const CreatePost: FC = () => {
     label: item.url
   }));
 
+  const addFiles = (newFiles: any) => {
+    setFiles((prev: any) => [...prev, newFiles]);
+  };
+  const deleteFiles = (remainingFiles: any) => {
+    setFiles(remainingFiles);
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -68,23 +76,28 @@ const CreatePost: FC = () => {
           />
         </div>
         <SelectText />
-        <div className="flex max-w-screen-xl justify-between mb-5 min-w-[1280px]">
+        <div className="flex mt-5 max-w-screen-xl justify-between mb-5 min-w-[1280px]">
           <div>
-            <Controller
-              control={control}
-              name="media"
-              render={({
-                field: { onChange, value },
-                fieldState: { error }
-              }) => (
-                <UploadField
-                  style={{ width: '100%' }}
-                  onChange={onChange}
-                  value={value}
-                  placeholder="Выберите файлы"
-                />
-              )}
-            />
+            <div className="mb-5">
+              Выберите файлы
+              <Controller
+                control={control}
+                name="media"
+                render={({
+                  field: { onChange, value },
+                  fieldState: { error }
+                }) => (
+                  <Dropzone
+                    multiple
+                    showPreview
+                    showFileSize
+                    onChange={onChange}
+                    onAddFiles={addFiles}
+                    onDeleteFiles={deleteFiles}
+                  />
+                )}
+              />
+            </div>
             <div className="mb-5">
               <Controller
                 control={control}
@@ -105,7 +118,14 @@ const CreatePost: FC = () => {
             <Button className="mt-7">Создать</Button>
           </div>
           <div className="mr-1 w-[600px]">
-            <TextEditor />
+            <Controller
+              control={control}
+              name="text"
+              render={({
+                field: { onChange, value },
+                fieldState: { error }
+              }) => <TextEditor />}
+            />
           </div>
           <div className="w-[300px] mt-5">
             <div className="mb-5">

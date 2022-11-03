@@ -1,12 +1,19 @@
 import { $generateHtmlFromNodes } from '@lexical/html';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 
-export function SaveAsHtmlPlugin() {
+export let save;
+let html;
+
+export function SaveAsHtmlPlugin(onSave) {
   const [editor] = useLexicalComposerContext();
-  const handleClick = () => {
-    editor.update(() => {
-      const htmlString = $generateHtmlFromNodes(editor, null);
-      console.log(htmlString);
-    });
+
+  save = () => {
+    const rootElement = editor.getRootElement();
+    if (rootElement) {
+      editor.update(() => {
+        html = $generateHtmlFromNodes(editor, null);
+      });
+      return html;
+    }
   };
 }
