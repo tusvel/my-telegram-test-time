@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import './react-select';
+@import './lexical';
 
 html,
 body {
@@ -37,7 +38,7 @@ input:focus {
 
 em-emoji-picker {
   position: absolute;
-  top: 0;
+  top: -46px;
   right: 0;
   height: 428px;
   transform: translate(100%, 0);

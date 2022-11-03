@@ -13,15 +13,12 @@ import UploadField from '@/ui/form-elements/UploadField/UploadField';
 
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
+const TextEditor = dynamic(() => import('@/ui/TextEditor/TextEditor.js'), {
+  ssr: false
+});
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
 });
-const DynamicTextEditor = dynamic(
-  () => import('@/ui/form-elements/TextEditor'),
-  {
-    ssr: false
-  }
-);
 const CreatePost: FC = () => {
   const [hasButton, setHasButton] = useState();
   const [hasDate, setHasDate] = useState();
@@ -73,17 +70,6 @@ const CreatePost: FC = () => {
         <SelectText />
         <div className="flex max-w-screen-xl justify-between mb-5 min-w-[1280px]">
           <div>
-            <div className="mt-5">
-              <div>Медиа Полноценно/Превью</div>
-              <Controller
-                control={control}
-                name="media_style"
-                defaultValue={false}
-                render={({ field: { value, onChange } }) => (
-                  <Toggle value={value} onChange={onChange} />
-                )}
-              />
-            </div>
             <Controller
               control={control}
               name="media"
@@ -118,25 +104,21 @@ const CreatePost: FC = () => {
             </div>
             <Button className="mt-7">Создать</Button>
           </div>
-          <div className="mr-10">
-            <Controller
-              control={control}
-              name="text"
-              defaultValue=""
-              render={({
-                field: { value, onChange },
-                fieldState: { error }
-              }) => (
-                <DynamicTextEditor
-                  onChange={onChange}
-                  value={value}
-                  error={error}
-                  placeholder="Текст поста"
-                />
-              )}
-            />
+          <div className="mr-1 w-[600px]">
+            <TextEditor />
           </div>
-          <div className="mr-10 w-[300px] mt-5">
+          <div className="w-[300px] mt-5">
+            <div className="mb-5">
+              <div>Полноценно/Превью</div>
+              <Controller
+                control={control}
+                name="media_style"
+                defaultValue={false}
+                render={({ field: { value, onChange } }) => (
+                  <Toggle value={value} onChange={onChange} />
+                )}
+              />
+            </div>
             <div className="mb-5">
               <div>Наличие кнопки</div>
               <Controller
