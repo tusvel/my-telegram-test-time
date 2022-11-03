@@ -1,5 +1,4 @@
 import { ButtonHTMLAttributes, InputHTMLAttributes } from 'react';
-import { EditorProps } from 'react-draft-wysiwyg';
 import { FieldError } from 'react-hook-form';
 
 export interface IFieldProps {
