@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import { IPostInput } from '@/pages/home/CreatePost/create-post.interface';
@@ -25,9 +25,8 @@ const TextEditor = dynamic(() => import('@/ui/TextEditor/TextEditor.js'), {
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
 });
+
 const CreatePost: FC = () => {
-  const [files, setFiles] = useState<any>([]);
-  const [valueInput, setValueInput] = useState('');
   const {
     handleSubmit,
     register,
@@ -55,13 +54,6 @@ const CreatePost: FC = () => {
     label: item.url,
     image: item.url
   }));
-
-  const addFiles = (newFiles: any) => {
-    setFiles((prev: any) => [...prev, newFiles]);
-  };
-  const deleteFiles = (remainingFiles: any) => {
-    setFiles(remainingFiles);
-  };
 
   const formatOptionLabel = ({ image, label }: any) => (
     <div className="flex image-select__image-option">
@@ -118,8 +110,6 @@ const CreatePost: FC = () => {
                         showPreview
                         showFileSize
                         onChange={onChange}
-                        onAddFiles={addFiles}
-                        onDeleteFiles={deleteFiles}
                       />
                     )}
                   />
@@ -220,17 +210,10 @@ const CreatePost: FC = () => {
                           <div className={styles.emojiInput}>
                             <input
                               type="text"
-                              value={valueInput}
-                              onChange={(e) => {
-                                setValueInput(e.target.value);
-                                onChange(e.target.value);
-                              }}
+                              onChange={(e) => onChange(e.target.value)}
+                              value={value}
                             />
-                            <EmojiMart
-                              onChange={setValueInput}
-                              valueInput={valueInput}
-                              changeForm={onChange}
-                            />
+                            <EmojiMart onChange={onChange} value={value} />
                           </div>
                         )}
                       />
