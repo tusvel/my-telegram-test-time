@@ -46,7 +46,8 @@ const CreatePost: FC = () => {
   }));
   const mediaItemsSelect = mediaItems?.map((item) => ({
     value: item.url,
-    label: item.url
+    label: item.url,
+    image: item.url
   }));
 
   const addFiles = (newFiles: any) => {
@@ -55,6 +56,13 @@ const CreatePost: FC = () => {
   const deleteFiles = (remainingFiles: any) => {
     setFiles(remainingFiles);
   };
+
+  const formatOptionLabel = ({ image, label }: any) => (
+    <div className="flex image-select__image-option">
+      <img src={image} alt="golden gate bridge" className="w-20 h-20" />
+      {label}
+    </div>
+  );
 
   return (
     <div>
@@ -77,7 +85,7 @@ const CreatePost: FC = () => {
         </div>
         <SelectText />
         <div className="flex mt-5 max-w-screen-xl justify-between mb-5 min-w-[1280px]">
-          <div>
+          <div className="w-[300px]">
             <div className="mb-5">
               Выберите файлы
               <Controller
@@ -98,24 +106,6 @@ const CreatePost: FC = () => {
                 )}
               />
             </div>
-            <div className="mb-5">
-              <Controller
-                control={control}
-                name="old_media"
-                render={({ field, fieldState: { error } }) => (
-                  <DynamicSelect
-                    field={field}
-                    options={mediaItemsSelect || []}
-                    isLoading={isLoading}
-                    isMulti={true}
-                    placeholder="Выбрать медиа"
-                    error={error}
-                    classNamePrefix="media-select"
-                  />
-                )}
-              />
-            </div>
-            <Button className="mt-7">Создать</Button>
           </div>
           <div className="mr-1 w-[600px]">
             <Controller
@@ -219,6 +209,25 @@ const CreatePost: FC = () => {
             )}
           </div>
         </div>
+        <div className="mb-5">
+          <Controller
+            control={control}
+            name="old_media"
+            render={({ field, fieldState: { error } }) => (
+              <DynamicSelect
+                field={field}
+                options={mediaItemsSelect || []}
+                isLoading={isLoading}
+                isMulti={true}
+                placeholder="Выбрать медиа"
+                error={error}
+                formatOptionLabel={formatOptionLabel}
+                classNamePrefix="media-select"
+              />
+            )}
+          />
+        </div>
+        <Button className="mt-7">Создать</Button>
       </form>
     </div>
   );

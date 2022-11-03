@@ -6,6 +6,7 @@ import { IFieldProps } from '@/ui/form-elements/form.interface';
 export interface IOption {
   value: string | boolean;
   label: string;
+  image?: string;
 }
 
 export interface ISelect extends IFieldProps {
@@ -14,4 +15,5 @@ export interface ISelect extends IFieldProps {
   field: ControllerRenderProps<any, any>;
   isLoading?: boolean;
   classNamePrefix?: string;
+  formatOptionLabel?: any;
 }

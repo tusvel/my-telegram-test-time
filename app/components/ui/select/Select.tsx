@@ -14,7 +14,8 @@ const Select: FC<ISelect> = ({
   options,
   placeholder,
   isLoading,
-  classNamePrefix = 'custom-select'
+  classNamePrefix = 'custom-select',
+  formatOptionLabel
 }) => {
   const onChange = (newValue: unknown | OnChangeValue<IOption, boolean>) => {
     field.onChange(
@@ -45,6 +46,7 @@ const Select: FC<ISelect> = ({
           isMulti={isMulti}
           onChange={onChange}
           components={animatedComponents}
+          formatOptionLabel={formatOptionLabel}
           isLoading={isLoading}
         />
       </label>
