@@ -14,4 +14,6 @@ export interface IPost extends IBasic {
   schedule_time: Date;
   send_time: boolean;
   is_published: boolean;
+  apply_button: string;
+  value_button: string;
 }

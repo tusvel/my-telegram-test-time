@@ -35,6 +35,7 @@ import ExampleTheme from './themes/ExampleTheme';
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
 }
+
 const editorConfig = {
   theme: ExampleTheme,
   editable: true,
@@ -83,7 +84,13 @@ function UpdatePlugin() {
       </div>
       <div>
         {isOpenIcons && (
-          <Picker data={data} onEmojiSelect={(e) => update(e.native)} />
+          <div className="emoji-picker-textEdit">
+            <Picker
+              style={{}}
+              data={data}
+              onEmojiSelect={(e) => update(e.native)}
+            />
+          </div>
         )}
       </div>
     </>

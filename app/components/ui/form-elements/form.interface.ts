@@ -6,7 +6,7 @@ export interface IFieldProps {
   error?: FieldError | any;
 }
 
-type TypeEditorPropsField = EditorProps & IFieldProps;
+type TypeEditorPropsField = IFieldProps;
 
 export interface ITextEditor extends Omit<TypeEditorPropsField, 'editorState'> {
   onChange: (...event: any[]) => void;

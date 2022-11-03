@@ -1,12 +1,8 @@
 import { Switch } from '@headlessui/react';
 import cn from 'classnames';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
-const Toggle: FC<any> = ({ setHas, value, onChange }) => {
-  useEffect(() => {
-    setHas && setHas(value);
-  }, [value]);
-
+const Toggle: FC<any> = ({ value, onChange }) => {
   return (
     <Switch
       checked={value}

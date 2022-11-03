@@ -36,7 +36,11 @@ input:focus {
   box-shadow: none !important;
 }
 
-em-emoji-picker {
+.emoji-picker {
+  position: relative;
+}
+
+.emoji-picker-textEdit {
   position: absolute;
   top: -46px;
   right: 0;

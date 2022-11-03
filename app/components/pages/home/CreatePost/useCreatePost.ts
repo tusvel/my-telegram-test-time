@@ -5,7 +5,12 @@ import { IPostInput } from '@/pages/home/CreatePost/create-post.interface';
 
 import { save } from '@/components/ui/TextEditor/plugins/SaveAsHtmlPlugin';
 
+import { IButton } from '@/shared/types/button.interface';
+
 import { PostService } from '@/services/post.service';
+
+import { getStoreLocal } from '@/utils/local-storage';
+import { saveButton } from '@/utils/save-button';
 
 export const useCreatePost = () => {
   const { mutateAsync } = useMutation('Create post', (data: IPostInput) =>
@@ -50,8 +55,17 @@ export const useCreatePost = () => {
   const onSubmit: SubmitHandler<IPostInput> = async (data) => {
     data.media_style = data.media_style !== 'false';
     data.schedule_date = `${data.schedule_date} ${data.schedule_time}`;
+    saveButton({ label: data.text_button, value: data.button_url });
+    if (data.apply_button) {
+      const item: IButton = getStoreLocal('buttons').find(
+        (item: IButton) => item.value === data.value_button
+      );
+      data.text_button = item.label;
+      data.button_url = item.value;
+    }
     let html = save();
     deleteWater(html);
+    console.log(data);
     await mutateAsync(data);
   };
 
