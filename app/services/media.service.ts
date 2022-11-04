@@ -8,5 +8,8 @@ export const MediaService = {
   async getAll() {
     const response = await $host.get<IMedia[]>(getMediasUrl(''));
     return response.data;
+  },
+  async create(media: IMedia[]) {
+    return {} as IMedia[];
   }
 };

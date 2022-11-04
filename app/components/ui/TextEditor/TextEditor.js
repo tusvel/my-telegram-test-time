@@ -27,6 +27,7 @@ import styles from '../form-elements/form.module.scss';
 import AutoLinkPlugin from './plugins/AutoLinkPlugin';
 import CodeHighlightPlugin from './plugins/CodeHighlightPlugin';
 import ListMaxIndentLevelPlugin from './plugins/ListMaxIndentLevelPlugin';
+import { MaxLengthPlugin } from './plugins/MaxLengthPlugin';
 import { RegisterPlugin } from './plugins/RegisterPlugin';
 import { SaveAsHtmlPlugin } from './plugins/SaveAsHtmlPlugin';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
@@ -111,6 +112,7 @@ export default function TextEditor() {
                 contentEditable={<ContentEditable className="editor-input" />}
                 placeholder={<Placeholder />}
               />
+              <MaxLengthPlugin maxLength={4096} />
               <HistoryPlugin />
               <AutoFocusPlugin />
               <CodeHighlightPlugin />

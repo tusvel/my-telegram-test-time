@@ -7,6 +7,7 @@ import { save } from '@/components/ui/TextEditor/plugins/SaveAsHtmlPlugin';
 
 import { IButton } from '@/shared/types/button.interface';
 
+import { MediaService } from '@/services/media.service';
 import { PostService } from '@/services/post.service';
 
 import { getStoreLocal } from '@/utils/local-storage';
@@ -49,7 +50,7 @@ export const useCreatePost = () => {
       el.outerHTML = `<tg-spoiler>${el.innerHTML}</tg-spoiler>`;
     });
 
-    console.log(document);
+    return document.body.innerHTML;
   };
 
   const onSubmit: SubmitHandler<IPostInput> = async (data) => {
@@ -64,7 +65,10 @@ export const useCreatePost = () => {
       data.button_url = item.value;
     }
     let html = save();
-    deleteWater(html);
+    data.media =
+      (data.media && (await MediaService.create(data.media))) || null;
+
+    data.text = deleteWater(html);
     console.log(data);
     await mutateAsync(data);
   };
