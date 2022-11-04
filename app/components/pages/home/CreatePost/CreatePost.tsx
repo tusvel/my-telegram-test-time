@@ -4,7 +4,6 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { IPostInput } from '@/pages/home/CreatePost/create-post.interface';
 import { useCreatePost } from '@/pages/home/CreatePost/useCreatePost';
-import SelectText from '@/pages/home/SelectText/SelectText';
 
 import EmojiMart from '@/ui/EmojiMart/EmojiMart';
 import Button from '@/ui/form-elements/Button';
@@ -19,6 +18,10 @@ import { IButton } from '@/shared/types/button.interface';
 
 import { getStoreLocal } from '@/utils/local-storage';
 
+const SelectText = dynamic(() => import('@/pages/home/SelectText/SelectText'), {
+  ssr: false
+});
+
 const TextEditor = dynamic(() => import('@/ui/TextEditor/TextEditor.js'), {
   ssr: false
 });
@@ -28,11 +31,13 @@ const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
 
 const CreatePost: FC = () => {
   const {
+    channel: { items: chanelItems, isLoading },
+    media: { items: mediaItems }
+  } = useTypedSelector((state) => state);
+  const {
     handleSubmit,
     register,
     formState: { errors },
-    setValue,
-    getValues,
     control,
     reset,
     watch
@@ -40,10 +45,6 @@ const CreatePost: FC = () => {
     mode: 'onChange'
   });
   const { onSubmit } = useCreatePost();
-  const { items: chanelItems, isLoading } = useTypedSelector(
-    (state) => state.channel
-  );
-  const { items: mediaItems } = useTypedSelector((state) => state.media);
 
   const optionsItems = chanelItems?.map((item) => ({
     value: item.id,

@@ -10,12 +10,12 @@ const TextItem: FC<{ item: IText; style?: CSSProperties }> = ({
   return (
     <li
       className={cn(
-        'overflow-hidden rounded-md bg-white px-6 py-4 shadow w-1/2'
+        'overflow-hidden rounded-md bg-white px-6 py-4 shadow w-1/2 list-none'
       )}
       style={style}
     >
       <div>
-        <div>{item.text}</div>
+        <div dangerouslySetInnerHTML={{ __html: item.text }} />
       </div>
     </li>
   );

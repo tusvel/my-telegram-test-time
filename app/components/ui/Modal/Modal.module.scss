@@ -1,0 +1,28 @@
+.selectTextWrap {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 288px;
+  height: 100%;
+  width: calc(100% - 288px);
+  background: transparent;
+  backdrop-filter: blur(5px);
+  z-index: 50;
+}
+
+.selectTextContent {
+  position: fixed;
+  top: 10%;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  height: 80%;
+  width: 900px;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  padding: 0 15px;
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+}

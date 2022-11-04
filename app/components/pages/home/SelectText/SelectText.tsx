@@ -10,13 +10,15 @@ import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 import { IText } from '@/shared/types/text.interface';
 
+import { telegramConverter } from '@/utils/telegram-converter';
+
 import styles from './SelectText.module.scss';
 
 const SelectText: FC = () => {
   const [value, setValue] = useState('');
   const { items } = useTypedSelector((state) => state.text);
-  const itemsString = items && items.map((item) => JSON.stringify(item));
-  const { filteredItems } = useFilter(itemsString || [], value);
+  const texts = telegramConverter(null, items, '') as IText[];
+  const textsItem = useFilter(texts, value);
 
   const { isShow, setIsShow, ref } = useOutside(false);
 
@@ -46,14 +48,14 @@ const SelectText: FC = () => {
                 borderRadius: '15px'
               }}
             />
-            <ul role="list" className="space-y-3 overflow-auto h-full mt-5">
-              {filteredItems?.length > 0 &&
-                (filteredItems as IText[]).map((item) => (
+            <div role="list" className="space-y-3 overflow-auto h-full mt-5">
+              {textsItem &&
+                (textsItem as IText[]).map((item) => (
                   <div key={item.id}>
                     <TextItem item={item} style={{ width: '100%' }} />
                   </div>
                 ))}
-            </ul>
+            </div>
           </div>
         </div>
       )}

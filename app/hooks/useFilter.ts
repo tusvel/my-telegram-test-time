@@ -1,13 +1,14 @@
 import { useMemo } from 'react';
 
-export const useFilter = (items: string[], query: string) => {
-  const searchItems = useMemo(() => {
-    return items.filter((item) =>
-      item.toLowerCase().includes(query.toLowerCase())
+import { IText } from '@/shared/types/text.interface';
+
+export const useFilter = (items: IText[] | null, query: string) => {
+  return useMemo(() => {
+    return (
+      items &&
+      items.filter((item) =>
+        item.text.toLowerCase().includes(query.toLowerCase())
+      )
     );
   }, [items, query]);
-
-  const filteredItems = searchItems.map((item) => JSON.parse(item));
-
-  return { filteredItems };
 };
