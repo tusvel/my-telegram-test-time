@@ -12,7 +12,8 @@ export const TextService = {
     return response.data;
   },
   async create(data: ITextInput) {
-    const response = await $host.post<IText>(getTextsUrl('create'), { data });
-    return response.data;
+    /*    const response = await $host.post<IText>(getTextsUrl('create'), { data });
+    return response.data;*/
+    return 123;
   }
 };

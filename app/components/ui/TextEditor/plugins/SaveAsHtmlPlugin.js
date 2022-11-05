@@ -1,19 +1,9 @@
-import { $generateHtmlFromNodes } from '@lexical/html';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { useEffect } from 'react';
 
-export let save;
-let html;
-
-export function SaveAsHtmlPlugin(onSave) {
+export const SaveAsHtmlPlugin = ({ setEditor }) => {
   const [editor] = useLexicalComposerContext();
-
-  save = () => {
-    const rootElement = editor.getRootElement();
-    if (rootElement) {
-      editor.update(() => {
-        html = $generateHtmlFromNodes(editor, null);
-      });
-      return html;
-    }
-  };
-}
+  useEffect(() => {
+    setEditor(editor);
+  }, []);
+};

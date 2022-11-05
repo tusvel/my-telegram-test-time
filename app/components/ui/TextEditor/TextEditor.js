@@ -36,7 +36,6 @@ import ExampleTheme from './themes/ExampleTheme';
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
 }
-
 const editorConfig = {
   theme: ExampleTheme,
   editable: true,
@@ -56,16 +55,13 @@ const editorConfig = {
 };
 function onChange(editorState) {
   editorState.read(() => {
-    // Read the contents of the EditorState here.
     const root = $getRoot();
     const selection = $getSelection();
   });
 }
-
 function UpdatePlugin() {
   const [isOpenIcons, setIsOpenIcons] = useState(false);
   const [editor] = useLexicalComposerContext();
-
   const update = (e) => {
     editor.update(() => {
       const selection = $getSelection();
@@ -74,7 +70,6 @@ function UpdatePlugin() {
       }
     });
   };
-
   return (
     <>
       <div
@@ -97,13 +92,11 @@ function UpdatePlugin() {
     </>
   );
 }
-
-export default function TextEditor() {
+export default function TextEditor({ setEditor }) {
   return (
     <div>
       <div>
         <LexicalComposer initialConfig={editorConfig}>
-          <SaveAsHtmlPlugin />
           <div className="editor-container">
             <ToolbarPlugin />
             <RegisterPlugin />
@@ -123,6 +116,7 @@ export default function TextEditor() {
               <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
               <UpdatePlugin />
               <OnChangePlugin onChange={onChange} />
+              <SaveAsHtmlPlugin setEditor={setEditor} />
             </div>
           </div>
         </LexicalComposer>

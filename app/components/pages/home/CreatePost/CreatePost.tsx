@@ -1,3 +1,5 @@
+import { $generateHtmlFromNodes } from '@lexical/html';
+import { LexicalEditor } from 'lexical';
 import dynamic from 'next/dynamic';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -44,7 +46,17 @@ const CreatePost: FC = () => {
   } = useForm<IPostInput>({
     mode: 'onChange'
   });
-  const { onSubmit } = useCreatePost();
+  const save = (editor: LexicalEditor) => {
+    let html;
+    const rootElement = editor.getRootElement();
+    if (rootElement) {
+      editor.update(() => {
+        html = $generateHtmlFromNodes(editor, null);
+      });
+      return html;
+    }
+  };
+  const { onSubmit, setEditor } = useCreatePost(save);
 
   const optionsItems = chanelItems?.map((item) => ({
     value: item.id,
@@ -123,7 +135,8 @@ const CreatePost: FC = () => {
                   render={({
                     field: { onChange, value },
                     fieldState: { error }
-                  }) => <TextEditor />}
+                    // @ts-ignore
+                  }) => <TextEditor setEditor={setEditor} />}
                 />
               </div>
             </div>
