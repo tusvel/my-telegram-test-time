@@ -4,9 +4,12 @@ import Button from '@/ui/form-elements/Button';
 
 import { useOutside } from '@/hooks/useOutside';
 
-import styles from './SelectText.module.scss';
+import styles from './Modal.module.scss';
 
-const Modal: FC<PropsWithChildren> = ({ children }) => {
+const Modal: FC<PropsWithChildren & { title: string }> = ({
+  children,
+  title
+}) => {
   const { isShow, setIsShow, ref } = useOutside(false);
 
   return (
@@ -18,7 +21,7 @@ const Modal: FC<PropsWithChildren> = ({ children }) => {
         }}
         className={'px-2 py-1'}
       >
-        Открыть модальное окно
+        {title}
       </Button>
       {isShow && (
         <div className={styles.selectTextWrap}>
