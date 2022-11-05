@@ -9,8 +9,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/:path*',
-        destination: 'https://635fbc9d3e8f65f283ba109f.mockapi.io/api/:path*'
+        source: '/:path*',
+        destination: 'https://almond-satin-periodical.glitch.me/:path*'
       },
       {
         source: '/uploads/:path*',

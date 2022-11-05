@@ -1,3 +1,5 @@
+import { IMediaInput } from '@/pages/media/IMediaInput';
+
 import { IMedia } from '@/shared/types/media.interface';
 
 import { getMediasUrl } from '@/config/api.config';
@@ -9,7 +11,7 @@ export const MediaService = {
     const response = await $host.get<IMedia[]>(getMediasUrl(''));
     return response.data;
   },
-  async create(media: IMedia[]) {
+  async create(media: IMediaInput) {
     return {} as IMedia[];
   }
 };

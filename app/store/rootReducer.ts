@@ -1,5 +1,6 @@
 import { reducer as channelReducer } from './channel/channel.slice';
 import { reducer as mediaReducer } from './media/media.slice';
+import { reducer as postReducer } from './post/post.slice';
 import { reducer as tagReducer } from './tag/tag.slice';
 import { reducer as textReducer } from './text/text.slice';
 import { reducer as userReducer } from './user/user.slice';
@@ -9,5 +10,6 @@ export const reducers = {
   channel: channelReducer,
   text: textReducer,
   media: mediaReducer,
-  tag: tagReducer
+  tag: tagReducer,
+  post: postReducer
 };
