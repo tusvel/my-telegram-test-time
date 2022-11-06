@@ -3,8 +3,8 @@ import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import ChannelItem from '@/pages/channels/ChannelItem/ChannelItem';
+import { IChannelInput } from '@/pages/channels/IChannelInput';
 import { useCreateChannel } from '@/pages/channels/useChannels';
-import { ITextInput } from '@/pages/texts/ITextInput';
 
 import Modal from '@/ui/Modal/Modal';
 import Button from '@/ui/form-elements/Button';
@@ -20,10 +20,15 @@ const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
 });
 const Channels: FC = () => {
-  const {
-    tag: { items: tagItems }
-  } = useTypedSelector((state) => state);
-  const selectTags = convertSelect(tagItems, 'value', 'id');
+  const selectTags = convertSelect(
+    [
+      { label: 'gambling', value: 'gambling' },
+      { label: 'casino', value: 'casino' },
+      { label: 'crypto', value: 'crypto' }
+    ],
+    'value',
+    'id'
+  );
   const { items } = useTypedSelector((state) => state.channel);
   const {
     handleSubmit,
@@ -32,7 +37,7 @@ const Channels: FC = () => {
     control,
     reset,
     watch
-  } = useForm<ITextInput>({
+  } = useForm<IChannelInput>({
     mode: 'onChange'
   });
   const { onSubmit } = useCreateChannel();
@@ -41,17 +46,30 @@ const Channels: FC = () => {
     <Meta title="Channels" description="Channels in telegram">
       <Modal title="Добавить канал">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="my-5 flex items-center">
+          <div className="mt-5">
+            <Controller
+              control={control}
+              name="id_channel"
+              render={({ field: { onChange, value } }) => (
+                <input
+                  type="text"
+                  onChange={onChange}
+                  placeholder="Введите id канала"
+                />
+              )}
+            />
+          </div>
+          <div className="mb-5 flex items-center">
             <div className="mr-5">
               <Controller
                 control={control}
-                name="tags"
+                name="categories"
                 render={({ field, fieldState: { error } }) => (
                   <DynamicSelect
                     field={field}
                     options={selectTags || []}
                     isMulti={true}
-                    placeholder="Выбрать теги"
+                    placeholder="Выбрать категорию"
                     error={error}
                     classNamePrefix="media-select"
                   />
