@@ -20,7 +20,6 @@ export const Dropzone = ({
   const [myFiles, setMyFiles] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const containerRef = createRef();
-
   const onDrop = useCallback(
     (acceptedFiles) => {
       if (!disabled) {
@@ -29,7 +28,6 @@ export const Dropzone = ({
           formData.append('files', myFiles[i]);
         }
         onChange(formData);
-
         if (showPreview) {
           acceptedFiles.map((file) =>
             Object.assign(file, {
@@ -48,14 +46,13 @@ export const Dropzone = ({
     },
     [disabled, showPreview, myFiles, onAddFiles, multiple]
   );
-
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept, // Accept specific file types
-    maxSize, // Max file size in bytes
-    minSize, // Min file size in bytes
-    multiple, // Accept multiple files
-    noClick: myFiles.length, // If files are in dropzone, disable click
-    onDrop // onDrop handler
+    accept,
+    maxSize,
+    minSize,
+    multiple,
+    noClick: myFiles.length,
+    onDrop
   });
   const removeFile = (file) => {
     const newFiles = [...myFiles];
@@ -68,7 +65,6 @@ export const Dropzone = ({
       setDisabled(false);
     }
   };
-
   const currentFiles = myFiles.map((file, index) => (
     <File
       file={file}
@@ -81,7 +77,6 @@ export const Dropzone = ({
       }}
     />
   ));
-
   return (
     <DropzoneContainer
       isDragActive={isDragActive}

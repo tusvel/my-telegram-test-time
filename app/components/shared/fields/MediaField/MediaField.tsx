@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import { FC } from 'react';
 import { Controller } from 'react-hook-form';
 
@@ -10,19 +9,14 @@ import { convertSelect } from '@/utils/convertSelect';
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
 });
-const ChannelField: FC<any> = ({ control, name, className }) => {
-  const { items: chanelItems, isLoading } = useTypedSelector(
-    (state) => state.channel
-  );
-  const optionsItems = convertSelect(
-    chanelItems,
-    'title',
-    'id',
-    'profice_picture'
-  );
-  const formatOptionChannel = ({ value, label, image }: any) => (
-    <div className="flex items-center">
-      <Image className="mr-2" src={image} alt={label} width={35} height={35} />
+const MediaField: FC<any> = ({ control, name, className }) => {
+  const { items: mediaItems } = useTypedSelector((state) => state.media);
+
+  const mediaItemsSelect = convertSelect(mediaItems, 'url', 'url', 'url');
+
+  const formatOptionLabel = ({ image, label }: any) => (
+    <div className="flex image-select__image-option">
+      <img src={image} alt="golden gate bridge" className="w-20 h-20" />
       {label}
     </div>
   );
@@ -38,12 +32,12 @@ const ChannelField: FC<any> = ({ control, name, className }) => {
         render={({ field, fieldState: { error } }) => (
           <DynamicSelect
             field={field}
-            options={optionsItems || []}
-            isLoading={isLoading}
-            isMulti={false}
-            formatOptionLabel={formatOptionChannel}
-            placeholder="Выберите канал"
+            options={mediaItemsSelect || []}
+            isMulti={true}
+            placeholder="Выбрать медиа"
             error={error}
+            formatOptionLabel={formatOptionLabel}
+            classNamePrefix="media-select"
           />
         )}
       />
@@ -51,4 +45,4 @@ const ChannelField: FC<any> = ({ control, name, className }) => {
   );
 };
 
-export default ChannelField;
+export default MediaField;

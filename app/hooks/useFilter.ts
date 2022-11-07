@@ -7,7 +7,7 @@ export const useFilter = (items: IText[] | null, query: string) => {
     return (
       items &&
       items.filter((item) =>
-        item.text.toLowerCase().includes(query.toLowerCase())
+        item.text.toLowerCase().includes(query?.toLowerCase())
       )
     );
   }, [items, query]);

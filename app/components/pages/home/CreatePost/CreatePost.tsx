@@ -7,35 +7,31 @@ import { Controller, useForm } from 'react-hook-form';
 import { IPostInput } from '@/pages/home/CreatePost/create-post.interface';
 import { useCreatePost } from '@/pages/home/CreatePost/useCreatePost';
 
+import ChannelField from '@/components/shared/fields/ChannelField/ChannelField';
+import DropField from '@/components/shared/fields/DropField/DropField';
+import MediaField from '@/components/shared/fields/MediaField/MediaField';
+
 import EmojiMart from '@/ui/EmojiMart/EmojiMart';
 import Button from '@/ui/form-elements/Button';
-import { Dropzone } from '@/ui/form-elements/Dropzone';
 import Field from '@/ui/form-elements/Field';
 import Toggle from '@/ui/form-elements/Toggle';
 import styles from '@/ui/form-elements/form.module.scss';
 
-import { useTypedSelector } from '@/hooks/useTypedSelector';
-
 import { IButton } from '@/shared/types/button.interface';
 
+import { convertSelect } from '@/utils/convertSelect';
 import { getStoreLocal } from '@/utils/local-storage';
 
 const SelectText = dynamic(() => import('@/pages/home/SelectText/SelectText'), {
   ssr: false
 });
-
 const TextEditor = dynamic(() => import('@/ui/TextEditor/TextEditor.js'), {
   ssr: false
 });
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
 });
-
 const CreatePost: FC = () => {
-  const {
-    channel: { items: chanelItems, isLoading },
-    media: { items: mediaItems }
-  } = useTypedSelector((state) => state);
   const {
     handleSubmit,
     register,
@@ -56,78 +52,28 @@ const CreatePost: FC = () => {
       return html;
     }
   };
-  const { onSubmit, setEditor } = useCreatePost(save);
-
-  const optionsItems = chanelItems?.map((item) => ({
-    value: item.id,
-    label: item.title
-  }));
-  const mediaItemsSelect = mediaItems?.map((item) => ({
-    value: item.url,
-    label: item.url,
-    image: item.url
-  }));
-
-  const formatOptionLabel = ({ image, label }: any) => (
-    <div className="flex image-select__image-option">
-      <img src={image} alt="golden gate bridge" className="w-20 h-20" />
-      {label}
-    </div>
-  );
+  const { onSubmit, setEditor } = useCreatePost(save, reset);
   const buttonsLs = getStoreLocal('buttons') || [];
-  const buttonIOptions = buttonsLs.map((item: IButton) => ({
-    label: item.label,
-    value: item.value
-  }));
+  const buttonIOptions = convertSelect(buttonsLs, 'label', 'value');
+
   const formatOptionButton = ({ value, label }: IButton) => (
     <div className="flex image-select__image-option">
       {label} : {value}
     </div>
   );
-
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-5">
-          <Controller
-            control={control}
-            name="channel"
-            render={({ field, fieldState: { error } }) => (
-              <DynamicSelect
-                field={field}
-                options={optionsItems || []}
-                isLoading={isLoading}
-                isMulti={false}
-                placeholder="Выберите канал"
-                error={error}
-              />
-            )}
-          />
-        </div>
+        <ChannelField className="mb-5" control={control} name="channel" />
         <SelectText />
         <div className="flex mt-5 max-w-screen-xl justify-between mb-5 min-w-[1280px]">
           <div>
             <div className="flex">
-              <div className="mr-10 w-[300px]">
-                <div className="mb-5">
-                  Выберите файлы
-                  <Controller
-                    control={control}
-                    name="media"
-                    render={({
-                      field: { onChange, value },
-                      fieldState: { error }
-                    }) => (
-                      <Dropzone
-                        multiple
-                        showPreview
-                        showFileSize
-                        onChange={onChange}
-                      />
-                    )}
-                  />
-                </div>
-              </div>
+              <DropField
+                control={control}
+                name="media"
+                className="mb-5 mr-10 w-[300px]"
+              />
               <div className="mr-1 w-[600px]">
                 <Controller
                   control={control}
@@ -140,24 +86,7 @@ const CreatePost: FC = () => {
                 />
               </div>
             </div>
-            <div className="mb-5">
-              <Controller
-                control={control}
-                name="old_media"
-                render={({ field, fieldState: { error } }) => (
-                  <DynamicSelect
-                    field={field}
-                    options={mediaItemsSelect || []}
-                    isLoading={isLoading}
-                    isMulti={true}
-                    placeholder="Выбрать медиа"
-                    error={error}
-                    formatOptionLabel={formatOptionLabel}
-                    classNamePrefix="media-select"
-                  />
-                )}
-              />
-            </div>
+            <MediaField control={control} name="old_media" className="mb-5" />
             <Button className="mt-7">Создать</Button>
           </div>
           <div className="w-[300px] mt-5">
@@ -205,7 +134,6 @@ const CreatePost: FC = () => {
                           <DynamicSelect
                             field={field}
                             options={buttonIOptions}
-                            isLoading={isLoading}
                             isMulti={false}
                             formatOptionLabel={formatOptionButton}
                             placeholder="Выбрать готовую кнопку"

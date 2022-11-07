@@ -36,7 +36,7 @@ const Select: FC<ISelect> = ({
   };
 
   return (
-    <div>
+    <div className="relative">
       <label>
         <span>{placeholder}</span>
         <ReactSelect

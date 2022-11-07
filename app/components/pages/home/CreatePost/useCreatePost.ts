@@ -12,7 +12,7 @@ import { getStoreLocal } from '@/utils/local-storage';
 import { saveButton } from '@/utils/save-button';
 import { telegramConverter } from '@/utils/telegram-converter';
 
-export const useCreatePost: any = (save: any) => {
+export const useCreatePost: any = (save: any, reset: any) => {
   const { mutateAsync } = useMutation('Create post', (data: IPostInput) =>
     PostService.create(data)
   );
@@ -37,6 +37,7 @@ export const useCreatePost: any = (save: any) => {
     data.text = telegramConverter(save(editor), null, 'html') as string;
     console.log(data);
     await mutateAsync(data);
+    reset();
   };
 
   return { onSubmit, setEditor };

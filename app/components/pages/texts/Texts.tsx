@@ -8,6 +8,7 @@ import { ITextInput } from '@/pages/texts/ITextInput';
 import TextItem from '@/pages/texts/TextItem/TextItem';
 import { useCreateText } from '@/pages/texts/useTexts';
 
+import TagField from '@/components/shared/fields/TagField/TagField';
 import Button from '@/components/ui/form-elements/Button';
 
 import Modal from '@/ui/Modal/Modal';
@@ -59,22 +60,7 @@ const Texts: FC = () => {
         <Modal title="Добавить текст">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="my-5 flex items-center">
-              <div className="mr-5">
-                <Controller
-                  control={control}
-                  name="tags"
-                  render={({ field, fieldState: { error } }) => (
-                    <DynamicSelect
-                      field={field}
-                      options={selectTags || []}
-                      isMulti={true}
-                      placeholder="Выбрать теги"
-                      error={error}
-                      classNamePrefix="media-select"
-                    />
-                  )}
-                />
-              </div>
+              <TagField control={control} name="tags" className="mr-5" />
               <Controller
                 control={control}
                 name="language"
