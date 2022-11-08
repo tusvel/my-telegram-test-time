@@ -31,7 +31,13 @@ export const telegramConverter = (
         span.outerHTML = span.innerHTML;
       });
       const link = el.getAttribute('href');
-      el.outerHTML = `<a href=${link}>${el.innerHTML}</a>`;
+      if (link && link.split('')[0] === '@') {
+        el.outerHTML = `<a href=https://t.me/${link.slice(1)}>${
+          el.innerHTML
+        }</a>`;
+      } else {
+        el.outerHTML = `<a href=${link}>${el.innerHTML}</a>`;
+      }
     });
     document.querySelectorAll('span[style]').forEach((el) => {
       el.outerHTML = `<tg-spoiler>${el.innerHTML}</tg-spoiler>`;

@@ -5,6 +5,10 @@
   &__menu {
     z-index: 5 !important;
     width: 250px !important;
+    img {
+      max-height: 35px;
+      overflow: hidden;
+    }
   }
 }
 
