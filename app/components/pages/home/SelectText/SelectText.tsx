@@ -36,7 +36,7 @@ const SelectText: FC = () => {
       });
     });
   } else {
-    filteredItems = texts;
+    filteredItems = textsItem;
   }
 
   return (

@@ -8,6 +8,7 @@ import { ITextInput } from '@/pages/texts/ITextInput';
 import TextItem from '@/pages/texts/TextItem/TextItem';
 import { useCreateText } from '@/pages/texts/useTexts';
 
+import ChannelField from '@/components/shared/fields/ChannelField/ChannelField';
 import TagField from '@/components/shared/fields/TagField/TagField';
 import Button from '@/components/ui/form-elements/Button';
 
@@ -59,7 +60,8 @@ const Texts: FC = () => {
       <div>
         <Modal title="Добавить текст">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="my-5 flex items-center">
+            <ChannelField className="my-5" control={control} name="channel" />
+            <div className="mb-5 flex items-center">
               <TagField control={control} name="tags" className="mr-5" />
               <Controller
                 control={control}

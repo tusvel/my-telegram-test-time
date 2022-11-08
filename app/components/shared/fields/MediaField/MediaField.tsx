@@ -26,9 +26,6 @@ const MediaField: FC<any> = ({ control, name, className }) => {
       <Controller
         control={control}
         name={name}
-        rules={{
-          required: 'Пожалуйста укажите канал'
-        }}
         render={({ field, fieldState: { error } }) => (
           <DynamicSelect
             field={field}
