@@ -106,7 +106,7 @@ export default function TextEditor({ setEditor }) {
                 contentEditable={<ContentEditable className="editor-input" />}
                 placeholder={<Placeholder />}
               />
-              <MaxLengthPlugin maxLength={4096} setChar={setChar} />
+              <MaxLengthPlugin maxLength={1024} setChar={setChar} />
               <HistoryPlugin />
               <AutoFocusPlugin />
               <CodeHighlightPlugin />
@@ -122,7 +122,7 @@ export default function TextEditor({ setEditor }) {
           </div>
         </LexicalComposer>
         <div className="absolute top-[15px] right-[70px] text-sm text-slate-500">
-          {char}/4096
+          {char}/1024
         </div>
       </div>
     </div>
