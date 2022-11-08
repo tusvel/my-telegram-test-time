@@ -11,7 +11,7 @@ const DropField: FC<any> = ({ control, name, className }) => {
         control={control}
         name={name}
         render={({ field: { onChange } }) => (
-          <Dropzone multiple showPreview showFileSize onChange={onChange} />
+          <Dropzone multiple showPreview onChange={onChange} />
         )}
       />
     </div>

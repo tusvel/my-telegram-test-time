@@ -29,11 +29,20 @@ export const Dropzone = ({
         }
         onChange(formData);
         if (showPreview) {
-          acceptedFiles.map((file) =>
-            Object.assign(file, {
+          acceptedFiles.map((file) => {
+            if (
+              file.name.split('.')[1] === 'mp3' ||
+              file.name.split('.')[1] === 'mp4' ||
+              file.name.split('.')[1] === 'avi'
+            ) {
+              return Object.assign(file, {
+                preview: '/player_icon.svg'
+              });
+            }
+            return Object.assign(file, {
               preview: URL.createObjectURL(file)
-            })
-          );
+            });
+          });
         }
         setMyFiles([...myFiles, ...acceptedFiles]);
         if (onAddFiles) {
