@@ -6,6 +6,8 @@ import ChannelItem from '@/pages/channels/ChannelItem/ChannelItem';
 import { IChannelInput } from '@/pages/channels/IChannelInput';
 import { useCreateChannel } from '@/pages/channels/useChannels';
 
+import CategoryField from '@/components/shared/fields/CategoryField/CategoryField';
+
 import Modal from '@/ui/Modal/Modal';
 import Button from '@/ui/form-elements/Button';
 
@@ -13,22 +15,12 @@ import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 import { LanguageType } from '@/shared/types/language.type';
 
-import { convertSelect } from '@/utils/convertSelect';
 import Meta from '@/utils/meta/Meta';
 
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
 });
 const Channels: FC = () => {
-  const selectTags = convertSelect(
-    [
-      { label: 'gambling', value: 'gambling' },
-      { label: 'casino', value: 'casino' },
-      { label: 'crypto', value: 'crypto' }
-    ],
-    'value',
-    'id'
-  );
   const { items } = useTypedSelector((state) => state.channel);
   const {
     handleSubmit,
@@ -60,22 +52,11 @@ const Channels: FC = () => {
             />
           </div>
           <div className="mb-5 flex items-center">
-            <div className="mr-5">
-              <Controller
-                control={control}
-                name="categories"
-                render={({ field, fieldState: { error } }) => (
-                  <DynamicSelect
-                    field={field}
-                    options={selectTags || []}
-                    isMulti={true}
-                    placeholder="Выбрать категорию"
-                    error={error}
-                    classNamePrefix="media-select"
-                  />
-                )}
-              />
-            </div>
+            <CategoryField
+              className="mr-5"
+              control={control}
+              name="categories"
+            />
             <Controller
               control={control}
               name="language"

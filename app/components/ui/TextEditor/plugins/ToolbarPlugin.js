@@ -545,13 +545,13 @@ export default function ToolbarPlugin() {
           const selection = $getSelection();
 
           if ($isRangeSelection(selection)) {
-            $patchStyleText(selection, { color: 'gray' });
+            $patchStyleText(selection, { color: 'black', opacity: '0.5' });
           } else {
             const node = $createTextNode('');
             const prevNode = selection.getNodes()[0];
 
             prevNode.insertAfter(node);
-            $patchStyleText(selection, { color: 'gray' });
+            $patchStyleText(selection, { color: 'black', opacity: '0.5' });
           }
         },
         LowPriority

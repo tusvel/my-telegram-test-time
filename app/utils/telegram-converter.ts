@@ -33,7 +33,7 @@ export const telegramConverter = (
       const link = el.getAttribute('href');
       el.outerHTML = `<a href=${link}>${el.innerHTML}</a>`;
     });
-    document.querySelectorAll('span[style="color: gray;"]').forEach((el) => {
+    document.querySelectorAll('span[style]').forEach((el) => {
       el.outerHTML = `<tg-spoiler>${el.innerHTML}</tg-spoiler>`;
     });
     return document.body.innerHTML || '';
@@ -61,9 +61,9 @@ export const telegramConverter = (
           el.outerHTML = `<a href=${link} class="editor-link">${el.innerHTML}</a>`;
         });
         document
-          .querySelectorAll('span[style="color: gray;"]')
+          .querySelectorAll('span[style="color: black;"]')
           .forEach((el) => {
-            el.outerHTML = `<tg-spoiler>${el.innerHTML}</tg-spoiler>`;
+            el.outerHTML = `<tg-spoiler style="color:black; opacity:0.5">${el.innerHTML}</tg-spoiler>`;
           });
         return document;
       });

@@ -93,9 +93,10 @@ function UpdatePlugin() {
   );
 }
 export default function TextEditor({ setEditor }) {
+  const [char, setChar] = useState(0);
   return (
     <div>
-      <div>
+      <div className="relative w-[500px]">
         <LexicalComposer initialConfig={editorConfig}>
           <div className="editor-container">
             <ToolbarPlugin />
@@ -105,7 +106,7 @@ export default function TextEditor({ setEditor }) {
                 contentEditable={<ContentEditable className="editor-input" />}
                 placeholder={<Placeholder />}
               />
-              <MaxLengthPlugin maxLength={4096} />
+              <MaxLengthPlugin maxLength={4096} setChar={setChar} />
               <HistoryPlugin />
               <AutoFocusPlugin />
               <CodeHighlightPlugin />
@@ -120,6 +121,9 @@ export default function TextEditor({ setEditor }) {
             </div>
           </div>
         </LexicalComposer>
+        <div className="absolute top-[15px] right-[70px] text-sm text-slate-500">
+          {char}/4096
+        </div>
       </div>
     </div>
   );

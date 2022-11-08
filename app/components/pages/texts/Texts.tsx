@@ -2,21 +2,21 @@ import { $generateHtmlFromNodes } from '@lexical/html';
 import { LexicalEditor } from 'lexical';
 import dynamic from 'next/dynamic';
 import { FC } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import { ITextInput } from '@/pages/texts/ITextInput';
 import TextItem from '@/pages/texts/TextItem/TextItem';
 import { useCreateText } from '@/pages/texts/useTexts';
 
+import CategoryField from '@/components/shared/fields/CategoryField/CategoryField';
 import ChannelField from '@/components/shared/fields/ChannelField/ChannelField';
+import LangField from '@/components/shared/fields/LangField/LangField';
 import TagField from '@/components/shared/fields/TagField/TagField';
 import Button from '@/components/ui/form-elements/Button';
 
 import Modal from '@/ui/Modal/Modal';
 
 import { useTypedSelector } from '@/hooks/useTypedSelector';
-
-import { LanguageType } from '@/shared/types/language.type';
 
 import { convertSelect } from '@/utils/convertSelect';
 import Meta from '@/utils/meta/Meta';
@@ -35,11 +35,9 @@ const Texts: FC = () => {
   const selectTags = convertSelect(tagItems, 'value', 'id');
   const {
     handleSubmit,
-    register,
     formState: { errors },
     control,
-    reset,
-    watch
+    reset
   } = useForm<ITextInput>({
     mode: 'onChange'
   });
@@ -53,40 +51,29 @@ const Texts: FC = () => {
       return html;
     }
   };
-  const { onSubmit, setEditor } = useCreateText(save);
+  const { onSubmit, setEditor } = useCreateText(save, reset);
 
   return (
     <Meta title="Texts" description="Texts in telegram">
       <div>
         <Modal title="Добавить текст">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <ChannelField className="my-5" control={control} name="channel" />
-            <div className="mb-5 flex items-center">
-              <TagField control={control} name="tags" className="mr-5" />
-              <Controller
+            <div className="flex items-center my-5">
+              <ChannelField className="mr-5" control={control} name="channel" />
+              <CategoryField
+                className="mr-5"
                 control={control}
-                name="language"
-                render={({ field, fieldState: { error } }) => (
-                  <DynamicSelect
-                    field={field}
-                    options={
-                      ([
-                        { label: 'ru', value: 'ru' },
-                        { label: 'en', value: 'en' },
-                        { label: 'es', value: 'es' }
-                      ] as { label: LanguageType; value: LanguageType }[]) || []
-                    }
-                    isMulti={false}
-                    placeholder="Выбрать язык"
-                    error={error}
-                    classNamePrefix="media-select"
-                  />
-                )}
+                name="categories"
               />
             </div>
-            {/* @ts-ignore*/}
-            <TextEditor setEditor={setEditor} />
-            <Button>Создать текст</Button>
+            <div className="mb-5 flex items-center">
+              <TagField control={control} name="tags" className="mr-5" />
+              <LangField control={control} name="language" />
+            </div>
+            <div className="relative">
+              <TextEditor setEditor={setEditor} />
+              <Button>Создать текст</Button>
+            </div>
           </form>
         </Modal>
         <ul role="list" className="space-y-3 mt-5">

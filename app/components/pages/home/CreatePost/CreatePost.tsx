@@ -69,12 +69,20 @@ const CreatePost: FC = () => {
         <div className="flex mt-5 max-w-screen-xl justify-between mb-5 min-w-[1280px]">
           <div>
             <div className="flex">
-              <DropField
-                control={control}
-                name="media"
-                className="mb-5 mr-10 w-[300px]"
-              />
-              <div className="mr-1 w-[600px]">
+              <div>
+                <DropField
+                  control={control}
+                  name="media"
+                  className="mb-5 mr-[40px] w-[350px]"
+                />
+                <MediaField
+                  control={control}
+                  name="old_media"
+                  className="mb-5"
+                />
+                <Button className="mt-7">Создать</Button>
+              </div>
+              <div>
                 <Controller
                   control={control}
                   name="text"
@@ -86,8 +94,6 @@ const CreatePost: FC = () => {
                 />
               </div>
             </div>
-            <MediaField control={control} name="old_media" className="mb-5" />
-            <Button className="mt-7">Создать</Button>
           </div>
           <div className="w-[300px] mt-5">
             <div className="mb-5">

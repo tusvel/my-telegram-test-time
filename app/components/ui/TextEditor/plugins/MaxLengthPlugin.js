@@ -11,7 +11,7 @@ import { $restoreEditorState } from '@lexical/utils';
 import { $getSelection, $isRangeSelection, RootNode } from 'lexical';
 import { useEffect } from 'react';
 
-export function MaxLengthPlugin({ maxLength }) {
+export function MaxLengthPlugin({ maxLength, setChar }) {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
@@ -27,6 +27,7 @@ export function MaxLengthPlugin({ maxLength }) {
         rootNode.getTextContent()
       );
       const textContent = rootNode.getTextContent();
+      setChar(textContent.length);
       if (prevTextContent !== textContent) {
         const textLength = textContent.length;
         const delCount = textLength - maxLength;
