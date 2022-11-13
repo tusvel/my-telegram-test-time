@@ -16,6 +16,7 @@ const Modal: FC<PropsWithChildren & { title: string }> = ({
     <div ref={ref} className={styles.selectText}>
       <Button
         onClick={(e) => {
+          document.body.classList.add('lock');
           e.preventDefault();
           setIsShow(!isShow);
         }}

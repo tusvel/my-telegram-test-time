@@ -31,7 +31,7 @@ const ChannelField: FC<any> = ({ control, name, className }) => {
   const formatOptionChannel = ({ label, image }: any) => (
     <div className="flex items-center">
       <Image
-        className="mr-2 overflow-hidden"
+        className="mr-2 overflow-hidden object-cover"
         src={image}
         alt={label}
         width={35}

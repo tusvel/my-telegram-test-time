@@ -20,6 +20,14 @@
   }
 }
 
+.button {
+  display: inline-flex;
+  align-self: start;
+  > a {
+    color: #fff;
+  }
+}
+
 .editorWrapper {
   @apply border-0;
   .wrapper {

@@ -10,6 +10,14 @@
       overflow: hidden;
     }
   }
+  &__single-value {
+    img {
+      width: 30px;
+      height: 30px;
+      object-fit: cover;
+      overflow: hidden;
+    }
+  }
 }
 
 .media-select {

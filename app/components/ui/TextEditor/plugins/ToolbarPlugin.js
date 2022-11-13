@@ -44,8 +44,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import eyeImg from '../../../../assets/icons/eye.svg';
+import hideEyeImg from '../../../../assets/icons/hideEye.svg';
 
 const HIDE_TEXT = createCommand();
+const SHOW_TEXT = createCommand();
 
 const LowPriority = 1;
 const supportedBlockTypes = new Set([
@@ -543,15 +545,36 @@ export default function ToolbarPlugin() {
         HIDE_TEXT,
         (_payload, newEditor) => {
           const selection = $getSelection();
-
           if ($isRangeSelection(selection)) {
-            $patchStyleText(selection, { color: 'black', opacity: '0.5' });
+            $patchStyleText(selection, {
+              color: 'black',
+              opacity: '0.5'
+            });
           } else {
             const node = $createTextNode('');
             const prevNode = selection.getNodes()[0];
 
             prevNode.insertAfter(node);
             $patchStyleText(selection, { color: 'black', opacity: '0.5' });
+          }
+        },
+        LowPriority
+      ),
+      editor.registerCommand(
+        SHOW_TEXT,
+        (_payload, newEditor) => {
+          const selection = $getSelection();
+          if ($isRangeSelection(selection)) {
+            $patchStyleText(selection, {
+              color: 'black',
+              opacity: '1'
+            });
+          } else {
+            const node = $createTextNode('');
+            const prevNode = selection.getNodes()[0];
+
+            prevNode.insertAfter(node);
+            $patchStyleText(selection, { color: 'black', opacity: '1' });
           }
         },
         LowPriority
@@ -597,16 +620,6 @@ export default function ToolbarPlugin() {
             aria-label="Format Bold"
           >
             <i className="format bold" />
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              editor.dispatchCommand(HIDE_TEXT, 'gray');
-            }}
-            className={'toolbar-item spaced'}
-            aria-label="toggle show"
-          >
-            <Image src={eyeImg} alt="hide" height={23} />
           </button>
           <button
             type="button"
@@ -657,6 +670,26 @@ export default function ToolbarPlugin() {
             aria-label="Insert Link"
           >
             <i className="format link" />
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              editor.dispatchCommand(HIDE_TEXT, 'gray');
+            }}
+            className={'toolbar-item spaced'}
+            aria-label="toggle show"
+          >
+            <Image src={hideEyeImg} alt="hide" height={23} />
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              editor.dispatchCommand(SHOW_TEXT, 'black');
+            }}
+            className={'toolbar-item spaced'}
+            aria-label="toggle show"
+          >
+            <Image src={eyeImg} alt="hide" height={23} />
           </button>
           {isLink &&
             createPortal(<FloatingLinkEditor editor={editor} />, document.body)}

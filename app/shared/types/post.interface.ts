@@ -7,7 +7,7 @@ export interface IPost extends IBasic {
   has_button: boolean;
   text_button: string;
   button_url: string;
-  media: any; //TODO
+  media: [any]; //TODO
   old_media: string; //TODO
   media_style: string | boolean;
   schedule_date: Date | string;

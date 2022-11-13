@@ -81,7 +81,7 @@ const Channels: FC = () => {
           <Button>Создать канал</Button>
         </form>
       </Modal>
-      <ul role="list" className="space-y-3">
+      <ul role="list" className="space-y-3 mt-5">
         {items?.length &&
           items.map((item) => <ChannelItem key={item.id} item={item} />)}
       </ul>

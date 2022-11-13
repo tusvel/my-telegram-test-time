@@ -17,5 +17,6 @@
   <title>Layer 1</title>
   <use id="svg_5" transform="matrix(24.4558 0 0 24.4558 -1274.02 -828.514)" x="48.2" xlink:href="#svg_4" y="25.002505"/>
   <g id="svg_6"/>
+  <line fill="none" id="svg_7" stroke="#929292" stroke-width="80" x1="632.499996" x2="9.500026" y1="10.500003" y2="336.500002"/>
  </g>
 </svg>

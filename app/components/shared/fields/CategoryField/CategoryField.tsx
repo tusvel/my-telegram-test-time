@@ -23,14 +23,14 @@ const CategoryField: FC<any> = ({ control, name, className }) => {
         control={control}
         name={name}
         rules={{
-          required: 'Выберите категорию'
+          required: 'Выберите вертикаль'
         }}
         render={({ field, fieldState: { error } }) => (
           <DynamicSelect
             field={field}
             options={selectTags || []}
             isMulti={false}
-            placeholder="Выбрать категорию"
+            placeholder="Выбрать вертикаль"
             error={error}
           />
         )}

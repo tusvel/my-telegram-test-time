@@ -4,6 +4,7 @@
 
 @import './react-select';
 @import './lexical';
+@import './dropFile';
 
 html,
 body {
@@ -14,9 +15,21 @@ body {
   background: #f3f4f6;
 }
 
+body {
+  &.lock {
+    overflow: hidden;
+  }
+}
+
 a {
-  color: inherit;
+  color: blue;
   text-decoration: none;
+  cursor: pointer;
+}
+
+tg-spoiler {
+  color: gray;
+  opacity: 0.8;
 }
 
 * {

@@ -4,22 +4,24 @@ import dynamic from 'next/dynamic';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
+import SelectText from '@/pages/home/SelectText/SelectText';
 import { ITextInput } from '@/pages/texts/ITextInput';
 import TextItem from '@/pages/texts/TextItem/TextItem';
 import { useCreateText } from '@/pages/texts/useTexts';
+import { useEditText } from '@/pages/texts/useTextsEdit';
 
-import CategoryField from '@/components/shared/fields/CategoryField/CategoryField';
-import ChannelField from '@/components/shared/fields/ChannelField/ChannelField';
-import LangField from '@/components/shared/fields/LangField/LangField';
 import TagField from '@/components/shared/fields/TagField/TagField';
+import TextFields from '@/components/shared/fields/textFields/textFields';
 import Button from '@/components/ui/form-elements/Button';
 
 import Modal from '@/ui/Modal/Modal';
 
+import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
-import { convertSelect } from '@/utils/convertSelect';
 import Meta from '@/utils/meta/Meta';
+
+import { clear } from '@/store/textEdit/textEdit.slice';
 
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
@@ -30,15 +32,9 @@ const TextEditor = dynamic(() => import('@/ui/TextEditor/TextEditor.js'), {
 const Texts: FC = () => {
   const {
     text: { items: textItems },
-    tag: { items: tagItems }
+    textEdit: { items: textEdit }
   } = useTypedSelector((state) => state);
-  const selectTags = convertSelect(tagItems, 'value', 'id');
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-    reset
-  } = useForm<ITextInput>({
+  const { handleSubmit, control } = useForm<ITextInput>({
     mode: 'onChange'
   });
   const save = (editor: LexicalEditor) => {
@@ -51,36 +47,45 @@ const Texts: FC = () => {
       return html;
     }
   };
-  const { onSubmit, setEditor } = useCreateText(save, reset);
+  const dispatch = useAppDispatch();
+  const clearTextItems = () => {
+    dispatch(clear());
+  };
+  const { onSubmit, setEditor } = useCreateText(save);
+  const { onEditSubmit } = useEditText(clearTextItems);
 
   return (
     <Meta title="Texts" description="Texts in telegram">
       <div>
         <Modal title="Добавить текст">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex items-center my-5">
-              <ChannelField className="mr-5" control={control} name="channel" />
-              <CategoryField
-                className="mr-5"
-                control={control}
-                name="categories"
-              />
-            </div>
-            <div className="mb-5 flex items-center">
-              <TagField control={control} name="tags" className="mr-5" />
-              <LangField control={control} name="language" />
-            </div>
+            <TextFields control={control} />
+            <TagField control={control} name="tags" className="mr-5 mb-5" />
+            <SelectText />
             <div className="relative">
               <TextEditor setEditor={setEditor} />
-              <Button>Создать текст</Button>
             </div>
+            <Button className="absolute bottom-5 right-5">Создать текст</Button>
           </form>
         </Modal>
+        {(textEdit?.length || [].length) > 0 && (
+          <div className="flex items-center mt-5">
+            <Button className="mr-5 py-1 px-1" onClick={clearTextItems}>
+              Очистить выбранные элементы
+            </Button>
+            <Modal title="Редактировать">
+              <form onSubmit={handleSubmit(onEditSubmit)}>
+                <TextFields control={control} />
+                <Button>Сохранить изменения</Button>
+              </form>
+            </Modal>
+          </div>
+        )}
         <ul role="list" className="space-y-3 mt-5">
           {textItems?.length &&
             textItems.map((item) => (
               <div key={item.id}>
-                <TextItem item={item} />
+                <TextItem check={true} item={item} />
               </div>
             ))}
         </ul>

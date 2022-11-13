@@ -76,6 +76,7 @@ export const Dropzone = ({
   };
   const currentFiles = myFiles.map((file, index) => (
     <File
+      className="My_dropFile"
       file={file}
       key={index}
       removeFile={removeFile}

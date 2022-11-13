@@ -22,6 +22,7 @@ import { useState } from 'react';
 
 import emojiSmile from '@/assets/icons/emojiSmile.svg';
 
+import { useOutside } from '../../../hooks/useOutside';
 import styles from '../form-elements/form.module.scss';
 
 import AutoLinkPlugin from './plugins/AutoLinkPlugin';
@@ -53,15 +54,11 @@ const editorConfig = {
     LinkNode
   ]
 };
-function onChange(editorState) {
-  editorState.read(() => {
-    const root = $getRoot();
-    const selection = $getSelection();
-  });
-}
+
 function UpdatePlugin() {
-  const [isOpenIcons, setIsOpenIcons] = useState(false);
   const [editor] = useLexicalComposerContext();
+  const { isShow, setIsShow, ref } = useOutside(false);
+
   const update = (e) => {
     editor.update(() => {
       const selection = $getSelection();
@@ -72,25 +69,24 @@ function UpdatePlugin() {
   };
   return (
     <>
-      <div
-        className={styles.icon}
-        onClick={() => setIsOpenIcons((prev) => !prev)}
-      >
+      <div className={styles.icon} onClick={() => setIsShow((prev) => !prev)}>
         <Image src={emojiSmile} alt="icons" />
       </div>
       <div>
-        {isOpenIcons && (
-          <div className="emoji-picker-textEdit">
-            <Picker
-              style={{}}
-              data={data}
-              onEmojiSelect={(e) => update(e.native)}
-            />
+        {isShow && (
+          <div ref={ref} className="emoji-picker-textEdit">
+            <Picker data={data} onEmojiSelect={(e) => update(e.native)} />
           </div>
         )}
       </div>
     </>
   );
+}
+function onChange(editorState) {
+  editorState.read(() => {
+    const root = $getRoot();
+    const selection = $getSelection();
+  });
 }
 export default function TextEditor({ setEditor }) {
   const [char, setChar] = useState(0);
@@ -121,7 +117,7 @@ export default function TextEditor({ setEditor }) {
             </div>
           </div>
         </LexicalComposer>
-        <div className="absolute top-[15px] right-[70px] text-sm text-slate-500">
+        <div className="absolute top-[14px] right-[50px] text-sm text-slate-500">
           {char}/1024
         </div>
       </div>
