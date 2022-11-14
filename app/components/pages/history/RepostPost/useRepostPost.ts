@@ -1,14 +1,12 @@
 import { SubmitHandler } from 'react-hook-form';
 import { useMutation } from 'react-query';
 
-import { ITextInput } from '@/pages/texts/ITextInput';
-
-import { IText } from '@/shared/types/text.interface';
+import { IPost } from '@/shared/types/post.interface';
 
 import { PostService } from '@/services/post.service';
 
-export const useRepostPost = (item: IText) => {
-  const { mutateAsync } = useMutation('Post repost', (data: ITextInput) =>
+export const useRepostPost = (item: IPost) => {
+  const { mutateAsync } = useMutation('Post repost', (data: IPost) =>
     PostService.repost(data, item.id)
   );
 

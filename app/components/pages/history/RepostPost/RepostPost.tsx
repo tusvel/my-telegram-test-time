@@ -11,13 +11,13 @@ import Button from '@/ui/form-elements/Button';
 
 import { useOutside } from '@/hooks/useOutside';
 
-import { IText } from '@/shared/types/text.interface';
+import { IPost } from '@/shared/types/post.interface';
 
 import repostImage from '@/assets/icons/repost.svg';
 
 import styles from '../PostItem.module.scss';
 
-const RepostPost: FC<{ item: IText }> = ({ item }) => {
+const RepostPost: FC<{ item: IPost }> = ({ item }) => {
   const { isShow, setIsShow, ref } = useOutside(false);
   const { handleSubmit, control } = useForm<ITextInput>({
     mode: 'onChange'

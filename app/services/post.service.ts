@@ -14,7 +14,7 @@ export const PostService = {
   async create(data: IPostInput) {
     return 1;
   },
-  async repost(data: any, id: string) {
+  async repost(data: IPost, id: string) {
     return 123;
   }
 };
