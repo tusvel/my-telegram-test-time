@@ -19,3 +19,32 @@
     color: #669900;
   }
 }
+
+.item {
+  &:hover {
+    .repostImage {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.repostImage {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s;
+}
+
+.selectTextWrap {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(105%, 0);
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+}

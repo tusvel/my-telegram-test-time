@@ -13,5 +13,8 @@ export const PostService = {
   },
   async create(data: IPostInput) {
     return 1;
+  },
+  async repost(data: any, id: string) {
+    return 123;
   }
 };

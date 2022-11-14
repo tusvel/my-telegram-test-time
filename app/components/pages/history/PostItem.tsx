@@ -13,7 +13,10 @@ import styles from './PostItem.module.scss';
 const PostItem: FC<{ item: IPost }> = ({ item }) => {
   return (
     <li
-      className={'overflow-hidden rounded-md bg-white px-6 py-4 shadow w-1/2'}
+      className={cn(
+        'rounded-md bg-white px-6 py-4 shadow w-1/2 relative',
+        styles.item
+      )}
     >
       <div className="flex flex-col">
         <div className="flex basis-20 flex-wrap">
@@ -39,7 +42,7 @@ const PostItem: FC<{ item: IPost }> = ({ item }) => {
           </Button>
         )}
       </div>
-      <RepostPost />
+      <RepostPost item={item} />
     </li>
   );
 };

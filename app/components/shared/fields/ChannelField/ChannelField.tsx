@@ -10,7 +10,12 @@ import { convertSelect } from '@/utils/convertSelect';
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
 });
-const ChannelField: FC<any> = ({ control, name, className }) => {
+const ChannelField: FC<any> = ({
+  control,
+  name,
+  className,
+  isMulti = false
+}) => {
   const { items: chanelItems, isLoading } = useTypedSelector(
     (state) => state.channel
   );
@@ -54,7 +59,7 @@ const ChannelField: FC<any> = ({ control, name, className }) => {
             field={field}
             options={optionsItems || []}
             isLoading={isLoading}
-            isMulti={false}
+            isMulti={isMulti}
             formatOptionLabel={formatOptionChannel}
             placeholder="Выберите канал"
             error={error}
