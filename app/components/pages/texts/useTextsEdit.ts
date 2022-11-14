@@ -10,7 +10,7 @@ import { TextService } from '@/services/text.service';
 export const useEditText: any = (clearTextItems: any) => {
   const { items } = useTypedSelector((state) => state.textEdit);
   const { mutateAsync } = useMutation('Create text', (data: ITextInput) =>
-    TextService.edit(data)
+    TextService.edit(data.id, data)
   );
 
   const onEditSubmit: SubmitHandler<any> = async (data) => {
