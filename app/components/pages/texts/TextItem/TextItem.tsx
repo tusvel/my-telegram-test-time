@@ -41,8 +41,8 @@ const TextItem: FC<{ item: IText; style?: CSSProperties; check?: boolean }> = ({
         <div className="relative">
           <div dangerouslySetInnerHTML={{ __html: item.text }} />
           <div className="absolute bottom-[-19px] right-[-15px]">
-            {item.tags.map((tag) => (
-              <span key={tag.id}>#{tag.value} </span>
+            {item.tags.map((tag, index) => (
+              <span key={index}>#{tag.value} </span>
             ))}
           </div>
           {check && (

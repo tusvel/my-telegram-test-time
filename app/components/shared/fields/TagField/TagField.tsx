@@ -11,7 +11,7 @@ const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
 });
 const TagField: FC<any> = ({ control, name, className, required = true }) => {
   const { items: tagItems } = useTypedSelector((state) => state.tag);
-  const selectTags = convertSelect(tagItems, 'value', 'value');
+  const selectTags = convertSelect(tagItems, 'value', 'id');
 
   return (
     <div className={className}>

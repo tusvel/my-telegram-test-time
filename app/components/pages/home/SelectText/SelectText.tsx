@@ -7,6 +7,7 @@ import TagField from '@/components/shared/fields/TagField/TagField';
 
 import Button from '@/ui/form-elements/Button';
 
+import { useTags } from '@/hooks/filter/useTags';
 import { useFilter } from '@/hooks/useFilter';
 import { useOutside } from '@/hooks/useOutside';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
@@ -30,18 +31,9 @@ const SelectText: FC = () => {
   const [value, setValue] = useState('');
   const texts = telegramConverter(null, items, '') as IText[];
   const textsItem = useFilter(texts, value);
-  let filteredItems;
   const { isShow, setIsShow, ref } = useOutside(false);
 
-  if (tags?.length && tags?.length > 0) {
-    filteredItems = textsItem?.filter((item) => {
-      return tags.find((itemForm: string) => {
-        return item.tags.find((tag) => tag.value === itemForm);
-      });
-    });
-  } else {
-    filteredItems = textsItem;
-  }
+  const filterTags = useTags(textsItem, tags);
 
   return (
     <div>
@@ -82,8 +74,8 @@ const SelectText: FC = () => {
               role="list"
               className="space-y-3 overflow-auto h-full pb-[95px] px-5"
             >
-              {filteredItems &&
-                (filteredItems as IText[]).map((item) => (
+              {filterTags &&
+                filterTags.map((item) => (
                   <TextItem
                     key={item.id}
                     item={item}
