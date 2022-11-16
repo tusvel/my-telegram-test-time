@@ -7,8 +7,8 @@ import TagField from '@/components/shared/fields/TagField/TagField';
 
 import Button from '@/ui/form-elements/Button';
 
+import { useSearch } from '@/hooks/filter/useSearch';
 import { useTags } from '@/hooks/filter/useTags';
-import { useFilter } from '@/hooks/useFilter';
 import { useOutside } from '@/hooks/useOutside';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
@@ -19,6 +19,9 @@ import { telegramConverter } from '@/utils/telegram-converter';
 import styles from './SelectText.module.scss';
 
 const SelectText: FC = () => {
+  const { isShow, setIsShow, ref } = useOutside(false);
+  const { items } = useTypedSelector((state) => state.text);
+  const [value, setValue] = useState('');
   const { control } = useForm({
     mode: 'onChange'
   });
@@ -26,13 +29,9 @@ const SelectText: FC = () => {
     control,
     name: 'tags_search'
   });
+  const textItems = telegramConverter(null, items, '') as IText[];
 
-  const { items } = useTypedSelector((state) => state.text);
-  const [value, setValue] = useState('');
-  const texts = telegramConverter(null, items, '') as IText[];
-  const textsItem = useFilter(texts, value);
-  const { isShow, setIsShow, ref } = useOutside(false);
-
+  const textsItem = useSearch(textItems, value);
   const filterTags = useTags(textsItem, tags);
 
   return (
