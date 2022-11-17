@@ -7,13 +7,18 @@ import { $host } from '../../api/interceptors';
 
 export const AuthenticateService = {
   async login(data: { username: string; password: string }) {
-    return await $host.post<ITokens>(getAuthenticateApi('/login'), data);
+    const response = await $host.post<ITokens>(
+      getAuthenticateApi('/login'),
+      data
+    );
+    return response.data;
   },
 
   async refresh(refreshToken: IRefreshToken) {
-    return await $host.post<ITokens>(
+    const response = await $host.post<ITokens>(
       getAuthenticateApi('/refresh'),
       refreshToken
     );
+    return response.data;
   }
 };

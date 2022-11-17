@@ -1,7 +1,7 @@
-import { IText } from '@/shared/types/text.interface';
+import { IPostTextResponse } from '@/shared/types/post-text/post-text-response.interface';
 
-export const useTags = (items: IText[] | null, tags: string[]) => {
-  let sortedItems: IText[] | null;
+export const useTags = (items: IPostTextResponse[] | null, tags: string[]) => {
+  let sortedItems: IPostTextResponse[] | null;
   if (items && items?.length > 0 && tags && tags?.length > 0) {
     sortedItems = items.filter((item) => {
       return tags.find((formTag: string) => {

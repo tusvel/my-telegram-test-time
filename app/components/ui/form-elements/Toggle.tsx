@@ -2,7 +2,10 @@ import { Switch } from '@headlessui/react';
 import cn from 'classnames';
 import { FC } from 'react';
 
-const Toggle: FC<any> = ({ value, onChange }) => {
+const Toggle: FC<{ value: boolean; onChange: Function }> = ({
+  value,
+  onChange
+}) => {
   return (
     <Switch
       checked={value}

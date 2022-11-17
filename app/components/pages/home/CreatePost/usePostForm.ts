@@ -8,13 +8,18 @@ import { useSave } from '@/hooks/textEditor/useSave';
 
 import { IButton } from '@/shared/types/form/button.interface';
 
+import { MediaService } from '@/services/media/media.service';
 import { PostService } from '@/services/post/post.service';
 
 import { getStoreLocal } from '@/utils/local-storage';
 import { saveButton } from '@/utils/save-button';
 import { telegramConverter } from '@/utils/telegram-converter';
 
-export const usePostForm: any = (reset: any, setError: any) => {
+export const usePostForm: any = (
+  reset: any,
+  setError: any,
+  applyButton: boolean
+) => {
   const { mutateAsync } = useMutation('Create post', (data: ICreatePost) =>
     PostService.create(data)
   );
@@ -25,14 +30,23 @@ export const usePostForm: any = (reset: any, setError: any) => {
 
     saveButton({ label: data.text_button, value: data.button_url });
 
-    if (data.apply_button) {
+    if (applyButton) {
       const item: IButton = getStoreLocal('buttons').find(
-        (item: IButton) => item.value === data.value_button
+        (item: IButton) => item.value === data.local_button
       );
       data.text_button = item.label;
       data.button_url = item.value;
     }
-    delete data.is_send_time;
+    delete data.local_button;
+
+    //работа с медиа
+    let responseMedias = [];
+    for (let i = 0; i < data.media; i++) {
+      const responseMedia = await MediaService.create(data.media);
+      responseMedias.push(responseMedia.url);
+    }
+    data.media_id = [...data.media_id, ...responseMedias];
+    //-----------
 
     data.text = telegramConverter(useSave(editor), null, 'html') as string;
     if (data.text?.length < 8) {
@@ -45,6 +59,3 @@ export const usePostForm: any = (reset: any, setError: any) => {
 
   return { onSubmit, setEditor };
 };
-/*    const responseMedia = await MediaService.create(data.media);
-responseMedia.map((item) => item.url);
-data.media_id = [...data.media_id, ...responseMedia];*/

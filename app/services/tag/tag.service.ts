@@ -8,26 +8,31 @@ import { $auth } from '../../api/interceptors';
 
 export const TagService = {
   async getAll() {
-    return await $auth.get<ITagResponse[]>(getTagApi(''));
+    const response = await $auth.get<ITagResponse[]>(getTagApi(''));
+    return response.data;
   },
 
   async create(data: ITagCreateRequest) {
-    return await $auth.post<ITagResponse>(getTagApi(''), {
+    const response = await $auth.post<ITagResponse>(getTagApi(''), {
       data
     });
+    return response.data;
   },
 
   async update(data: ITagPatchRequest) {
-    return await $auth.patch<ITagResponse>(getTagApi(''), {
+    const response = await $auth.patch<ITagResponse>(getTagApi(''), {
       data
     });
+    return response.data;
   },
 
   async getOne(id: number) {
-    return await $auth.get<ITagResponse>(getTagApi(`/${id}`));
+    const response = await $auth.get<ITagResponse>(getTagApi(`/${id}`));
+    return response.data;
   },
 
   async deleteOne(id: number) {
-    return await $auth.delete(getTagApi(`/${id}`));
+    const response = await $auth.delete(getTagApi(`/${id}`));
+    return response.data;
   }
 };

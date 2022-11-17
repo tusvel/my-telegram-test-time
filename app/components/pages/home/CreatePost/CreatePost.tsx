@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import { ICreatePost } from '@/pages/home/CreatePost/create-post.interface';
+import { useCreatePost } from '@/pages/home/CreatePost/useCreatePost';
 import { usePostForm } from '@/pages/home/CreatePost/usePostForm';
 
 import ChannelField from '@/components/shared/fields/ChannelField/ChannelField';
@@ -15,8 +16,6 @@ import Field from '@/ui/form-elements/Field';
 import Toggle from '@/ui/form-elements/Toggle';
 import styles from '@/ui/form-elements/form.module.scss';
 import formStyles from '@/ui/form-elements/form.module.scss';
-
-import { getButtons } from '@/utils/button/getButtons';
 
 const SelectText = dynamic(
   () => import('@/components/shared/SelectText/SelectText'),
@@ -44,8 +43,15 @@ const CreatePost: FC = () => {
     mode: 'onChange'
   });
 
-  const { onSubmit, setEditor } = usePostForm(reset, setError);
-  const { formatOptionButton, buttonIOptions } = getButtons();
+  const {
+    applyButton,
+    setApplyButton,
+    buttonIOptions,
+    formatOptionButton,
+    isSendTime,
+    setIsSendTime
+  } = useCreatePost();
+  const { onSubmit, setEditor } = usePostForm(reset, setError, applyButton);
 
   register('text');
 
@@ -115,21 +121,18 @@ const CreatePost: FC = () => {
             {watch('has_button') && (
               <div className="mb-3">
                 <div className="flex mb-3">
-                  <Controller
-                    control={control}
-                    name="apply_button"
-                    render={({ field: { value, onChange } }) => (
-                      <Toggle value={value} onChange={onChange} />
-                    )}
+                  <Toggle
+                    value={applyButton}
+                    onChange={() => setApplyButton((prev) => !prev)}
                   />
                   <div className="ml-1">Выбрать готовую</div>
                 </div>
                 <div>
-                  {watch('apply_button') ? (
+                  {applyButton ? (
                     <div className="mb-2">
                       <Controller
                         control={control}
-                        name="value_button"
+                        name="local_button"
                         render={({ field, fieldState: { error } }) => (
                           <DynamicSelect
                             field={field}
@@ -174,23 +177,19 @@ const CreatePost: FC = () => {
             )}
             <div className="mb-5">
               <div>Запланировать дату</div>
-              <Controller
-                control={control}
-                name="is_send_time"
-                defaultValue={false}
-                render={({ field: { value, onChange } }) => (
-                  <Toggle value={value} onChange={onChange} />
-                )}
+              <Toggle
+                value={isSendTime}
+                onChange={() => setIsSendTime((prev) => !prev)}
               />
             </div>
-            {watch('is_send_time') && (
+            {isSendTime && (
               <div className="flex mb-5">
                 <div className="mr-5">
                   <div>Выберите дату</div>
                   <Controller
                     control={control}
                     name="schedule_date"
-                    render={({ field: { value, onChange } }) => (
+                    render={({ field: { onChange } }) => (
                       <div>
                         <input type="date" onChange={onChange} />
                       </div>
@@ -202,7 +201,7 @@ const CreatePost: FC = () => {
                   <Controller
                     control={control}
                     name="schedule_time"
-                    render={({ field: { value, onChange } }) => (
+                    render={({ field: { onChange } }) => (
                       <div>
                         <input type="time" onChange={onChange} />
                       </div>

@@ -7,20 +7,31 @@ import { $auth } from '../../api/interceptors';
 
 export const ChannelSlotService = {
   async getAll() {
-    return await $auth.get<IChannelSlotResponse[]>(getChannelSlotApi(''));
+    const response = await $auth.get<IChannelSlotResponse[]>(
+      getChannelSlotApi('')
+    );
+    return response.data;
   },
 
   async create(data: IChannelSlotCreate) {
-    return await $auth.post<IChannelSlotResponse>(getChannelSlotApi(''), {
-      data
-    });
+    const response = await $auth.post<IChannelSlotResponse>(
+      getChannelSlotApi(''),
+      {
+        data
+      }
+    );
+    return response.data;
   },
 
   async getOne(id: number) {
-    return await $auth.get<IChannelSlotResponse>(getChannelSlotApi(`/${id}`));
+    const response = await $auth.get<IChannelSlotResponse>(
+      getChannelSlotApi(`/${id}`)
+    );
+    return response.data;
   },
 
   async deleteOne(id: number) {
-    return await $auth.delete(getChannelSlotApi(`/${id}`));
+    const response = await $auth.delete(getChannelSlotApi(`/${id}`));
+    return response.data;
   }
 };

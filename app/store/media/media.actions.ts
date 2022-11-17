@@ -6,8 +6,7 @@ export const getAllMedia = createAsyncThunk(
   'MediaService/getAll',
   async (_, thunkAPI) => {
     try {
-      const response = await MediaService.getAll();
-      return response.data;
+      return await MediaService.getAll();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

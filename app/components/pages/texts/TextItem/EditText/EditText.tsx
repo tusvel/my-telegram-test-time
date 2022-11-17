@@ -1,10 +1,10 @@
 import { $generateHtmlFromNodes } from '@lexical/html';
 import { LexicalEditor } from 'lexical';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { FC, MouseEvent } from 'react';
 import { useForm } from 'react-hook-form';
 
-import SelectText from '@/pages/../../../../shared/SelectText/SelectText';
 import { ITextInput } from '@/pages/texts/ITextInput';
 import { useTextEdit } from '@/pages/texts/TextItem/EditText/useEditText';
 import styles from '@/pages/texts/TextItem/TextItem.module.scss';
@@ -17,11 +17,18 @@ import Button from '@/ui/form-elements/Button';
 
 import { useOutside } from '@/hooks/useOutside';
 
-import { IText } from '@/shared/types/text.interface';
+import { IPostTextResponse } from '@/shared/types/post-text/post-text-response.interface';
 
 import settingsIcon from '@/assets/icons/setting.svg';
 
-const EditText: FC<{ item: IText }> = ({ item }) => {
+const SelectText = dynamic(
+  () => import('@/components/shared/SelectText/SelectText'),
+  {
+    ssr: false
+  }
+);
+
+const EditText: FC<{ item: IPostTextResponse }> = ({ item }) => {
   const save = (editor: LexicalEditor) => {
     let html;
     const rootElement = editor.getRootElement();

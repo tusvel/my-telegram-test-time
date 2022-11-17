@@ -20,7 +20,7 @@ export const AuthService = {
     if (response.data.accessToken) {
       saveToStorage(response.data);
     }
-    return response;
+    return response.data;
   },
 
   async login(email: string, password: string) {
@@ -31,7 +31,7 @@ export const AuthService = {
     if (response.data.accessToken) {
       saveToStorage(response.data);
     }
-    return response;
+    return response.data;
   },
 
   async logout() {
@@ -47,9 +47,9 @@ export const AuthService = {
         refreshToken
       }
     );
-    if (response.data.accessToken) {
+    if (response.data.access_token) {
       saveToStorage(response.data);
     }
-    return response;
+    return response.data;
   }
 };

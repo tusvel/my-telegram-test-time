@@ -8,26 +8,31 @@ import { $auth } from '../../api/interceptors';
 
 export const UserService = {
   async getAll() {
-    return await $auth.get<IUserResponse[]>(getUserApi(''));
+    const response = await $auth.get<IUserResponse[]>(getUserApi(''));
+    return response.data;
   },
 
   async create(data: IUserCreate) {
-    return await $auth.post<IUserResponse>(getUserApi(''), {
+    const response = await $auth.post<IUserResponse>(getUserApi(''), {
       data
     });
+    return response.data;
   },
 
   async update(data: IUserPatch) {
-    return await $auth.patch<IUserResponse>(getUserApi(''), {
+    const response = await $auth.patch<IUserResponse>(getUserApi(''), {
       data
     });
+    return response.data;
   },
 
   async getOne(id: number) {
-    return await $auth.get<IUserResponse>(getUserApi(`/${id}`));
+    const response = await $auth.get<IUserResponse>(getUserApi(`/${id}`));
+    return response.data;
   },
 
   async deleteOne(id: number) {
-    return await $auth.delete(getUserApi(`/${id}`));
+    const response = await $auth.delete(getUserApi(`/${id}`));
+    return response.data;
   }
 };

@@ -7,18 +7,22 @@ import { $auth } from '../../api/interceptors';
 
 export const PostService = {
   async getAll() {
-    return await $auth.get<IPostResponse[]>(getPostApi(''));
+    const response = await $auth.get<IPostResponse[]>(getPostApi(''));
+    return response.data;
   },
 
   async create(data: IPostCreateRequest) {
-    return await $auth.post<IPostResponse>(getPostApi(''), { data });
+    const response = await $auth.post<IPostResponse>(getPostApi(''), { data });
+    return response.data;
   },
 
   async getOne(id: number) {
-    return await $auth.get<IPostResponse>(getPostApi(`/${id}`));
+    const response = await $auth.get<IPostResponse>(getPostApi(`/${id}`));
+    return response.data;
   },
 
   async deleteOne(id: number) {
-    return await $auth.delete(getPostApi(`/${id}`));
+    const response = await $auth.delete(getPostApi(`/${id}`));
+    return response.data;
   }
 };

@@ -6,8 +6,7 @@ export const getAllChannels = createAsyncThunk(
   'ChannelService/getAll',
   async (_, thunkAPI) => {
     try {
-      const { data } = await ChannelService.getAll();
-      return data;
+      return await ChannelService.getAll();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

@@ -6,15 +6,18 @@ import { useMutation } from 'react-query';
 
 import { ITextInput } from '@/pages/texts/ITextInput';
 
-import { TextService } from '@/services/text.service';
+import { IPostTextPatch } from '@/shared/types/post-text/post-text-patch.interface';
+import { IPostTextResponse } from '@/shared/types/post-text/post-text-response.interface';
+
+import { PostTextService } from '@/services/post-text/post-text.service';
 
 import { getKeys } from '@/utils/object/getKeys';
 import { telegramConverter } from '@/utils/telegram-converter';
 
 export const useTextEdit = (
-  setValue: UseFormSetValue<ITextInput>,
+  setValue: UseFormSetValue<IPostTextResponse>,
   save: any,
-  item: ITextInput
+  item: IPostTextPatch
 ) => {
   const [editor, setEditor] = useState<any>();
   const htmlInEdit = (editor: LexicalEditor) => {
@@ -29,7 +32,7 @@ export const useTextEdit = (
   const tags = item.tags.map((item: any) => item);
 
   useEffect(() => {
-    getKeys(item).forEach((key: keyof ITextInput) => {
+    getKeys(item).forEach((key: keyof IPostTextPatch) => {
       if (key === 'tags') {
         return setValue(key, tags);
       }
@@ -40,8 +43,8 @@ export const useTextEdit = (
     }
   }, [editor]);
 
-  const { mutateAsync } = useMutation('update movie', (data: ITextInput) =>
-    TextService.edit(item.id, data)
+  const { mutateAsync } = useMutation('update movie', (data: IPostTextPatch) =>
+    PostTextService.update(data)
   );
 
   const onSubmit: SubmitHandler<ITextInput> = async (data) => {

@@ -1,7 +1,8 @@
-import { IText } from '@/shared/types/text.interface';
+import { IPostTextResponse } from '@/shared/types/post-text/post-text-response.interface';
 import { VerticalType } from '@/shared/types/vertical/vertical.types';
 
-export interface ITextInput extends Pick<IText, 'id' | 'text' | 'language'> {
+export interface ITextInput
+  extends Pick<IPostTextResponse, 'id' | 'text' | 'language'> {
   tags_search: string[];
   tags: string[];
   vertical: VerticalType;

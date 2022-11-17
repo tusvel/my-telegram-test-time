@@ -6,18 +6,18 @@ import EditText from '@/pages/texts/TextItem/EditText/EditText';
 
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 
-import { IText } from '@/shared/types/text.interface';
+import { IPostTextResponse } from '@/shared/types/post-text/post-text-response.interface';
 
 import { selectTextItemById } from '@/store/textEdit/textEdit.selector';
 import { add, remove } from '@/store/textEdit/textEdit.slice';
 
 import styles from './TextItem.module.scss';
 
-const TextItem: FC<{ item: IText; style?: CSSProperties; check?: boolean }> = ({
-  item,
-  style,
-  check = false
-}) => {
+const TextItem: FC<{
+  item: IPostTextResponse;
+  style?: CSSProperties;
+  check?: boolean;
+}> = ({ item, style, check = false }) => {
   const dispatch = useAppDispatch();
   const textItem = useSelector(selectTextItemById(item.id));
   const onClick = () => {

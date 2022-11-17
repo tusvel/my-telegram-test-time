@@ -6,8 +6,7 @@ export const getAllTags = createAsyncThunk(
   'TagService/getAll',
   async (_, thunkAPI) => {
     try {
-      const response = await TagService.getAll();
-      return response.data;
+      return await TagService.getAll();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

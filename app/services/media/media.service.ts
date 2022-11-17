@@ -8,26 +8,31 @@ import { $auth } from '../../api/interceptors';
 
 export const MediaService = {
   async getAll() {
-    return await $auth.get<IMediaResponse[]>(getMediaApi(''));
+    const response = await $auth.get<IMediaResponse[]>(getMediaApi(''));
+    return response.data;
   },
 
   async create(data: IMediaCreateRequest) {
-    return await $auth.post<IMediaResponse>(getMediaApi(''), {
+    const response = await $auth.post<IMediaResponse>(getMediaApi(''), {
       data
     });
+    return response.data;
   },
 
   async update(data: IMediaPatchRequest) {
-    return await $auth.patch<IMediaResponse>(getMediaApi(''), {
+    const response = await $auth.patch<IMediaResponse>(getMediaApi(''), {
       data
     });
+    return response.data;
   },
 
   async getOne(id: number) {
-    return await $auth.get<IMediaResponse>(getMediaApi(`/${id}`));
+    const response = await $auth.get<IMediaResponse>(getMediaApi(`/${id}`));
+    return response.data;
   },
 
   async deleteOne(id: number) {
-    return await $auth.delete(getMediaApi(`/${id}`));
+    const response = await $auth.delete(getMediaApi(`/${id}`));
+    return response.data;
   }
 };
