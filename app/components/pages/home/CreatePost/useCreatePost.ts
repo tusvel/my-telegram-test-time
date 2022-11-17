@@ -4,6 +4,8 @@ import { useMutation } from 'react-query';
 
 import { IPostInput } from '@/pages/home/CreatePost/create-post.interface';
 
+import { useSave } from '@/hooks/textEditor/useSave';
+
 import { IButton } from '@/shared/types/button.interface';
 
 import { PostService } from '@/services/post.service';
@@ -12,14 +14,14 @@ import { getStoreLocal } from '@/utils/local-storage';
 import { saveButton } from '@/utils/save-button';
 import { telegramConverter } from '@/utils/telegram-converter';
 
-export const useCreatePost: any = (save: any, reset: any) => {
+export const useCreatePost: any = (reset: any, setError: any) => {
   const { mutateAsync } = useMutation('Create post', (data: IPostInput) =>
     PostService.create(data)
   );
-  const [editor, setEditor] = useState();
+  const [editor, setEditor] = useState<any>();
 
   const onSubmit: SubmitHandler<IPostInput> = async (data) => {
-    data.media_style = data.media_style !== 'false';
+    data.is_preview = !!data.is_preview;
     data.schedule_date = `${data.schedule_date} ${data.schedule_time}`;
 
     saveButton({ label: data.text_button, value: data.button_url });
@@ -30,11 +32,15 @@ export const useCreatePost: any = (save: any, reset: any) => {
       data.text_button = item.label;
       data.button_url = item.value;
     }
+    delete data.is_send_time;
 
     /*    const responseMedia = await MediaService.create(data.media);
     responseMedia.map((item) => item.url);
-    data.media = [...data.media.old_media, ...responseMedia];*/
-    data.text = telegramConverter(save(editor), null, 'html') as string;
+    data.media_id = [...data.media_id, ...responseMedia];*/
+    data.text = telegramConverter(useSave(editor), null, 'html') as string;
+    if (data.text?.length < 8) {
+      return setError('text', { type: 'custom', message: 'Введите текст' });
+    }
     console.log(data);
     await mutateAsync(data);
     reset();

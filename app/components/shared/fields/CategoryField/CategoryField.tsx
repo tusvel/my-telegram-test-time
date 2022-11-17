@@ -7,7 +7,12 @@ import { convertSelect } from '@/utils/convertSelect';
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
 });
-const CategoryField: FC<any> = ({ control, name, className }) => {
+const CategoryField: FC<any> = ({
+  control,
+  name,
+  className,
+  isRequired = false
+}) => {
   const selectTags = convertSelect(
     [
       { label: 'gambling', value: 'gambling' },
@@ -22,9 +27,13 @@ const CategoryField: FC<any> = ({ control, name, className }) => {
       <Controller
         control={control}
         name={name}
-        rules={{
-          required: 'Выберите вертикаль'
-        }}
+        rules={
+          isRequired
+            ? {
+                required: 'Выберите вертикаль'
+              }
+            : {}
+        }
         render={({ field, fieldState: { error } }) => (
           <DynamicSelect
             field={field}

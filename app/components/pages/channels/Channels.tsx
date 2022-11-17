@@ -10,6 +10,7 @@ import CategoryField from '@/components/shared/fields/CategoryField/CategoryFiel
 
 import Modal from '@/ui/Modal/Modal';
 import Button from '@/ui/form-elements/Button';
+import formStyles from '@/ui/form-elements/form.module.scss';
 
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
@@ -38,28 +39,40 @@ const Channels: FC = () => {
     <Meta title="Channels" description="Channels in telegram">
       <Modal title="Добавить канал">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mt-5">
-            <Controller
-              control={control}
-              name="id_channel"
-              render={({ field: { onChange, value } }) => (
-                <input
-                  type="text"
-                  onChange={onChange}
-                  placeholder="Введите id канала"
-                />
+          <div className="mb-10">
+            <div className="relative">
+              <Controller
+                control={control}
+                name="id_channel"
+                rules={{
+                  required: 'Введите id канала'
+                }}
+                render={({ field: { onChange, value } }) => (
+                  <input
+                    type="text"
+                    onChange={onChange}
+                    placeholder="Введите id канала"
+                  />
+                )}
+              />
+              {errors.id_channel && (
+                <span className={formStyles.error}>Укажите id канала</span>
               )}
-            />
+            </div>
           </div>
           <div className="mb-5 flex items-center">
             <CategoryField
               className="mr-5"
               control={control}
               name="categories"
+              isRequired
             />
             <Controller
               control={control}
               name="language"
+              rules={{
+                required: 'Выберите язык'
+              }}
               render={({ field, fieldState: { error } }) => (
                 <DynamicSelect
                   field={field}
@@ -73,7 +86,6 @@ const Channels: FC = () => {
                   isMulti={false}
                   placeholder="Выбрать язык"
                   error={error}
-                  classNamePrefix="media-select"
                 />
               )}
             />

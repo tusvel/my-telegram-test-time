@@ -18,6 +18,9 @@ const Select: FC<ISelect> = ({
   formatOptionLabel
 }) => {
   const onChange = (newValue: unknown | OnChangeValue<IOption, boolean>) => {
+    if (newValue === null) {
+      return field.onChange('');
+    }
     field.onChange(
       isMulti
         ? (newValue as IOption[]).map((item) => item.value)
@@ -48,6 +51,7 @@ const Select: FC<ISelect> = ({
           components={animatedComponents}
           formatOptionLabel={formatOptionLabel}
           isLoading={isLoading}
+          isClearable
         />
       </label>
       {error && <div className={formStyles.error}>{error.message}</div>}

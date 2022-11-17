@@ -1,5 +1,3 @@
-import { $generateHtmlFromNodes } from '@lexical/html';
-import { LexicalEditor } from 'lexical';
 import dynamic from 'next/dynamic';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -16,6 +14,7 @@ import Button from '@/ui/form-elements/Button';
 import Field from '@/ui/form-elements/Field';
 import Toggle from '@/ui/form-elements/Toggle';
 import styles from '@/ui/form-elements/form.module.scss';
+import formStyles from '@/ui/form-elements/form.module.scss';
 
 import { IButton } from '@/shared/types/button.interface';
 
@@ -38,23 +37,16 @@ const CreatePost: FC = () => {
     formState: { errors },
     control,
     reset,
-    watch
+    watch,
+    setError
   } = useForm<IPostInput>({
     mode: 'onChange'
   });
-  const save = (editor: LexicalEditor) => {
-    let html;
-    const rootElement = editor.getRootElement();
-    if (rootElement) {
-      editor.update(() => {
-        html = $generateHtmlFromNodes(editor, null);
-      });
-      return html;
-    }
-  };
-  const { onSubmit, setEditor } = useCreatePost(save, reset);
+  const { onSubmit, setEditor } = useCreatePost(reset, setError);
   const buttonsLs = getStoreLocal('buttons') || [];
   const buttonIOptions = convertSelect(buttonsLs, 'label', 'value');
+
+  register('text');
 
   const formatOptionButton = ({ value, label }: IButton) => (
     <div className="flex image-select__image-option">
@@ -64,7 +56,12 @@ const CreatePost: FC = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <ChannelField className="mb-5" control={control} name="channel" />
+        <ChannelField
+          isRequired={true}
+          className="mb-5"
+          control={control}
+          name="channel"
+        />
         <SelectText />
         <div className="flex mt-5 max-w-screen-xl justify-between mb-5 min-w-[1280px]">
           <div>
@@ -77,20 +74,21 @@ const CreatePost: FC = () => {
                 />
                 <MediaField
                   control={control}
-                  name="old_media"
+                  name="media_id"
                   className="mb-5"
                 />
-                <Button className="mt-7">Создать</Button>
+                <div className="relative">
+                  <Button className="mt-7 mb-3">Создать</Button>
+                  {errors.text && (
+                    <span className={formStyles.error}>Введите текст</span>
+                  )}
+                </div>
               </div>
               <div>
                 <Controller
                   control={control}
                   name="text"
-                  render={({
-                    field: { onChange, value },
-                    fieldState: { error }
-                    // @ts-ignore
-                  }) => <TextEditor setEditor={setEditor} />}
+                  render={() => <TextEditor setEditor={setEditor} />}
                 />
               </div>
             </div>
@@ -100,8 +98,8 @@ const CreatePost: FC = () => {
               <div>Полноценно/Превью</div>
               <Controller
                 control={control}
-                name="media_style"
-                defaultValue={false}
+                name="is_preview"
+                defaultValue={''}
                 render={({ field: { value, onChange } }) => (
                   <Toggle value={value} onChange={onChange} />
                 )}
@@ -182,14 +180,14 @@ const CreatePost: FC = () => {
               <div>Запланировать дату</div>
               <Controller
                 control={control}
-                name="send_time"
+                name="is_send_time"
                 defaultValue={false}
                 render={({ field: { value, onChange } }) => (
                   <Toggle value={value} onChange={onChange} />
                 )}
               />
             </div>
-            {watch('send_time') && (
+            {watch('is_send_time') && (
               <div className="flex mb-5">
                 <div className="mr-5">
                   <div>Выберите дату</div>

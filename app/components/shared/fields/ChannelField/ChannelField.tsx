@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { FC } from 'react';
@@ -14,21 +15,14 @@ const ChannelField: FC<any> = ({
   control,
   name,
   className,
-  isMulti = false
+  isMulti = false,
+  isRequired = false
 }) => {
   const { items: chanelItems, isLoading } = useTypedSelector(
     (state) => state.channel
   );
   const optionsItems = convertSelect(
-    [
-      {
-        title: 'Не привязан к каналу',
-        id: 'null',
-        profice_picture:
-          'https://images.unsplash.com/photo-1604147706283-d7119b5b822c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'
-      },
-      ...(chanelItems || [])
-    ],
+    [...(chanelItems || [])],
     'title',
     'id',
     'profice_picture'
@@ -47,13 +41,17 @@ const ChannelField: FC<any> = ({
   );
 
   return (
-    <div className={className}>
+    <div className={cn(className, 'my-3')}>
       <Controller
         control={control}
         name={name}
-        rules={{
-          required: 'Пожалуйста укажите канал'
-        }}
+        rules={
+          isRequired
+            ? {
+                required: 'Пожалуйста укажите канал'
+              }
+            : {}
+        }
         render={({ field, fieldState: { error } }) => (
           <DynamicSelect
             field={field}

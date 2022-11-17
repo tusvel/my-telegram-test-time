@@ -21,8 +21,9 @@ const PostItem: FC<{ item: IPost }> = ({ item }) => {
       <div className="flex flex-col">
         <div className="flex basis-20 flex-wrap">
           {item.media?.length > 0 &&
-            item.media.map((media) => (
+            item.media.map((media, index) => (
               <Image
+                key={index}
                 className="image-like-bg mr-5 mb-4"
                 src={media}
                 alt={media}

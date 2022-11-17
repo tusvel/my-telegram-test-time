@@ -7,7 +7,7 @@ import { ITag } from '@/shared/types/tag.interface';
 export interface IText extends IBasic {
   categories: CategoryType;
   language: LanguageType;
-  channel: IChannel;
+  channel?: IChannel;
   tags: ITag[];
   text: string;
 }

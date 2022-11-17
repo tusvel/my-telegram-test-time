@@ -4,7 +4,7 @@ import { IPost } from '@/shared/types/post.interface';
 
 import { getPostsUrl } from '@/config/api.config';
 
-import { $host } from '../api/interceptors';
+import { $auth, $host } from '../api/interceptors';
 
 export const PostService = {
   async getAll() {
@@ -12,7 +12,8 @@ export const PostService = {
     return response.data;
   },
   async create(data: IPostInput) {
-    return 1;
+    const response = await $auth.post('post', { data });
+    return response;
   },
   async repost(data: IPost, id: string) {
     return 123;

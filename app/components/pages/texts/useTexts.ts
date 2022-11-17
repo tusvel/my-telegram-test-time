@@ -11,7 +11,7 @@ import { TextService } from '@/services/text.service';
 
 import { telegramConverter } from '@/utils/telegram-converter';
 
-export const useCreateText = () => {
+export const useCreateText: any = (setError: any) => {
   const { mutateAsync } = useMutation('Create text', (data: ITextInput) =>
     TextService.create(data)
   );
@@ -24,7 +24,15 @@ export const useCreateText = () => {
   }
 
   const onSubmit: SubmitHandler<ITextInput> = async (data) => {
+    if (data.channel === undefined) {
+      delete data.channel;
+    }
+
     data.text = telegramConverter(useSave(editor), null, 'html') as string;
+    if (data.text?.length < 8) {
+      return setError('text', { type: 'custom', message: 'Введите текст' });
+    }
+
     console.log(data);
     await mutateAsync(data);
     clear(editor);

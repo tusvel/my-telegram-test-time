@@ -14,6 +14,7 @@ import TextFields from '@/components/shared/fields/textFields/textFields';
 import Button from '@/components/ui/form-elements/Button';
 
 import Modal from '@/ui/Modal/Modal';
+import formStyles from '@/ui/form-elements/form.module.scss';
 
 import { useCategories } from '@/hooks/filter/useCategories';
 import { useSearch } from '@/hooks/filter/useSearch';
@@ -33,17 +34,24 @@ const Texts: FC = () => {
     text: { items: textItems },
     textEdit: { items: textEdit }
   } = useTypedSelector((state) => state);
-  const { handleSubmit, control } = useForm<ITextInput>({
+  const {
+    control,
+    handleSubmit,
+    setError,
+    register,
+    formState: { errors }
+  } = useForm<ITextInput>({
     mode: 'onChange'
   });
   const dispatch = useAppDispatch();
   const clearTextItems = () => {
     dispatch(clear());
   };
-  const { onSubmit, setEditor } = useCreateText();
+  const { onSubmit, setEditor } = useCreateText(setError);
   const { onEditSubmit } = useEditText(clearTextItems);
 
   //filter
+  register('text');
   const categories = useWatch({
     control,
     name: 'categories'
@@ -64,10 +72,13 @@ const Texts: FC = () => {
           <Modal title="Добавить текст">
             <form onSubmit={handleSubmit(onSubmit)}>
               <TextFields control={control} />
-              <TagField control={control} name="tags" className="mr-5 my-5" />
+              <TagField control={control} name="tags" className="mr-5 mb-8" />
               <SelectText />
               <div className="relative">
                 <TextEditor setEditor={setEditor} />
+                {errors.text && (
+                  <span className={formStyles.error}>Введите текст</span>
+                )}
               </div>
               <Button className="absolute bottom-5 right-5">
                 Создать текст

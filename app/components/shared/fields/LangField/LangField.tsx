@@ -7,13 +7,25 @@ import { LanguageType } from '@/shared/types/language.type';
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
 });
-const LangField: FC<any> = ({ control, name, className }) => {
+const LangField: FC<any> = ({
+  control,
+  name,
+  className,
+  isRequired = false
+}) => {
   return (
     <div className={className}>
       <Controller
         control={control}
         name={name}
         defaultValue={'ru'}
+        rules={
+          isRequired
+            ? {
+                required: 'Выберите язык'
+              }
+            : {}
+        }
         render={({ field, fieldState: { error } }) => (
           <DynamicSelect
             field={field}

@@ -1,12 +1,10 @@
 import { useMemo } from 'react';
 
-import { IText } from '@/shared/types/text.interface';
-
-export const useSearch = (items: IText[] | null, query: string) => {
+export const useSearch = (items: any, query: string) => {
   return useMemo(() => {
     return (
       items &&
-      items.filter((item) =>
+      items.filter((item: any) =>
         item.text.toLowerCase().includes(query?.toLowerCase())
       )
     );
