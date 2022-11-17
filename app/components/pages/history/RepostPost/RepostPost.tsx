@@ -11,7 +11,7 @@ import Button from '@/ui/form-elements/Button';
 
 import { useOutside } from '@/hooks/useOutside';
 
-import { IPost } from '@/shared/types/post.interface';
+import { IPost } from '@/shared/types/post/post-create.interface';
 
 import repostImage from '@/assets/icons/repost.svg';
 

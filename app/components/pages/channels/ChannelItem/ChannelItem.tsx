@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { FC } from 'react';
 
-import { IChannel } from '@/shared/types/channel.interface';
+import { IChannelBase } from '@/shared/types/channel/channel-response.interface';
 
 const ChannelItem: FC<{ item: IChannel }> = ({ item }) => {
   return (
@@ -17,7 +17,7 @@ const ChannelItem: FC<{ item: IChannel }> = ({ item }) => {
           />
           <div className="flex flex-col justify-between">
             <div className="text-xl mt-[-6px]">{item.title}</div>
-            <div>@{item.categories}</div>
+            <div>@{item.vertical}</div>
           </div>
         </div>
       </div>

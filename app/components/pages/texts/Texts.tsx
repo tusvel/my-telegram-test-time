@@ -8,17 +8,17 @@ import TextItem from '@/pages/texts/TextItem/TextItem';
 import { useCreateText } from '@/pages/texts/useTexts';
 import { useEditText } from '@/pages/texts/useTextsEdit';
 
-import CategoryField from '@/components/shared/fields/CategoryField/CategoryField';
 import TagField from '@/components/shared/fields/TagField/TagField';
+import VerticalField from '@/components/shared/fields/VerticalField/VerticalField';
 import TextFields from '@/components/shared/fields/textFields/textFields';
 import Button from '@/components/ui/form-elements/Button';
 
 import Modal from '@/ui/Modal/Modal';
 import formStyles from '@/ui/form-elements/form.module.scss';
 
-import { useCategories } from '@/hooks/filter/useCategories';
 import { useSearch } from '@/hooks/filter/useSearch';
 import { useTags } from '@/hooks/filter/useTags';
+import { useVertical } from '@/hooks/filter/useVertical';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
@@ -52,9 +52,9 @@ const Texts: FC = () => {
 
   //filter
   register('text');
-  const categories = useWatch({
+  const vertical = useWatch({
     control,
-    name: 'categories'
+    name: 'vertical'
   });
   const tags = useWatch({
     control,
@@ -63,7 +63,7 @@ const Texts: FC = () => {
   const [value, setValue] = useState('');
   const textsItem = useSearch(textItems, value);
   const filterTags = useTags(textsItem, tags);
-  const filterCategory = useCategories(filterTags, categories);
+  const filterVertical = useVertical(filterTags, vertical);
 
   return (
     <Meta title="Texts" description="Texts in telegram">
@@ -112,12 +112,12 @@ const Texts: FC = () => {
             }}
           />
           <TagField required={false} control={control} name="tags_search" />
-          <CategoryField className="ml-5" control={control} name="categories" />
+          <VerticalField className="ml-5" control={control} name="vertical" />
         </div>
         <ul role="list" className="space-y-3 mt-5">
-          {filterCategory &&
-            filterCategory?.length > 0 &&
-            filterCategory.map((item) => (
+          {filterVertical &&
+            filterVertical?.length > 0 &&
+            filterVertical.map((item) => (
               <div key={item.id}>
                 <TextItem check={true} item={item} />
               </div>

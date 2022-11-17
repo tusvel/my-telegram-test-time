@@ -1,4 +1,4 @@
-import { IPost } from '@/shared/types/post.interface';
+import { IPost } from '@/shared/types/post/post-create.interface';
 
 export interface IPostInput extends Omit<IPost, 'id' | 'is_publisched'> {
   apply_button: string;

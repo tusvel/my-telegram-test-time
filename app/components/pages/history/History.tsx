@@ -5,7 +5,7 @@ import PostItem from '@/pages/history/PostItem';
 import { useSearch } from '@/hooks/filter/useSearch';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
-import { IPost } from '@/shared/types/post.interface';
+import { IPost } from '@/shared/types/post/post-create.interface';
 
 import Meta from '@/utils/meta/Meta';
 

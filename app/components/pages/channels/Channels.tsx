@@ -6,7 +6,7 @@ import ChannelItem from '@/pages/channels/ChannelItem/ChannelItem';
 import { IChannelInput } from '@/pages/channels/IChannelInput';
 import { useCreateChannel } from '@/pages/channels/useChannels';
 
-import CategoryField from '@/components/shared/fields/CategoryField/CategoryField';
+import VerticalField from '@/components/shared/fields/VerticalField/VerticalField';
 
 import Modal from '@/ui/Modal/Modal';
 import Button from '@/ui/form-elements/Button';
@@ -14,7 +14,7 @@ import formStyles from '@/ui/form-elements/form.module.scss';
 
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
-import { LanguageType } from '@/shared/types/language.type';
+import { LanguageType } from '@/shared/types/language/language.type';
 
 import Meta from '@/utils/meta/Meta';
 
@@ -61,10 +61,10 @@ const Channels: FC = () => {
             </div>
           </div>
           <div className="mb-5 flex items-center">
-            <CategoryField
+            <VerticalField
               className="mr-5"
               control={control}
-              name="categories"
+              name="vertical"
               isRequired
             />
             <Controller

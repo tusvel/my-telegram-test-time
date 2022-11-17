@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import { FC } from 'react';
 import { Controller } from 'react-hook-form';
 
-import { LanguageType } from '@/shared/types/language.type';
+import { LanguageType } from '@/shared/types/language/language.type';
 
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false

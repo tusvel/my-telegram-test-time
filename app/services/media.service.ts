@@ -1,6 +1,6 @@
 import { IMediaInput } from '@/pages/media/IMediaInput';
 
-import { IMedia } from '@/shared/types/media.interface';
+import { IMedia } from '@/shared/types/media/media.interface';
 
 import { getMediasUrl } from '@/config/api.config';
 

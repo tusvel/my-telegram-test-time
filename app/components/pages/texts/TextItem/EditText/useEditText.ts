@@ -6,8 +6,6 @@ import { useMutation } from 'react-query';
 
 import { ITextInput } from '@/pages/texts/ITextInput';
 
-import { IText } from '@/shared/types/text.interface';
-
 import { TextService } from '@/services/text.service';
 
 import { getKeys } from '@/utils/object/getKeys';
@@ -16,7 +14,7 @@ import { telegramConverter } from '@/utils/telegram-converter';
 export const useTextEdit = (
   setValue: UseFormSetValue<ITextInput>,
   save: any,
-  item: IText
+  item: ITextInput
 ) => {
   const [editor, setEditor] = useState<any>();
   const htmlInEdit = (editor: LexicalEditor) => {
@@ -28,11 +26,10 @@ export const useTextEdit = (
       $insertNodes(nodes);
     });
   };
-
-  const tags = item.tags.map((item) => item.id);
+  const tags = item.tags.map((item: any) => item);
 
   useEffect(() => {
-    getKeys(item).forEach((key: keyof IText) => {
+    getKeys(item).forEach((key: keyof ITextInput) => {
       if (key === 'tags') {
         return setValue(key, tags);
       }

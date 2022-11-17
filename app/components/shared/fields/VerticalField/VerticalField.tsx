@@ -7,7 +7,7 @@ import { convertSelect } from '@/utils/convertSelect';
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
 });
-const CategoryField: FC<any> = ({
+const VerticalField: FC<any> = ({
   control,
   name,
   className,
@@ -48,4 +48,4 @@ const CategoryField: FC<any> = ({
   );
 };
 
-export default CategoryField;
+export default VerticalField;

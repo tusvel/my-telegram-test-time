@@ -1,4 +1,4 @@
-import { ITag } from '@/shared/types/tag.interface';
+import { ITag } from '@/shared/types/tag/tag-create.interface';
 
 import { getTagsUrl } from '@/config/api.config';
 

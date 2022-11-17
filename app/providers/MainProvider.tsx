@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import Layout from '@/components/layout/Layout';
 
-import { TypeComponentAuthFields } from '@/shared/types/auth.types';
+import { TypeComponentAuthFields } from '@/shared/types/auth/auth.types';
 
 import { store } from '@/store/store';
 

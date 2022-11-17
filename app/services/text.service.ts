@@ -4,7 +4,7 @@ import { IText } from '@/shared/types/text.interface';
 
 import { getTextsUrl } from '@/config/api.config';
 
-import { $host } from '../api/interceptors';
+import { $auth, $host } from '../api/interceptors';
 
 export const TextService = {
   async getAll() {
@@ -16,17 +16,18 @@ export const TextService = {
     return response.data;*/
     return 123;
   },
-  async edit(id: string, data: any) {
-    return 123;
+  async edit(id: number, data: ITextInput) {
+    const response = await $auth.patch('post_text', { data });
+    return response;
   },
   async editItem(data: any) {
     return 123;
   },
-  async getById(id: string): Promise<any> {
+  async getById(id: number): Promise<any> {
     return {
       data: {
         id: '6367a66d7195f864607e7853',
-        categories: 'gambling',
+        vertical: 'gambling',
         language: 'ru',
         channel: '63679624e01474347b736199',
         tags: ['minim', 'non'],

@@ -1,7 +1,7 @@
 import { SubmitHandler } from 'react-hook-form';
 import { useMutation } from 'react-query';
 
-import { IPost } from '@/shared/types/post.interface';
+import { IPost } from '@/shared/types/post/post-create.interface';
 
 import { PostService } from '@/services/post.service';
 

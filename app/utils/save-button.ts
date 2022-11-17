@@ -1,4 +1,4 @@
-import { IButton } from '@/shared/types/button.interface';
+import { IButton } from '@/shared/types/form/button.interface';
 
 import { getStoreLocal } from '@/utils/local-storage';
 

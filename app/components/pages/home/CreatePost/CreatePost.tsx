@@ -16,7 +16,7 @@ import Toggle from '@/ui/form-elements/Toggle';
 import styles from '@/ui/form-elements/form.module.scss';
 import formStyles from '@/ui/form-elements/form.module.scss';
 
-import { IButton } from '@/shared/types/button.interface';
+import { IButton } from '@/shared/types/form/button.interface';
 
 import { convertSelect } from '@/utils/convertSelect';
 import { getStoreLocal } from '@/utils/local-storage';

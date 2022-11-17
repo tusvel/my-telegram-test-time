@@ -15,7 +15,7 @@ import Button from '@/ui/form-elements/Button';
 
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
-import { LanguageType } from '@/shared/types/language.type';
+import { LanguageType } from '@/shared/types/language/language.type';
 
 import { convertSelect } from '@/utils/convertSelect';
 import Meta from '@/utils/meta/Meta';

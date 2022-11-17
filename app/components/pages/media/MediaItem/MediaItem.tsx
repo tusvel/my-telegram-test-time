@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { FC } from 'react';
 
-import { IMedia } from '@/shared/types/media.interface';
+import { IMedia } from '@/shared/types/media/media.interface';
 
 const MediaItem: FC<{ item: IMedia }> = ({ item }) => {
   return (

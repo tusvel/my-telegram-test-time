@@ -6,7 +6,7 @@ import { IPostInput } from '@/pages/home/CreatePost/create-post.interface';
 
 import { useSave } from '@/hooks/textEditor/useSave';
 
-import { IButton } from '@/shared/types/button.interface';
+import { IButton } from '@/shared/types/form/button.interface';
 
 import { PostService } from '@/services/post.service';
 
@@ -34,9 +34,6 @@ export const useCreatePost: any = (reset: any, setError: any) => {
     }
     delete data.is_send_time;
 
-    /*    const responseMedia = await MediaService.create(data.media);
-    responseMedia.map((item) => item.url);
-    data.media_id = [...data.media_id, ...responseMedia];*/
     data.text = telegramConverter(useSave(editor), null, 'html') as string;
     if (data.text?.length < 8) {
       return setError('text', { type: 'custom', message: 'Введите текст' });
@@ -48,3 +45,6 @@ export const useCreatePost: any = (reset: any, setError: any) => {
 
   return { onSubmit, setEditor };
 };
+/*    const responseMedia = await MediaService.create(data.media);
+responseMedia.map((item) => item.url);
+data.media_id = [...data.media_id, ...responseMedia];*/

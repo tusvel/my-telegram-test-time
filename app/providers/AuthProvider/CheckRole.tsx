@@ -3,7 +3,7 @@ import { FC, PropsWithChildren } from 'react';
 
 import { useAuth } from '@/hooks/useAuth';
 
-import { TypeComponentAuthFields } from '@/shared/types/auth.types';
+import { TypeComponentAuthFields } from '@/shared/types/auth/auth.types';
 
 const CheckRole: FC<PropsWithChildren & TypeComponentAuthFields> = ({
   Component: { isOnlySuperAdmin, isOnlyAdmin, isOnlyUser },

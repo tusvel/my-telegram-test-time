@@ -1,6 +1,6 @@
 import { IPostInput } from '@/pages/home/CreatePost/create-post.interface';
 
-import { IPost } from '@/shared/types/post.interface';
+import { IPost } from '@/shared/types/post/post-create.interface';
 
 import { getPostsUrl } from '@/config/api.config';
 
@@ -15,7 +15,7 @@ export const PostService = {
     const response = await $auth.post('post', { data });
     return response;
   },
-  async repost(data: IPost, id: string) {
+  async repost(data: IPost, id: number) {
     return 123;
   }
 };

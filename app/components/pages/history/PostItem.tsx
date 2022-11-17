@@ -6,7 +6,7 @@ import RepostPost from '@/pages/history/RepostPost/RepostPost';
 
 import Button from '@/components/ui/form-elements/Button';
 
-import { IPost } from '@/shared/types/post.interface';
+import { IPost } from '@/shared/types/post/post-create.interface';
 
 import styles from './PostItem.module.scss';
 

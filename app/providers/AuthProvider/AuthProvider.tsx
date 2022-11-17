@@ -6,7 +6,7 @@ import { FC, PropsWithChildren, useEffect } from 'react';
 import { useActions } from '@/hooks/useActions';
 import { useAuth } from '@/hooks/useAuth';
 
-import { TypeComponentAuthFields } from '@/shared/types/auth.types';
+import { TypeComponentAuthFields } from '@/shared/types/auth/auth.types';
 
 const DynamicCheckRole = dynamic(() => import('./CheckRole'), {
   ssr: false

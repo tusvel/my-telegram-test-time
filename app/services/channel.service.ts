@@ -1,6 +1,6 @@
 import { IChannelInput } from '@/pages/channels/IChannelInput';
 
-import { IChannel } from '@/shared/types/channel.interface';
+import { IChannelBase } from '@/shared/types/channel/channel-response.interface';
 
 import { getChannelsUrl } from '@/config/api.config';
 

@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 import { useRenderClient } from '@/hooks/useRenderClient';
 
-import { TypeMaterialIconName } from '@/shared/types/icons.type';
+import { TypeMaterialIconName } from '@/shared/types/icons/icons.type';
 
 const MaterialIcon: FC<{ name: TypeMaterialIconName }> = ({ name }) => {
   const { isRenderClient } = useRenderClient();
