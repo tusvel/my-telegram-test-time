@@ -54,7 +54,7 @@ const EditText: FC<{ item: IText }> = ({ item }) => {
           <div ref={ref} className={styles.selectTextContent}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <TextFields control={control} />
-              <TagField control={control} name="tags" className="mr-5 mb-5" />
+              <TagField control={control} name="tags" className="mr-5 my-7" />
               <SelectText />
               <div className="relative">
                 <TextEditor setEditor={setEditor} />

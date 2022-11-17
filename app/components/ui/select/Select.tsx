@@ -38,7 +38,7 @@ const Select: FC<ISelect> = ({
   return (
     <div className="relative">
       <label>
-        <span>{placeholder}</span>
+        <span className={formStyles.placeholder}>{placeholder}</span>
         <ReactSelect
           classNamePrefix={classNamePrefix}
           options={options}

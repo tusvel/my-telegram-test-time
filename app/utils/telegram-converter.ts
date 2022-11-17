@@ -1,7 +1,7 @@
 import { IText } from '@/shared/types/text.interface';
 
 export const telegramConverter = (
-  code: string | null,
+  code: string | undefined,
   items: IText[] | null,
   typeCode: string
 ) => {

@@ -29,7 +29,7 @@ const SelectText: FC = () => {
     control,
     name: 'tags_search'
   });
-  const textItems = telegramConverter(null, items, '') as IText[];
+  const textItems = telegramConverter(undefined, items, '') as IText[];
 
   const textsItem = useSearch(textItems, value);
   const filterTags = useTags(textsItem, tags);

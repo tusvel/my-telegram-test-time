@@ -10,11 +10,11 @@ import LangField from '@/components/shared/fields/LangField/LangField';
 const TextFields: FC<{ control: Control<ITextInput> }> = ({ control }) => {
   return (
     <div>
-      <div className="flex items-center my-5">
+      <div className="flex items-center my-6">
         <ChannelField className="mr-5" control={control} name="channel" />
         <CategoryField className="mr-5" control={control} name="categories" />
       </div>
-      <div className="mb-5 flex items-center">
+      <div className="mb-3 flex items-center">
         <LangField control={control} name="language" />
       </div>
     </div>

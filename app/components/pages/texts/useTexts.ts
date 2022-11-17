@@ -5,15 +5,17 @@ import { useMutation } from 'react-query';
 
 import { ITextInput } from '@/pages/texts/ITextInput';
 
+import { useSave } from '@/hooks/textEditor/useSave';
+
 import { TextService } from '@/services/text.service';
 
 import { telegramConverter } from '@/utils/telegram-converter';
 
-export const useCreateText: any = (save: any) => {
+export const useCreateText = () => {
   const { mutateAsync } = useMutation('Create text', (data: ITextInput) =>
     TextService.create(data)
   );
-  const [editor, setEditor] = useState();
+  const [editor, setEditor] = useState<any>();
 
   function clear(editor: any) {
     editor.update(() => {
@@ -22,10 +24,9 @@ export const useCreateText: any = (save: any) => {
   }
 
   const onSubmit: SubmitHandler<ITextInput> = async (data) => {
-    data.text = telegramConverter(save(editor), null, 'html') as string;
+    data.text = telegramConverter(useSave(editor), null, 'html') as string;
     console.log(data);
     await mutateAsync(data);
-    save(editor, true);
     clear(editor);
   };
 
