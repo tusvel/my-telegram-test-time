@@ -1,6 +1,6 @@
-import { IPost } from '@/shared/types/post/post-create.interface';
+import { IPostResponse } from '@/shared/types/post/post-response.interface';
 
 export interface IPostInitialState {
-  items: IPost[] | null;
+  items: IPostResponse[] | null;
   isLoading: boolean;
 }

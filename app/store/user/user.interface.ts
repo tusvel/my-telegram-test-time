@@ -1,13 +1,9 @@
-import { IUser } from '@/shared/types/user/user-create.interface';
+import { ITokens } from '@/shared/types/auth/jwt/tokens-response.interface';
+import { IUserResponse } from '@/shared/types/user/user-response.interface';
 
 export interface IUserInitialState {
-  user: IUser | null;
+  user: IUserResponse | null;
   isLoading: boolean;
-}
-
-export interface ITokens {
-  accessToken: string;
-  refreshToken: string;
 }
 
 export interface IEmailPassword {
@@ -16,5 +12,5 @@ export interface IEmailPassword {
 }
 
 export interface IAuthResponse extends ITokens {
-  user: IUser;
+  user: IUserResponse;
 }

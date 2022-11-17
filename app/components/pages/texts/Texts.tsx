@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import { FC, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
-import SelectText from '@/pages/home/SelectText/SelectText';
+import SelectText from '@/pages/../../shared/SelectText/SelectText';
 import { ITextInput } from '@/pages/texts/ITextInput';
 import TextItem from '@/pages/texts/TextItem/TextItem';
 import { useCreateText } from '@/pages/texts/useTexts';

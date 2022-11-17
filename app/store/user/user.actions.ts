@@ -7,7 +7,7 @@ import { errorHandler } from '@/utils/errorHandler';
 import { IAuthResponse, IEmailPassword } from '@/store/user/user.interface';
 
 export const register = createAsyncThunk<IAuthResponse, IEmailPassword>(
-  'auth/register',
+  'AuthService/register',
   async ({ email, password }, thunkApi) => {
     try {
       const response = await AuthService.register(email, password);
@@ -19,7 +19,7 @@ export const register = createAsyncThunk<IAuthResponse, IEmailPassword>(
 );
 
 export const login = createAsyncThunk<IAuthResponse, IEmailPassword>(
-  'auth/login',
+  'AuthService/login',
   async ({ email, password }, thunkApi) => {
     try {
       const response = await AuthService.login(email, password);
@@ -30,12 +30,12 @@ export const login = createAsyncThunk<IAuthResponse, IEmailPassword>(
   }
 );
 
-export const logout = createAsyncThunk('auth/logout', async () => {
+export const logout = createAsyncThunk('AuthService/logout', async () => {
   await AuthService.logout();
 });
 
 export const checkAuth = createAsyncThunk(
-  'auth/checkAuth',
+  'AuthService/checkAuth',
   async (_, thunkApi) => {
     try {
       const response = await AuthService.getNewTokens();

@@ -1,6 +1,6 @@
-import { IText } from '@/shared/types/text.interface';
+import { IPostTextResponse } from '../../shared/types/post-text/post-text-response.interface';
 
 export interface ITextInitialState {
-  items: IText[] | null;
+  items: IPostTextResponse[] | null;
   isLoading: boolean;
 }

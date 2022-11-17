@@ -3,11 +3,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ChannelService } from '@/services/channel/channel.service';
 
 export const getAllChannels = createAsyncThunk(
-  'channel/getAll',
+  'ChannelService/getAll',
   async (_, thunkAPI) => {
     try {
-      const response = await ChannelService.getAll();
-      return response;
+      const { data } = await ChannelService.getAll();
+      return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

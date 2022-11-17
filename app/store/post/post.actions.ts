@@ -3,11 +3,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { PostService } from '@/services/post/post.service';
 
 export const getAllPosts = createAsyncThunk(
-  'posts/getAll',
+  'PostService/getAll',
   async (_, thunkAPI) => {
     try {
       const response = await PostService.getAll();
-      return response;
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

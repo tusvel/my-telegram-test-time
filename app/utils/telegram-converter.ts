@@ -1,8 +1,8 @@
-import { IText } from '@/shared/types/text.interface';
+import { IPostTextResponse } from '@/shared/types/post-text/post-text-response.interface';
 
 export const telegramConverter = (
   code: string | undefined,
-  items: IText[] | null,
+  items: IPostTextResponse[] | null,
   typeCode: string
 ) => {
   const parser = new DOMParser();

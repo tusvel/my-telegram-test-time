@@ -9,7 +9,7 @@ const initialState: IMediaInitialState = {
 };
 
 export const mediaSlice = createSlice({
-  name: 'text',
+  name: 'media',
   initialState,
   reducers: {},
   extraReducers: (builder) => {

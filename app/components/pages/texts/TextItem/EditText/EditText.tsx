@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { FC, MouseEvent } from 'react';
 import { useForm } from 'react-hook-form';
 
-import SelectText from '@/pages/home/SelectText/SelectText';
+import SelectText from '@/pages/../../../../shared/SelectText/SelectText';
 import { ITextInput } from '@/pages/texts/ITextInput';
 import { useTextEdit } from '@/pages/texts/TextItem/EditText/useEditText';
 import styles from '@/pages/texts/TextItem/TextItem.module.scss';

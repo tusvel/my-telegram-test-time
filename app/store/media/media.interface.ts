@@ -1,6 +1,6 @@
-import { IMedia } from '@/shared/types/media/media.interface';
+import { IMediaResponse } from '@/shared/types/media/media-response.interface';
 
 export interface IMediaInitialState {
-  items: IMedia[] | null;
+  items: IMediaResponse[] | null;
   isLoading: boolean;
 }

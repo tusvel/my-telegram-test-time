@@ -5,7 +5,7 @@ import {
   saveToStorage
 } from '@/services/auth/auth.helper';
 
-import { getAuthUrl } from '@/config/api.config';
+import { getAuthenticateApi } from '@/config/api.config';
 
 import { IAuthResponse } from '@/store/user/user.interface';
 
@@ -13,7 +13,7 @@ import { $host } from '../../api/interceptors';
 
 export const AuthService = {
   async register(email: string, password: string) {
-    const response = await $host.post(getAuthUrl('/register'), {
+    const response = await $host.post(getAuthenticateApi('/register'), {
       email,
       password
     });
@@ -24,7 +24,7 @@ export const AuthService = {
   },
 
   async login(email: string, password: string) {
-    const response = await $host.post(getAuthUrl('/login'), {
+    const response = await $host.post(getAuthenticateApi('/login'), {
       email,
       password
     });
@@ -42,7 +42,7 @@ export const AuthService = {
   async getNewTokens() {
     const refreshToken = Cookies.get('refreshToken');
     const response = await $host.post<IAuthResponse>(
-      getAuthUrl('/login/access-token'),
+      getAuthenticateApi('/refresh'),
       {
         refreshToken
       }

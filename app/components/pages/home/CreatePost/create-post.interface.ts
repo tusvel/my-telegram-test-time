@@ -1,8 +1,6 @@
-import { IPost } from '@/shared/types/post/post-create.interface';
+import { IPostCreateRequest } from '@/shared/types/post/post-create.interface';
 
-export interface IPostInput extends Omit<IPost, 'id' | 'is_publisched'> {
-  apply_button: string;
-  value_button: string;
-  schedule_time: string[];
-  is_send_time?: boolean;
+export interface ICreatePost extends IPostCreateRequest {
+  media: any;
+  schedule_time: Date;
 }

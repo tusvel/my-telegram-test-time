@@ -2,8 +2,8 @@ import dynamic from 'next/dynamic';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
-import { IPostInput } from '@/pages/home/CreatePost/create-post.interface';
-import { useCreatePost } from '@/pages/home/CreatePost/useCreatePost';
+import { ICreatePost } from '@/pages/home/CreatePost/create-post.interface';
+import { usePostForm } from '@/pages/home/CreatePost/usePostForm';
 
 import ChannelField from '@/components/shared/fields/ChannelField/ChannelField';
 import DropField from '@/components/shared/fields/DropField/DropField';
@@ -16,20 +16,21 @@ import Toggle from '@/ui/form-elements/Toggle';
 import styles from '@/ui/form-elements/form.module.scss';
 import formStyles from '@/ui/form-elements/form.module.scss';
 
-import { IButton } from '@/shared/types/form/button.interface';
+import { getButtons } from '@/utils/button/getButtons';
 
-import { convertSelect } from '@/utils/convertSelect';
-import { getStoreLocal } from '@/utils/local-storage';
-
-const SelectText = dynamic(() => import('@/pages/home/SelectText/SelectText'), {
-  ssr: false
-});
+const SelectText = dynamic(
+  () => import('@/components/shared/SelectText/SelectText'),
+  {
+    ssr: false
+  }
+);
 const TextEditor = dynamic(() => import('@/ui/TextEditor/TextEditor.js'), {
   ssr: false
 });
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
 });
+
 const CreatePost: FC = () => {
   const {
     handleSubmit,
@@ -39,20 +40,15 @@ const CreatePost: FC = () => {
     reset,
     watch,
     setError
-  } = useForm<IPostInput>({
+  } = useForm<ICreatePost>({
     mode: 'onChange'
   });
-  const { onSubmit, setEditor } = useCreatePost(reset, setError);
-  const buttonsLs = getStoreLocal('buttons') || [];
-  const buttonIOptions = convertSelect(buttonsLs, 'label', 'value');
+
+  const { onSubmit, setEditor } = usePostForm(reset, setError);
+  const { formatOptionButton, buttonIOptions } = getButtons();
 
   register('text');
 
-  const formatOptionButton = ({ value, label }: IButton) => (
-    <div className="flex image-select__image-option">
-      {label} : {value}
-    </div>
-  );
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -60,7 +56,7 @@ const CreatePost: FC = () => {
           isRequired={true}
           className="mb-5"
           control={control}
-          name="channel"
+          name="channel_id"
         />
         <SelectText />
         <div className="flex mt-5 max-w-screen-xl justify-between mb-5 min-w-[1280px]">
@@ -99,7 +95,7 @@ const CreatePost: FC = () => {
               <Controller
                 control={control}
                 name="is_preview"
-                defaultValue={''}
+                defaultValue={false}
                 render={({ field: { value, onChange } }) => (
                   <Toggle value={value} onChange={onChange} />
                 )}

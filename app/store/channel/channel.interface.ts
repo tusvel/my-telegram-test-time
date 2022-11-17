@@ -1,6 +1,6 @@
-import { IChannelBase } from '@/shared/types/channel/channel-response.interface';
+import { IChannelResponse } from '@/shared/types/channel/channel-response.interface';
 
 export interface IChannelInitialState {
-  items: IChannel[] | null;
+  items: IChannelResponse[] | null;
   isLoading: boolean;
 }
