@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback, useMemo } from 'react';
 import { useMutation } from 'react-query';
 
-import { FileService } from '@/services/file.service';
+import { FileService } from '@/services/file/file.service';
 
 type TypeUpload = (onChange: (...event: any[]) => void) => {
   uploadFile: (e: ChangeEvent<HTMLInputElement>) => Promise<void>;

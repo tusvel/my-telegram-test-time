@@ -4,7 +4,7 @@ import { useMutation } from 'react-query';
 
 import { IMediaInput } from '@/pages/media/IMediaInput';
 
-import { MediaService } from '@/services/media.service';
+import { MediaService } from '../../../services/media/media.service';
 
 export const useMediaText: any = (save: any) => {
   const { mutateAsync } = useMutation('Create text', (data: IMediaInput) =>

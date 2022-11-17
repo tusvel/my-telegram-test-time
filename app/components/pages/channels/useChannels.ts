@@ -3,7 +3,7 @@ import { useMutation } from 'react-query';
 
 import { IChannelInput } from '@/pages/channels/IChannelInput';
 
-import { ChannelService } from '@/services/channel.service';
+import { ChannelService } from '@/services/channel/channel.service';
 
 export const useCreateChannel: any = () => {
   const { mutateAsync } = useMutation('Create channel', (data: IChannelInput) =>

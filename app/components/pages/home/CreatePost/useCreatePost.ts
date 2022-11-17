@@ -8,7 +8,7 @@ import { useSave } from '@/hooks/textEditor/useSave';
 
 import { IButton } from '@/shared/types/form/button.interface';
 
-import { PostService } from '@/services/post.service';
+import { PostService } from '@/services/post/post.service';
 
 import { getStoreLocal } from '@/utils/local-storage';
 import { saveButton } from '@/utils/save-button';

@@ -1,4 +1,4 @@
-import { $host } from '../api/interceptors';
+import { $host } from '../../api/interceptors';
 
 export const FileService = {
   async upload(file: FormData, folder?: string) {

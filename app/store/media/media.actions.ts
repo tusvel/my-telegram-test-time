@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { MediaService } from '@/services/media.service';
+import { MediaService } from '@/services/media/media.service';
 
 export const getAllMedia = createAsyncThunk(
   'media/getAll',

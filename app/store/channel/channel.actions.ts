@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ChannelService } from '@/services/channel.service';
+import { ChannelService } from '@/services/channel/channel.service';
 
 export const getAllChannels = createAsyncThunk(
   'channel/getAll',

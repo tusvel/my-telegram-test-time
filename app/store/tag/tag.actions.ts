@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { TagService } from '@/services/tag.service';
+import { TagService } from '@/services/tag/tag.service';
 
 export const getAllTags = createAsyncThunk(
   'tags/getAll',

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { PostService } from '@/services/post.service';
+import { PostService } from '@/services/post/post.service';
 
 export const getAllPosts = createAsyncThunk(
   'posts/getAll',
