@@ -3,17 +3,19 @@ import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { useMutation } from 'react-query';
 
-import { ITextInput } from '@/pages/texts/ITextInput';
+import { ITextCreate } from '@/pages/texts/text.interface';
 
 import { useSave } from '@/hooks/textEditor/useSave';
 
-import { TextService } from '@/services/text.service';
+import { IPostTextCreate } from '@/shared/types/post-text/post-text-create.interface';
+
+import { PostService } from '@/services/post/post.service';
 
 import { telegramConverter } from '@/utils/telegram-converter';
 
-export const useCreateText: any = (setError: any) => {
-  const { mutateAsync } = useMutation('Create text', (data: ITextInput) =>
-    TextService.create(data)
+export const useCreateText = (setError: any) => {
+  const { mutateAsync } = useMutation('Create text', (data: IPostTextCreate) =>
+    PostService.create(data)
   );
   const [editor, setEditor] = useState<any>();
 
@@ -23,10 +25,10 @@ export const useCreateText: any = (setError: any) => {
     });
   }
 
-  const onSubmit: SubmitHandler<ITextInput> = async (data) => {
-    if (data.channel === undefined) {
-      delete data.channel;
-    }
+  const onSubmit: SubmitHandler<ITextCreate> = async (data) => {
+    delete data.search_tags;
+    delete data.search_vertical;
+    data.channel_id && delete data.channel_id;
 
     data.text = telegramConverter(useSave(editor), null, 'html') as string;
     if (data.text?.length < 8) {

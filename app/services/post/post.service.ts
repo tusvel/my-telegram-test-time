@@ -1,4 +1,4 @@
-import { IPostCreateRequest } from '@/shared/types/post/post-create.interface';
+import { IPostTextCreate } from '@/shared/types/post-text/post-text-create.interface';
 import { IPostResponse } from '@/shared/types/post/post-response.interface';
 
 import { getPostApi } from '@/config/api.config';
@@ -11,7 +11,7 @@ export const PostService = {
     return response.data;
   },
 
-  async create(data: IPostCreateRequest) {
+  async create(data: IPostTextCreate) {
     const response = await $auth.post<IPostResponse>(getPostApi(''), { data });
     return response.data;
   },

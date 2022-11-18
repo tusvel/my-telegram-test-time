@@ -13,11 +13,11 @@ const nextConfig = {
     return [
       {
         source: '/:path*',
-        destination: 'https://almond-satin-periodical.glitch.me/:path*'
+        destination: 'http://swiftpark.ddns.net/docs/:path*'
       },
       {
         source: '/uploads/:path*',
-        destination: 'http://localhost:5000/uploads/:path*'
+        destination: 'http://swiftpark.ddns.net/docs/uploads/:path*'
       }
     ];
   }

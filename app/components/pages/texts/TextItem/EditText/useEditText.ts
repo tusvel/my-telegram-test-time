@@ -4,10 +4,11 @@ import { useEffect, useState } from 'react';
 import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
 import { useMutation } from 'react-query';
 
-import { ITextInput } from '@/pages/texts/ITextInput';
+import { ITextCreate } from '@/pages/texts/text.interface';
+
+import { useSave } from '@/hooks/textEditor/useSave';
 
 import { IPostTextPatch } from '@/shared/types/post-text/post-text-patch.interface';
-import { IPostTextResponse } from '@/shared/types/post-text/post-text-response.interface';
 
 import { PostTextService } from '@/services/post-text/post-text.service';
 
@@ -15,9 +16,10 @@ import { getKeys } from '@/utils/object/getKeys';
 import { telegramConverter } from '@/utils/telegram-converter';
 
 export const useTextEdit = (
-  setValue: UseFormSetValue<IPostTextResponse>,
+  setValue: UseFormSetValue<ITextCreate>,
   save: any,
-  item: IPostTextPatch
+  item: IPostTextPatch,
+  setError: any
 ) => {
   const [editor, setEditor] = useState<any>();
   const htmlInEdit = (editor: LexicalEditor) => {
@@ -47,8 +49,11 @@ export const useTextEdit = (
     PostTextService.update(data)
   );
 
-  const onSubmit: SubmitHandler<ITextInput> = async (data) => {
-    data.text = telegramConverter(save(editor), null, 'html') as string;
+  const onSubmit: SubmitHandler<IPostTextPatch> = async (data) => {
+    data.text = telegramConverter(useSave(editor), null, 'html') as string;
+    if (data.text?.length < 8) {
+      return setError('text', { type: 'custom', message: 'Введите текст' });
+    }
     console.log(data);
     await mutateAsync(data);
   };

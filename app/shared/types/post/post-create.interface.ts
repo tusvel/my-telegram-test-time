@@ -1,3 +1,5 @@
+import { Dayjs } from 'dayjs';
+
 export interface IPostCreateRequest {
   channel_id: number;
   text: string;
@@ -5,7 +7,7 @@ export interface IPostCreateRequest {
   text_button: string;
   button_url: string;
   is_preview: boolean;
-  schedule_date: Date | string;
+  schedule_date?: Date | string | Dayjs;
   is_publisched: boolean;
   media_id: string[];
 }

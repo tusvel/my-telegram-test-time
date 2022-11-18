@@ -12,8 +12,6 @@ import { useTags } from '@/hooks/filter/useTags';
 import { useOutside } from '@/hooks/useOutside';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
-import { IText } from '@/shared/types/text.interface';
-
 import { telegramConverter } from '@/utils/telegram-converter';
 
 import styles from './SelectText.module.scss';
@@ -29,7 +27,7 @@ const SelectText: FC = () => {
     control,
     name: 'tags_search'
   });
-  const textItems = telegramConverter(undefined, items, '') as IText[];
+  const textItems = telegramConverter(undefined, items, '');
 
   const textsItem = useSearch(textItems, value);
   const filterTags = useTags(textsItem, tags);

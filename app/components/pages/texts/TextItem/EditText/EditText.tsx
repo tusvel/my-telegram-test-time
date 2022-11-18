@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { FC, MouseEvent } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { ITextInput } from '@/pages/texts/ITextInput';
 import { useTextEdit } from '@/pages/texts/TextItem/EditText/useEditText';
 import styles from '@/pages/texts/TextItem/TextItem.module.scss';
 
@@ -17,7 +16,7 @@ import Button from '@/ui/form-elements/Button';
 
 import { useOutside } from '@/hooks/useOutside';
 
-import { IPostTextResponse } from '@/shared/types/post-text/post-text-response.interface';
+import { IPostTextPatch } from '@/shared/types/post-text/post-text-patch.interface';
 
 import settingsIcon from '@/assets/icons/setting.svg';
 
@@ -28,7 +27,7 @@ const SelectText = dynamic(
   }
 );
 
-const EditText: FC<{ item: IPostTextResponse }> = ({ item }) => {
+const EditText: FC<{ item: IPostTextPatch }> = ({ item }) => {
   const save = (editor: LexicalEditor) => {
     let html;
     const rootElement = editor.getRootElement();
@@ -41,7 +40,14 @@ const EditText: FC<{ item: IPostTextResponse }> = ({ item }) => {
   };
 
   const { isShow, setIsShow, ref } = useOutside(false);
-  const { handleSubmit, control, setValue } = useForm<ITextInput>({
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    setError,
+    formState: { errors }
+  } = useForm<IPostTextPatch>({
     mode: 'onChange'
   });
   const onEdit = async (event: MouseEvent<HTMLButtonElement>) => {
@@ -49,7 +55,8 @@ const EditText: FC<{ item: IPostTextResponse }> = ({ item }) => {
     event.stopPropagation();
     setIsShow(!isShow);
   };
-  const { onSubmit, setEditor } = useTextEdit(setValue, save, item);
+  register('text');
+  const { onSubmit, setEditor } = useTextEdit(setValue, save, item, setError);
 
   return (
     <div onClick={(e) => e.stopPropagation()}>
@@ -69,6 +76,7 @@ const EditText: FC<{ item: IPostTextResponse }> = ({ item }) => {
               <Button className="absolute bottom-5 right-5">
                 Сохранить изменения
               </Button>
+              {errors.text && <span>Заполните текст</span>}
             </form>
           </div>
         </div>

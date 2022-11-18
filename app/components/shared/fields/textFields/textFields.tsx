@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { Control } from 'react-hook-form';
 
-import { ITextInput } from '@/pages/texts/ITextInput';
+import { ITextCreate } from '@/pages/texts/text.interface';
 
 import ChannelField from '@/components/shared/fields/ChannelField/ChannelField';
 import LangField from '@/components/shared/fields/LangField/LangField';
 import VerticalField from '@/components/shared/fields/VerticalField/VerticalField';
 
-const TextFields: FC<{ control: Control<ITextInput> }> = ({ control }) => {
+const TextFields: FC<{ control: Control<ITextCreate> }> = ({ control }) => {
   return (
     <div>
       <div className="flex items-center mt-3 mb-8">

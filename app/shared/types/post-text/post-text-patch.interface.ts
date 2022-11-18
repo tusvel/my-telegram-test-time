@@ -7,5 +7,5 @@ export interface IPostTextPatch extends IBasic {
   vertical: VerticalType;
   language: LanguageType;
   text: string;
-  channel_id: number;
+  channel_id?: number;
 }

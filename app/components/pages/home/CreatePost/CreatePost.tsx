@@ -50,10 +50,8 @@ const CreatePost: FC = () => {
     formatOptionButton,
     isSendTime,
     setIsSendTime
-  } = useCreatePost();
+  } = useCreatePost(register);
   const { onSubmit, setEditor } = usePostForm(reset, setError, applyButton);
-
-  register('text');
 
   return (
     <div>
@@ -129,7 +127,7 @@ const CreatePost: FC = () => {
                 </div>
                 <div>
                   {applyButton ? (
-                    <div className="mb-2">
+                    <div className="mb-2 mt-7">
                       <Controller
                         control={control}
                         name="local_button"

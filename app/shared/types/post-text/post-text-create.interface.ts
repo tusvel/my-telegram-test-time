@@ -6,5 +6,5 @@ export interface IPostTextCreate {
   language: LanguageType;
   text: string;
   tags: number[];
-  channel_id: number;
+  channel_id?: number;
 }

@@ -1,13 +1,14 @@
 import dynamic from 'next/dynamic';
-import { FC, useState } from 'react';
-import { useForm, useWatch } from 'react-hook-form';
+import { FC } from 'react';
+import { useForm } from 'react-hook-form';
 
-import SelectText from '@/pages/../../shared/SelectText/SelectText';
-import { ITextInput } from '@/pages/texts/ITextInput';
 import TextItem from '@/pages/texts/TextItem/TextItem';
+import { ITextCreate } from '@/pages/texts/text.interface';
+import { useTextFilter } from '@/pages/texts/useTextFilter';
 import { useCreateText } from '@/pages/texts/useTexts';
 import { useEditText } from '@/pages/texts/useTextsEdit';
 
+import SelectText from '@/components/shared/SelectText/SelectText';
 import TagField from '@/components/shared/fields/TagField/TagField';
 import VerticalField from '@/components/shared/fields/VerticalField/VerticalField';
 import TextFields from '@/components/shared/fields/textFields/textFields';
@@ -16,9 +17,6 @@ import Button from '@/components/ui/form-elements/Button';
 import Modal from '@/ui/Modal/Modal';
 import formStyles from '@/ui/form-elements/form.module.scss';
 
-import { useSearch } from '@/hooks/filter/useSearch';
-import { useTags } from '@/hooks/filter/useTags';
-import { useVertical } from '@/hooks/filter/useVertical';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
@@ -40,9 +38,10 @@ const Texts: FC = () => {
     setError,
     register,
     formState: { errors }
-  } = useForm<ITextInput>({
+  } = useForm<ITextCreate>({
     mode: 'onChange'
   });
+
   const dispatch = useAppDispatch();
   const clearTextItems = () => {
     dispatch(clear());
@@ -50,20 +49,11 @@ const Texts: FC = () => {
   const { onSubmit, setEditor } = useCreateText(setError);
   const { onEditSubmit } = useEditText(clearTextItems);
 
-  //filter
-  register('text');
-  const vertical = useWatch({
+  const { filteredItems, value, setValue } = useTextFilter(
+    textItems,
     control,
-    name: 'vertical'
-  });
-  const tags = useWatch({
-    control,
-    name: 'tags_search'
-  });
-  const [value, setValue] = useState('');
-  const textsItem = useSearch(textItems, value);
-  const filterTags = useTags(textsItem, tags);
-  const filterVertical = useVertical(filterTags, vertical);
+    register
+  );
 
   return (
     <Meta title="Texts" description="Texts in telegram">
@@ -115,9 +105,9 @@ const Texts: FC = () => {
           <VerticalField className="ml-5" control={control} name="vertical" />
         </div>
         <ul role="list" className="space-y-3 mt-5">
-          {filterVertical &&
-            filterVertical?.length > 0 &&
-            filterVertical.map((item) => (
+          {filteredItems &&
+            filteredItems?.length > 0 &&
+            filteredItems.map((item) => (
               <div key={item.id}>
                 <TextItem check={true} item={item} />
               </div>
