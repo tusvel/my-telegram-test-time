@@ -1,34 +1,32 @@
 import Cookies from 'js-cookie';
 
+import { ITokens } from '@/shared/types/auth/jwt/tokens-response.interface';
+
 import {
   removeTokensStorage,
   saveToStorage
 } from '@/services/auth/auth.helper';
+import { UserService } from '@/services/user/user.service';
 
 import { getAuthenticateApi } from '@/config/api.config';
-
-import { IAuthResponse } from '@/store/user/user.interface';
 
 import { $host } from '../../api/interceptors';
 
 export const AuthService = {
-  async register(email: string, password: string) {
-    const response = await $host.post(getAuthenticateApi('/register'), {
-      email,
-      password
-    });
-    if (response.data.accessToken) {
-      saveToStorage(response.data);
-    }
-    return response.data;
-  },
-
-  async login(email: string, password: string) {
-    const response = await $host.post(getAuthenticateApi('/login'), {
-      email,
-      password
-    });
-    if (response.data.accessToken) {
+  async login(username: string, password: string) {
+    const params = new URLSearchParams();
+    params.append('username', username);
+    params.append('password', password);
+    const response = await $host.post<ITokens>(
+      getAuthenticateApi('/login'),
+      params,
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
+    );
+    if (response.data.access_token) {
       saveToStorage(response.data);
     }
     return response.data;
@@ -41,15 +39,17 @@ export const AuthService = {
 
   async getNewTokens() {
     const refreshToken = Cookies.get('refreshToken');
-    const response = await $host.post<IAuthResponse>(
-      getAuthenticateApi('/refresh'),
-      {
-        refreshToken
-      }
-    );
+    const response = await $host.post<ITokens>(getAuthenticateApi('/refresh'), {
+      refresh_token: refreshToken
+    });
     if (response.data.access_token) {
       saveToStorage(response.data);
     }
-    return response.data;
+    const user = await UserService.getMe();
+    return {
+      accessToken: response.data.access_token,
+      refreshToken: response.data.refresh_token,
+      user: user
+    };
   }
 };

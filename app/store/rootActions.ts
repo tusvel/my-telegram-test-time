@@ -1,4 +1,5 @@
 import * as channelActions from './channel/channel.actions';
+import * as clientActions from './client/client.actions';
 import * as mediaActions from './media/media.actions';
 import * as postActions from './post/post.actions';
 import * as tagActions from './tag/tag.actions';
@@ -11,5 +12,6 @@ export const allActions = {
   ...textActions,
   ...mediaActions,
   ...tagActions,
-  ...postActions
+  ...postActions,
+  ...clientActions
 };

@@ -1,5 +1,11 @@
 import Media from '@/pages/media/Media';
 
-export default function MediaPage() {
+import { NextPageAuth } from '@/shared/types/auth/auth.types';
+
+const MediaPage: NextPageAuth = () => {
   return <Media />;
-}
+};
+
+MediaPage.isOnlyUser = true;
+
+export default MediaPage;

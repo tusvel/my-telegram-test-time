@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import { FC } from 'react';
 
-import { IChannelBase } from '@/shared/types/channel/channel-response.interface';
+import { IChannelResponse } from '@/shared/types/channel/channel-response.interface';
 
-const ChannelItem: FC<{ item: IChannel }> = ({ item }) => {
+const ChannelItem: FC<{ item: IChannelResponse }> = ({ item }) => {
   return (
     <li className={'overflow-hidden rounded-md bg-white px-6 py-4 shadow w-96'}>
       <div>

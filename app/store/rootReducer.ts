@@ -1,4 +1,5 @@
 import { reducer as channelReducer } from './channel/channel.slice';
+import { reducer as clientReducer } from './client/client.slice';
 import { reducer as mediaReducer } from './media/media.slice';
 import { reducer as postReducer } from './post/post.slice';
 import { reducer as tagReducer } from './tag/tag.slice';
@@ -13,5 +14,6 @@ export const reducers = {
   media: mediaReducer,
   tag: tagReducer,
   post: postReducer,
+  client: clientReducer,
   textEdit: textEditReducer
 };

@@ -2,17 +2,18 @@ import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { useMutation } from 'react-query';
 
-import { IMediaInput } from '@/pages/media/IMediaInput';
+import { IMediaCreateRequest } from '@/shared/types/media/media-create.interface';
 
-import { MediaService } from '../../../services/media/media.service';
+import { MediaService } from '@/services/media/media.service';
 
-export const useMediaText: any = (save: any) => {
-  const { mutateAsync } = useMutation('Create text', (data: IMediaInput) =>
-    MediaService.create(data)
+export const useCreateMedia: any = (save: any) => {
+  const { mutateAsync } = useMutation(
+    'Create text',
+    (data: IMediaCreateRequest) => MediaService.create(data)
   );
   const [editor, setEditor] = useState();
 
-  const onSubmit: SubmitHandler<IMediaInput> = async (data) => {
+  const onSubmit: SubmitHandler<IMediaCreateRequest> = async (data) => {
     await mutateAsync(data);
   };
 

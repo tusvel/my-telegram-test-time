@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { getStoreLocal } from '@/utils/local-storage';
 
-import { checkAuth, login, logout, register } from '@/store/user/user.actions';
+import { checkAuth, login, logout } from '@/store/user/user.actions';
 import { IUserInitialState } from '@/store/user/user.interface';
 
 const initialState: IUserInitialState = {
@@ -16,22 +16,11 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(register.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(register.fulfilled, (state, { payload }) => {
-        state.user = payload.user;
-        state.isLoading = false;
-      })
-      .addCase(register.rejected, (state) => {
-        state.user = null;
-        state.isLoading = false;
-      })
       .addCase(login.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(login.fulfilled, (state, { payload }) => {
-        state.user = payload.user;
+        state.user = payload;
         state.isLoading = false;
       })
       .addCase(login.rejected, (state) => {

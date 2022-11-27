@@ -1,5 +1,11 @@
 import Channels from '@/pages/channels/Channels';
 
-export default function ChannelsPage() {
+import { NextPageAuth } from '@/shared/types/auth/auth.types';
+
+const ChannelsPage: NextPageAuth = () => {
   return <Channels />;
-}
+};
+
+ChannelsPage.isOnlyAdmin = true;
+
+export default ChannelsPage;

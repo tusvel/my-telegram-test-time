@@ -101,8 +101,12 @@ const Texts: FC = () => {
               height: '50px'
             }}
           />
-          <TagField required={false} control={control} name="tags_search" />
-          <VerticalField className="ml-5" control={control} name="vertical" />
+          <TagField required={false} control={control} name="search_tags" />
+          <VerticalField
+            className="ml-5"
+            control={control}
+            name="search_vertical"
+          />
         </div>
         <ul role="list" className="space-y-3 mt-5">
           {filteredItems &&

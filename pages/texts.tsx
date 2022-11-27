@@ -1,5 +1,11 @@
 import Texts from '@/pages/texts/Texts';
 
-export default function TextsPage() {
+import { NextPageAuth } from '@/shared/types/auth/auth.types';
+
+const TextsPage: NextPageAuth = () => {
   return <Texts />;
-}
+};
+
+TextsPage.isOnlyUser = true;
+
+export default TextsPage;

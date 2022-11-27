@@ -16,9 +16,7 @@ export const ChannelSlotService = {
   async create(data: IChannelSlotCreate) {
     const response = await $auth.post<IChannelSlotResponse>(
       getChannelSlotApi(''),
-      {
-        data
-      }
+      data
     );
     return response.data;
   },

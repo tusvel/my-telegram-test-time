@@ -1,7 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { ITagResponse } from '@/shared/types/tag/tag-response.interface';
 
 import { getAllTags } from '@/store/tag/tag.actions';
 import { ITagInitialState } from '@/store/tag/tag.interface';
+import { textEditSlice } from '@/store/textEdit/textEdit.slice';
 
 const initialState: ITagInitialState = {
   items: null,
@@ -11,7 +14,11 @@ const initialState: ITagInitialState = {
 export const tagSlice = createSlice({
   name: 'tag',
   initialState,
-  reducers: {},
+  reducers: {
+    add: (state, { payload }: PayloadAction<ITagResponse>) => {
+      state.items = [...(state.items || []), payload];
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllTags.pending, (state) => {
@@ -28,3 +35,4 @@ export const tagSlice = createSlice({
   }
 });
 export const { reducer } = tagSlice;
+export const { add: addTag } = textEditSlice.actions;

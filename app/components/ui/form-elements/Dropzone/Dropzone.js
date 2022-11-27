@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { createRef, useCallback, useState } from 'react';
+import React, { createRef, useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 import { DropzoneContainer } from './DropzoneContainer';
@@ -21,13 +21,8 @@ export const Dropzone = ({
   const [disabled, setDisabled] = useState(false);
   const containerRef = createRef();
   const onDrop = useCallback(
-    (acceptedFiles) => {
+    async (acceptedFiles) => {
       if (!disabled) {
-        const formData = new FormData();
-        for (let i = 0; i < myFiles.length; i++) {
-          formData.append('files', myFiles[i]);
-        }
-        onChange(formData);
         if (showPreview) {
           acceptedFiles.map((file) => {
             if (
@@ -44,7 +39,7 @@ export const Dropzone = ({
             });
           });
         }
-        setMyFiles([...myFiles, ...acceptedFiles]);
+        await setMyFiles((prev) => [...prev, ...acceptedFiles]);
         if (onAddFiles) {
           onAddFiles(acceptedFiles);
         }
@@ -55,6 +50,10 @@ export const Dropzone = ({
     },
     [disabled, showPreview, myFiles, onAddFiles, multiple]
   );
+  useEffect(() => {
+    //Добавление в форму
+    onChange(myFiles);
+  }, [myFiles]);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept,
     maxSize,

@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { FC } from 'react';
 import ReactSelect, { OnChangeValue } from 'react-select';
 import makeAnimated from 'react-select/animated';
@@ -41,7 +42,13 @@ const Select: FC<ISelect> = ({
   return (
     <div className="relative">
       <label>
-        <span className={formStyles.placeholder}>{placeholder}</span>
+        <span
+          className={cn(formStyles.placeholder, {
+            ['text-red-700']: error
+          })}
+        >
+          {placeholder}
+        </span>
         <ReactSelect
           classNamePrefix={classNamePrefix}
           options={options}
@@ -54,7 +61,6 @@ const Select: FC<ISelect> = ({
           isClearable
         />
       </label>
-      {error && <div className={formStyles.error}>{error.message}</div>}
     </div>
   );
 };

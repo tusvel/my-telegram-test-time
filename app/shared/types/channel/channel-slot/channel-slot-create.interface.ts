@@ -1,8 +1,6 @@
-import { IBasic } from '@/shared/types/basic.interface';
-
-export interface IChannelSlotCreate extends IBasic {
+export interface IChannelSlotCreate {
   interval: string;
-  has_button: boolean;
+  button_enabled: boolean;
   tags: number[];
   channel_id: number;
 }

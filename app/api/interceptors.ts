@@ -25,7 +25,7 @@ $auth.interceptors.request.use((config) => {
   const accessToken = Cookies.get('accessToken');
 
   if (config.headers && accessToken) {
-    config.headers.authorization = `Bearer ${accessToken}`;
+    config.headers.Authorization = `Bearer ${accessToken}`;
   }
 
   return config;
@@ -48,7 +48,7 @@ $auth.interceptors.response.use(
         await AuthService.getNewTokens();
         return $auth.request(originalRequest);
       } catch (error) {
-        if (errorHandler(error) === 'jwt expired') removeTokensStorage();
+        removeTokensStorage();
       }
     }
 

@@ -16,9 +16,7 @@ export const PublishPostService = {
   async create(data: IPublishPostCreate) {
     const response = await $auth.post<IPublishPostResponse>(
       getPublishPostApi(''),
-      {
-        data
-      }
+      data
     );
     return response.data;
   },

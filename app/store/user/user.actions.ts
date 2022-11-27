@@ -1,27 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { IUserResponse } from '@/shared/types/user/user-response.interface';
+
 import { AuthService } from '@/services/auth/auth.service';
+import { UserService } from '@/services/user/user.service';
 
 import { errorHandler } from '@/utils/errorHandler';
 
-import { IAuthResponse, IEmailPassword } from '@/store/user/user.interface';
+import { IEmailPassword } from '@/store/user/user.interface';
 
-export const register = createAsyncThunk<IAuthResponse, IEmailPassword>(
-  'AuthService/register',
-  async ({ email, password }, thunkApi) => {
-    try {
-      return await AuthService.register(email, password);
-    } catch (error) {
-      return thunkApi.rejectWithValue(error);
-    }
-  }
-);
-
-export const login = createAsyncThunk<IAuthResponse, IEmailPassword>(
+export const login = createAsyncThunk<IUserResponse, IEmailPassword>(
   'AuthService/login',
-  async ({ email, password }, thunkApi) => {
+  async ({ username, password }, thunkApi) => {
     try {
-      return await AuthService.login(email, password);
+      await AuthService.login(username, password);
+      return await UserService.getMe();
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }
@@ -41,7 +34,6 @@ export const checkAuth = createAsyncThunk(
       if (errorHandler(error) === 'jwt expired') {
         thunkApi.dispatch(logout());
       }
-
       return thunkApi.rejectWithValue(error);
     }
   }

@@ -9,13 +9,13 @@ import { useSave } from '@/hooks/textEditor/useSave';
 
 import { IPostTextCreate } from '@/shared/types/post-text/post-text-create.interface';
 
-import { PostService } from '@/services/post/post.service';
+import { PostTextService } from '@/services/post-text/post-text.service';
 
 import { telegramConverter } from '@/utils/telegram-converter';
 
 export const useCreateText = (setError: any) => {
   const { mutateAsync } = useMutation('Create text', (data: IPostTextCreate) =>
-    PostService.create(data)
+    PostTextService.create(data)
   );
   const [editor, setEditor] = useState<any>();
 

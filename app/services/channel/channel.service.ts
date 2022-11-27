@@ -13,16 +13,18 @@ export const ChannelService = {
   },
 
   async create(data: IChannelCreateRequest) {
-    const response = await $auth.post<IChannelResponse>(getChannelApi(''), {
+    const response = await $auth.post<IChannelResponse>(
+      getChannelApi(''),
       data
-    });
+    );
     return response.data;
   },
 
   async update(data: IChannelPatchRequest) {
-    const response = await $auth.patch<IChannelResponse>(getChannelApi(''), {
+    const response = await $auth.patch<IChannelResponse>(
+      getChannelApi(''),
       data
-    });
+    );
     return response.data;
   },
 

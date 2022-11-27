@@ -70,15 +70,15 @@ const CreatePost: FC = () => {
                 <DropField
                   control={control}
                   name="media"
-                  className="mb-5 mr-[40px] w-[350px]"
+                  className="mb-10 mr-[40px] w-[350px]"
                 />
                 <MediaField
                   control={control}
                   name="media_id"
-                  className="mb-5"
+                  className="mb-2"
                 />
                 <div className="relative">
-                  <Button className="mt-7 mb-3">Создать</Button>
+                  <Button className="mt-3 mb-3">Создать</Button>
                   {errors.text && (
                     <span className={formStyles.error}>Введите текст</span>
                   )}

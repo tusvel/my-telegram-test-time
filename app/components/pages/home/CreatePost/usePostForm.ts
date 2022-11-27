@@ -30,7 +30,6 @@ export const usePostForm: any = (
     //работа с датой
     if (data.schedule_date && data.schedule_time) {
       data.schedule_date = useTimeZone(data.schedule_date, data.schedule_time);
-      console.log(data.schedule_date);
       delete data.schedule_time;
     } else {
       delete data.schedule_date;
@@ -52,9 +51,9 @@ export const usePostForm: any = (
 
     //работа с медиа
     let responseMedias = [];
-    for (let i = 0; i < data.media; i++) {
-      const responseMedia = await MediaService.create(data.media);
-      responseMedias.push(responseMedia.url);
+    for (const value of data.media.values()) {
+      const responseMedia = await MediaService.upload(value);
+      responseMedias.push(responseMedia);
     }
     data.media_id = [...(data?.media_id || []), ...responseMedias];
     delete data.media;

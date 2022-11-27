@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { IPostTextResponse } from '@/shared/types/post-text/post-text-response.interface';
 
 import { getAllTexts } from '@/store/text/text.actions';
 import { ITextInitialState } from '@/store/text/text.interface';
@@ -11,7 +13,14 @@ const initialState: ITextInitialState = {
 export const textSlice = createSlice({
   name: 'text',
   initialState,
-  reducers: {},
+  reducers: {
+    remove: (state, { payload }: PayloadAction<IPostTextResponse>) => {
+      state.items =
+        state.items?.filter((item) => {
+          return item.id !== payload.id;
+        }) || [];
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllTexts.pending, (state) => {
@@ -28,3 +37,4 @@ export const textSlice = createSlice({
   }
 });
 export const { reducer } = textSlice;
+export const { remove } = textSlice.actions;

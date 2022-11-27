@@ -7,22 +7,30 @@ import { getPostTextApi } from '@/config/api.config';
 import { $auth } from '../../api/interceptors';
 
 export const PostTextService = {
-  async getAll() {
-    const response = await $auth.get<IPostTextResponse[]>(getPostTextApi(''));
+  async getAll(offset_type = 'first', offset_id = 0, limit = 10) {
+    const response = await $auth.get<IPostTextResponse[]>(getPostTextApi(''), {
+      params: {
+        offset_type,
+        offset_id,
+        limit
+      }
+    });
     return response.data;
   },
 
   async create(data: IPostTextCreate) {
-    const response = await $auth.post<IPostTextResponse>(getPostTextApi(''), {
+    const response = await $auth.post<IPostTextResponse>(
+      getPostTextApi(''),
       data
-    });
+    );
     return response.data;
   },
 
   async update(data: IPostTextPatch) {
-    const response = await $auth.patch<IPostTextResponse>(getPostTextApi(''), {
+    const response = await $auth.patch<IPostTextResponse>(
+      getPostTextApi(''),
       data
-    });
+    );
     return response.data;
   },
 

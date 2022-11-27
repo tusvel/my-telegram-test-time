@@ -37,3 +37,5 @@ const AuthProvider: FC<PropsWithChildren & TypeComponentAuthFields> = ({
     </DynamicCheckRole>
   );
 };
+
+export default AuthProvider;

@@ -4,4 +4,5 @@ export interface IMenuItem {
   name: string;
   href: string;
   icon: TypeMaterialIconName;
+  role: any[];
 }

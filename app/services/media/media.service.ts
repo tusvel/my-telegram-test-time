@@ -13,16 +13,19 @@ export const MediaService = {
   },
 
   async create(data: IMediaCreateRequest) {
-    const response = await $auth.post<IMediaResponse>(getMediaApi(''), {
-      data
+    const response = await $auth.post<IMediaResponse>(getMediaApi(''), data);
+    return response.data;
+  },
+
+  async upload(file: FormData) {
+    const response = await $auth.post<string>(getMediaApi('/upload'), file, {
+      headers: { 'Content-Type': 'multipart/form-data' }
     });
     return response.data;
   },
 
   async update(data: IMediaPatchRequest) {
-    const response = await $auth.patch<IMediaResponse>(getMediaApi(''), {
-      data
-    });
+    const response = await $auth.patch<IMediaResponse>(getMediaApi(''), data);
     return response.data;
   },
 

@@ -1,4 +1,3 @@
-import { ITokens } from '@/shared/types/auth/jwt/tokens-response.interface';
 import { IUserResponse } from '@/shared/types/user/user-response.interface';
 
 export interface IUserInitialState {
@@ -7,10 +6,6 @@ export interface IUserInitialState {
 }
 
 export interface IEmailPassword {
-  email: string;
+  username: string;
   password: string;
-}
-
-export interface IAuthResponse extends ITokens {
-  user: IUserResponse;
 }

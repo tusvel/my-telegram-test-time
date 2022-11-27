@@ -2,16 +2,13 @@ import { Switch } from '@headlessui/react';
 import cn from 'classnames';
 import { FC } from 'react';
 
-const Toggle: FC<{ value: boolean; onChange: Function }> = ({
-  value,
-  onChange
-}) => {
+const Toggle: FC<{ value: boolean; onChange: any }> = ({ value, onChange }) => {
   return (
     <Switch
       checked={value}
       onChange={onChange}
       className={cn(
-        value ? 'bg-indigo-600' : 'bg-gray-200',
+        value ? 'bg-indigo-600' : 'bg-stone-300',
         'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
       )}
     >

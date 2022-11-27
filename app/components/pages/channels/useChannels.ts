@@ -1,18 +1,38 @@
 import { SubmitHandler } from 'react-hook-form';
-import { useMutation } from 'react-query';
 
-import { IChannelInput } from '@/pages/channels/IChannelInput';
+import { IChannelCreateRequest } from '@/shared/types/channel/channel-create.interface';
 
+import { ChannelSlotService } from '@/services/channel-slot/channel-slot.service';
 import { ChannelService } from '@/services/channel/channel.service';
+import { MediaService } from '@/services/media/media.service';
 
-export const useCreateChannel: any = () => {
-  const { mutateAsync } = useMutation('Create channel', (data: IChannelInput) =>
-    ChannelService.create(data)
-  );
+export const useCreateChannel: any = (timeItems: any) => {
+  const onSubmit: SubmitHandler<IChannelCreateRequest> = async (data) => {
+    let picture_url;
+    {
+      data.profice_picture.map(async (item: Blob) => {
+        const formData = new FormData();
+        formData.append('file', item);
+        picture_url = await MediaService.upload(formData);
+      });
+    }
 
-  const onSubmit: SubmitHandler<IChannelInput> = async (data) => {
-    console.log(data);
-    await mutateAsync(data);
+    const channel = await ChannelService.create({
+      ...data,
+      profice_picture: picture_url
+    });
+
+    {
+      timeItems &&
+        Object.keys(timeItems).map(async (key) => {
+          await ChannelSlotService.create({
+            channel_id: channel.id,
+            button_enabled: data.button_enabled,
+            tags: data.tags,
+            interval: `${timeItems[key][0]}-${timeItems[key][0]}`
+          });
+        });
+    }
   };
 
   return { onSubmit };

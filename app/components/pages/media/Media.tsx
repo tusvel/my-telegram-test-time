@@ -4,18 +4,20 @@ import dynamic from 'next/dynamic';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
-import { IMediaInput } from '@/pages/media/IMediaInput';
 import MediaItem from '@/pages/media/MediaItem/MediaItem';
-import { useCreateText } from '@/pages/texts/useTexts';
+import { useCreateMedia } from '@/pages/media/useMedia';
 
-import UploadField from '@/components/ui/form-elements/UploadField/UploadField';
+import ChannelField from '@/components/shared/fields/ChannelField/ChannelField';
+import DropField from '@/components/shared/fields/DropField/DropField';
 
 import Modal from '@/ui/Modal/Modal';
 import Button from '@/ui/form-elements/Button';
+import { IOption } from '@/ui/select/select.interface';
 
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 import { LanguageType } from '@/shared/types/language/language.type';
+import { IMediaCreateRequest } from '@/shared/types/media/media-create.interface';
 
 import { convertSelect } from '@/utils/convertSelect';
 import Meta from '@/utils/meta/Meta';
@@ -31,7 +33,7 @@ const Media: FC = () => {
     text: { items: textItems },
     tag: { items: tagItems }
   } = useTypedSelector((state) => state);
-  const selectTags = convertSelect(tagItems, 'value', 'id');
+  const selectTags = convertSelect(tagItems || [], 'value', 'id');
   const {
     handleSubmit,
     register,
@@ -39,7 +41,7 @@ const Media: FC = () => {
     control,
     reset,
     watch
-  } = useForm<IMediaInput>({
+  } = useForm<IMediaCreateRequest>({
     mode: 'onChange'
   });
   const save = (editor: LexicalEditor) => {
@@ -52,7 +54,7 @@ const Media: FC = () => {
       return html;
     }
   };
-  const { onSubmit, setEditor } = useCreateText(save);
+  const { onSubmit, setEditor } = useCreateMedia(save);
 
   const { items } = useTypedSelector((state) => state.media);
   return (
@@ -79,7 +81,7 @@ const Media: FC = () => {
               </div>
               <Controller
                 control={control}
-                name="languages"
+                name="language"
                 render={({ field, fieldState: { error } }) => (
                   <DynamicSelect
                     field={field}
@@ -98,26 +100,40 @@ const Media: FC = () => {
                 )}
               />
             </div>
-            <Controller
+            <div className="mt-7 mb-3 flex items-center">
+              <Controller
+                control={control}
+                name="type"
+                render={({ field, fieldState: { error } }) => (
+                  <DynamicSelect
+                    field={field}
+                    options={
+                      ([
+                        { label: 'photo', value: 'photo' },
+                        { label: 'voice', value: 'voice' },
+                        { label: 'video', value: 'video' },
+                        { label: 'videoNote', value: 'videoNote' }
+                      ] as IOption[]) || []
+                    }
+                    isMulti={false}
+                    placeholder="Выбрать тип"
+                    error={error}
+                    classNamePrefix="media-select"
+                  />
+                )}
+              />
+              <ChannelField
+                className="ml-5"
+                control={control}
+                name="channel_id"
+              />
+            </div>
+            <DropField
+              title="Добавить изображения"
+              multiple={false}
               control={control}
-              name="url"
-              render={({
-                field: { value, onChange },
-                fieldState: { error }
-              }) => (
-                <UploadField
-                  onChange={onChange}
-                  value={value}
-                  folder="movies"
-                  placeholder="Выберите файлы"
-                  isNoImage
-                  style={{ marginTop: -25 }}
-                  error={error}
-                />
-              )}
-              rules={{
-                required: 'Video is required!'
-              }}
+              name="profice_picture"
+              className="mb-5 mr-[40px] w-[350px]"
             />
             <Button>Создать медиа</Button>
           </form>

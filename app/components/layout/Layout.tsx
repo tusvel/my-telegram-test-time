@@ -1,6 +1,9 @@
+import dynamic from 'next/dynamic';
 import { FC, PropsWithChildren } from 'react';
 
-import Menu from '@/components/layout/Menu/Menu';
+const Menu = dynamic(() => import('@/components/layout/Menu/Menu'), {
+  ssr: false
+});
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (

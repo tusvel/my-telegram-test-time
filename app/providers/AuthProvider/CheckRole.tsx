@@ -13,15 +13,16 @@ const CheckRole: FC<PropsWithChildren & TypeComponentAuthFields> = ({
   const router = useRouter();
   const Children = () => <>{children}</>;
 
-  if (user?.role.superAdmin) {
+  if (user?.role === 'superadmin') {
     return <Children />;
   }
+
   if (isOnlySuperAdmin) {
     router.pathname !== '/404' && router.replace('/404');
     return null;
   }
 
-  if (user?.role.admin) {
+  if (user?.role === 'admin') {
     return <Children />;
   }
   if (isOnlyAdmin) {
@@ -31,7 +32,7 @@ const CheckRole: FC<PropsWithChildren & TypeComponentAuthFields> = ({
 
   if (user && isOnlyUser) return <Children />;
   else {
-    router.pathname !== '/auth' && router.replace('/auth');
+    router.pathname !== '/login' && router.replace('/login');
     return null;
   }
 };

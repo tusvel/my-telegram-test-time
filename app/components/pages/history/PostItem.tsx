@@ -6,11 +6,11 @@ import RepostPost from '@/pages/history/RepostPost/RepostPost';
 
 import Button from '@/components/ui/form-elements/Button';
 
-import { IPost } from '@/shared/types/post/post-create.interface';
+import { IPostResponse } from '@/shared/types/post/post-response.interface';
 
 import styles from './PostItem.module.scss';
 
-const PostItem: FC<{ item: IPost }> = ({ item }) => {
+const PostItem: FC<{ item: IPostResponse }> = ({ item }) => {
   return (
     <li
       className={cn(

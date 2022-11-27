@@ -1,9 +1,9 @@
 import cn from 'classnames';
 import { FC } from 'react';
 
-import { IMedia } from '@/shared/types/media/media.interface';
+import { IMediaResponse } from '@/shared/types/media/media-response.interface';
 
-const MediaItem: FC<{ item: IMedia }> = ({ item }) => {
+const MediaItem: FC<{ item: IMediaResponse }> = ({ item }) => {
   return (
     <div>
       <li

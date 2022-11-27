@@ -8,6 +8,7 @@ import { TypeComponentAuthFields } from '@/shared/types/auth/auth.types';
 
 import { store } from '@/store/store';
 
+import AuthProvider from './AuthProvider/AuthProvider';
 import QueryProvider from './QueryProvider';
 
 const queryClient = new QueryClient({
@@ -26,7 +27,9 @@ const MainProvider: FC<PropsWithChildren & TypeComponentAuthFields> = ({
     <Provider store={store}>
       <QueryProvider />
       <QueryClientProvider client={queryClient}>
-        <Layout>{children}</Layout>
+        <AuthProvider Component={Component}>
+          <Layout>{children}</Layout>
+        </AuthProvider>
       </QueryClientProvider>
     </Provider>
   );

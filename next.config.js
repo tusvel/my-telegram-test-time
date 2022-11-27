@@ -7,17 +7,17 @@ const nextConfig = {
     APP_SERVER_URL: process.env.REACT_APP_SERVER_URL
   },
   images: {
-    domains: ['localhost', 'picsum.photos', 'images.unsplash.com']
+    domains: ['localhost']
   },
   async rewrites() {
     return [
       {
-        source: '/:path*',
-        destination: 'http://swiftpark.ddns.net/docs/:path*'
+        source: '/api/v1/:path*',
+        destination: 'http://109.68.213.40/api/v1/:path*'
       },
       {
-        source: '/uploads/:path*',
-        destination: 'http://swiftpark.ddns.net/docs/uploads/:path*'
+        source: '/api/v1/media/uploads/:path*',
+        destination: 'http://109.68.213.40/api/v1/media/uploads/:path*'
       }
     ];
   }

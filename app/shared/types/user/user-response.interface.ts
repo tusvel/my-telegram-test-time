@@ -1,9 +1,8 @@
-import { RoleType } from '@/shared/types/auth/role.type';
 import { IBasic } from '@/shared/types/basic.interface';
 
 export interface IUserResponse extends IBasic {
   login: string;
-  role: RoleType;
+  role: 'admin' | 'superadmin' | 'user';
   telegram_id: string;
   created_at: Date | string;
 }
