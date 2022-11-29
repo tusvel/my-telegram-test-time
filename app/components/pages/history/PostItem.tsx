@@ -1,5 +1,4 @@
 import cn from 'classnames';
-import Image from 'next/image';
 import { FC } from 'react';
 
 import RepostPost from '@/pages/history/RepostPost/RepostPost';
@@ -20,7 +19,7 @@ const PostItem: FC<{ item: IPostResponse }> = ({ item }) => {
     >
       <div className="flex flex-col">
         <div className="flex basis-20 flex-wrap">
-          {item.media?.length > 0 &&
+          {/*          {item.media?.length > 0 &&
             item.media.map((media, index) => (
               <Image
                 key={index}
@@ -30,7 +29,7 @@ const PostItem: FC<{ item: IPostResponse }> = ({ item }) => {
                 width={100}
                 height={100}
               />
-            ))}
+            ))}*/}
         </div>
         <div>
           <div dangerouslySetInnerHTML={{ __html: item.text }} />

@@ -3,7 +3,6 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
 import TextItem from '@/pages/texts/TextItem/TextItem';
-import { ITextCreate } from '@/pages/texts/text.interface';
 import { useTextFilter } from '@/pages/texts/useTextFilter';
 import { useCreateText } from '@/pages/texts/useTexts';
 import { useEditText } from '@/pages/texts/useTextsEdit';
@@ -19,6 +18,8 @@ import formStyles from '@/ui/form-elements/form.module.scss';
 
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
+
+import { IPostTextResponse } from '@/shared/types/post-text/post-text-response.interface';
 
 import Meta from '@/utils/meta/Meta';
 
@@ -38,7 +39,7 @@ const Texts: FC = () => {
     setError,
     register,
     formState: { errors }
-  } = useForm<ITextCreate>({
+  } = useForm<IPostTextResponse>({
     mode: 'onChange'
   });
 

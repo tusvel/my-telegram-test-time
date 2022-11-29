@@ -4,11 +4,9 @@ import { useEffect, useState } from 'react';
 import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
 import { useMutation } from 'react-query';
 
-import { ITextCreate } from '@/pages/texts/text.interface';
-
 import { useSave } from '@/hooks/textEditor/useSave';
 
-import { IPostTextPatch } from '@/shared/types/post-text/post-text-patch.interface';
+import { IPostTextResponse } from '@/shared/types/post-text/post-text-response.interface';
 
 import { PostTextService } from '@/services/post-text/post-text.service';
 
@@ -16,9 +14,9 @@ import { getKeys } from '@/utils/object/getKeys';
 import { telegramConverter } from '@/utils/telegram-converter';
 
 export const useTextEdit = (
-  setValue: UseFormSetValue<ITextCreate>,
+  setValue: UseFormSetValue<IPostTextResponse>,
   save: any,
-  item: IPostTextPatch,
+  item: IPostTextResponse,
   setError: any
 ) => {
   const [editor, setEditor] = useState<any>();
@@ -34,7 +32,7 @@ export const useTextEdit = (
   const tags = item.tags.map((item: any) => item);
 
   useEffect(() => {
-    getKeys(item).forEach((key: keyof IPostTextPatch) => {
+    getKeys(item).forEach((key: keyof IPostTextResponse) => {
       if (key === 'tags') {
         return setValue(key, tags);
       }
@@ -45,11 +43,20 @@ export const useTextEdit = (
     }
   }, [editor]);
 
-  const { mutateAsync } = useMutation('update movie', (data: IPostTextPatch) =>
-    PostTextService.update(data)
+  const { mutateAsync } = useMutation(
+    'update movie',
+    (data: IPostTextResponse) =>
+      PostTextService.update({
+        id: data.id,
+        tag_ids: data.tag_ids,
+        vertical: data.vertical,
+        language: data.language,
+        text: data.text,
+        channel_id: data.channel_id
+      })
   );
 
-  const onSubmit: SubmitHandler<IPostTextPatch> = async (data) => {
+  const onSubmit: SubmitHandler<IPostTextResponse> = async (data) => {
     data.text = telegramConverter(useSave(editor), null, 'html') as string;
     if (data.text?.length < 8) {
       return setError('text', { type: 'custom', message: 'Введите текст' });

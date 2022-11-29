@@ -3,11 +3,10 @@ import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { useMutation } from 'react-query';
 
-import { ITextCreate } from '@/pages/texts/text.interface';
-
 import { useSave } from '@/hooks/textEditor/useSave';
 
 import { IPostTextCreate } from '@/shared/types/post-text/post-text-create.interface';
+import { IPostTextResponse } from '@/shared/types/post-text/post-text-response.interface';
 
 import { PostTextService } from '@/services/post-text/post-text.service';
 
@@ -25,9 +24,9 @@ export const useCreateText = (setError: any) => {
     });
   }
 
-  const onSubmit: SubmitHandler<ITextCreate> = async (data) => {
-    delete data.search_tags;
-    delete data.search_vertical;
+  const onSubmit: SubmitHandler<IPostTextResponse> = async (data) => {
+    // delete data.search_tags;
+    // delete data.search_vertical;
 
     data.text = telegramConverter(useSave(editor), null, 'html') as string;
     if (data.text?.length < 8) {
@@ -35,7 +34,13 @@ export const useCreateText = (setError: any) => {
     }
 
     console.log(data);
-    await mutateAsync(data);
+    await mutateAsync({
+      text: data.text,
+      tags: data.tag_ids,
+      channel_id: data.channel_id,
+      language: data.language,
+      vertical: data.vertical
+    });
     clear(editor);
   };
 

@@ -3,7 +3,6 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useRepostPost } from '@/pages/history/RepostPost/useRepostPost';
-import { ITextInput } from '@/pages/texts/ITextInput';
 
 import ChannelField from '@/components/shared/fields/ChannelField/ChannelField';
 
@@ -11,15 +10,16 @@ import Button from '@/ui/form-elements/Button';
 
 import { useOutside } from '@/hooks/useOutside';
 
-import { IPost } from '@/shared/types/post/post-create.interface';
+import { IPostTextResponse } from '@/shared/types/post-text/post-text-response.interface';
+import { IPostResponse } from '@/shared/types/post/post-response.interface';
 
 import repostImage from '@/assets/icons/repost.svg';
 
 import styles from '../PostItem.module.scss';
 
-const RepostPost: FC<{ item: IPost }> = ({ item }) => {
+const RepostPost: FC<{ item: IPostResponse }> = ({ item }) => {
   const { isShow, setIsShow, ref } = useOutside(false);
-  const { handleSubmit, control } = useForm<ITextInput>({
+  const { handleSubmit, control } = useForm<IPostTextResponse>({
     mode: 'onChange'
   });
   const { onEditSubmit } = useRepostPost(item);

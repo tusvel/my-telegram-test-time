@@ -9,4 +9,5 @@ export interface IPostTextResponse extends IBasic {
   language: LanguageType;
   text: string;
   tags: ITagResponse[];
+  tag_ids: number[];
 }

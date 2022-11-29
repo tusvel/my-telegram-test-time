@@ -16,7 +16,7 @@ import Button from '@/ui/form-elements/Button';
 
 import { useOutside } from '@/hooks/useOutside';
 
-import { IPostTextPatch } from '@/shared/types/post-text/post-text-patch.interface';
+import { IPostTextResponse } from '@/shared/types/post-text/post-text-response.interface';
 
 import settingsIcon from '@/assets/icons/setting.svg';
 
@@ -27,7 +27,7 @@ const SelectText = dynamic(
   }
 );
 
-const EditText: FC<{ item: IPostTextPatch }> = ({ item }) => {
+const EditText: FC<{ item: IPostTextResponse }> = ({ item }) => {
   const save = (editor: LexicalEditor) => {
     let html;
     const rootElement = editor.getRootElement();
@@ -47,7 +47,7 @@ const EditText: FC<{ item: IPostTextPatch }> = ({ item }) => {
     setValue,
     setError,
     formState: { errors }
-  } = useForm<IPostTextPatch>({
+  } = useForm<IPostTextResponse>({
     mode: 'onChange'
   });
   const onEdit = async (event: MouseEvent<HTMLButtonElement>) => {

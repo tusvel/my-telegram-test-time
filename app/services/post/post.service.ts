@@ -24,5 +24,8 @@ export const PostService = {
   async deleteOne(id: number) {
     const response = await $auth.delete(getPostApi(`/${id}`));
     return response.data;
+  },
+  repost(data: any, id: any) {
+    return Promise.resolve(undefined);
   }
 };
