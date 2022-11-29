@@ -11,13 +11,15 @@ const MediaTypeField: FC<any> = ({
   control,
   name,
   className,
-  isRequired = false
+  isRequired = false,
+  defaultValue
 }) => {
   return (
     <div className={className}>
       <Controller
         control={control}
         name={name}
+        defaultValue={defaultValue || ''}
         rules={
           isRequired
             ? {

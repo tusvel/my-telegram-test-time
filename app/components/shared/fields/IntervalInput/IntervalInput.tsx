@@ -5,12 +5,12 @@ import IntervalInputItem from '@/components/shared/fields/IntervalInput/Interval
 let lastNumber = 2;
 
 const IntervalInput: FC<any> = ({ setItemsTime, itemsTime }) => {
-  const addTimeItem = async () => {
-    lastNumber = 1 + lastNumber;
-    await setItemsTime({ ...itemsTime, [lastNumber]: ['', ''] });
+  const addTimeItem = () => {
+    lastNumber = lastNumber + 1;
+    setItemsTime({ ...itemsTime, [lastNumber]: ['', ''] });
   };
 
-  const deleteTimeItem = async (keyItem: number) => {
+  const deleteTimeItem = (keyItem: number) => {
     const filtered = itemsTime;
     delete filtered[keyItem];
     setItemsTime({ ...filtered });

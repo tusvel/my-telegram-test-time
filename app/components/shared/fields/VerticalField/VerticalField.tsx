@@ -7,6 +7,15 @@ import { convertSelect } from '@/utils/convertSelect';
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
 });
+
+/*
+<VerticalField
+  className="mr-5"
+  control={control}
+  name="vertical"
+  isRequired
+/>
+*/
 const VerticalField: FC<any> = ({
   control,
   name,

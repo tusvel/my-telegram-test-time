@@ -1,11 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getAllClients } from '@/store/client/client.actions';
+import {
+  addClient,
+  getAllClients,
+  removeClient
+} from '@/store/client/client.actions';
 import { IClientInitialState } from '@/store/client/client.interface';
 
 const initialState: IClientInitialState = {
-  clients: null,
-  isLoading: false
+  clients: null
 };
 
 export const clientSlice = createSlice({
@@ -14,16 +17,24 @@ export const clientSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllClients.pending, (state) => {
-        state.isLoading = true;
-      })
       .addCase(getAllClients.fulfilled, (state, { payload }) => {
         state.clients = payload;
-        state.isLoading = false;
       })
       .addCase(getAllClients.rejected, (state) => {
         state.clients = null;
-        state.isLoading = false;
+      })
+      .addCase(addClient.fulfilled, (state, { payload }) => {
+        state.clients = [...(state.clients || []), payload];
+      })
+      .addCase(addClient.rejected, (state) => {
+        state.clients = [...(state.clients || [])];
+      })
+      .addCase(removeClient.fulfilled, (state, { payload }) => {
+        state.clients =
+          state.clients && state.clients.filter((item) => item.id !== payload);
+      })
+      .addCase(removeClient.rejected, (state) => {
+        state.clients = [...(state.clients || [])];
       });
   }
 });

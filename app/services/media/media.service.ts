@@ -18,9 +18,13 @@ export const MediaService = {
   },
 
   async upload(file: FormData) {
-    const response = await $auth.post<string>(getMediaApi('/upload'), file, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    });
+    const response = await $auth.post<{ path: string }>(
+      getMediaApi('/upload'),
+      file,
+      {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }
+    );
     return response.data;
   },
 

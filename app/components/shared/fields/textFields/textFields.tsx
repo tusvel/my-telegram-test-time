@@ -11,7 +11,7 @@ const TextFields: FC<{ control: Control<ITextCreate> }> = ({ control }) => {
   return (
     <div>
       <div className="flex items-center mt-3 mb-8">
-        <ChannelField className="mr-5" control={control} name="channel" />
+        <ChannelField className="mr-5" control={control} name="channel_id" />
         <VerticalField
           isRequired
           className="mr-5"

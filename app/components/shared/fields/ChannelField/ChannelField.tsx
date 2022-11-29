@@ -8,6 +8,8 @@ import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 import { convertSelect } from '@/utils/convertSelect';
 
+import { getPictureApi } from '@/config/api.config';
+
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
 });
@@ -25,13 +27,13 @@ const ChannelField: FC<any> = ({
     [...(chanelItems || [])],
     'title',
     'id',
-    'profice_picture'
+    'profile_picture'
   );
   const formatOptionChannel = ({ label, image }: any) => (
     <div className="flex items-center">
       <Image
         className="mr-2 overflow-hidden object-cover"
-        src={image}
+        src={getPictureApi(image)}
         alt={label}
         width={35}
         height={35}

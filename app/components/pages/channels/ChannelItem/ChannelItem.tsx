@@ -1,16 +1,31 @@
+import cn from 'classnames';
 import Image from 'next/image';
 import { FC } from 'react';
 
+import styles from '@/ui/List/ListItem/ListItem.module.scss';
+import MaterialIcon from '@/ui/MaterialIcon/MaterialIcon';
+
 import { IChannelResponse } from '@/shared/types/channel/channel-response.interface';
 
-const ChannelItem: FC<{ item: IChannelResponse }> = ({ item }) => {
+import { getPictureApi } from '@/config/api.config';
+
+const ChannelItem: FC<{
+  item: IChannelResponse;
+  remove: Function;
+  edit: Function;
+}> = ({ item, remove, edit }) => {
   return (
-    <li className={'overflow-hidden rounded-md bg-white px-6 py-4 shadow w-96'}>
+    <li
+      className={cn(
+        'relative overflow-hidden rounded-md bg-white p-4 shadow w-96',
+        styles.item
+      )}
+    >
       <div>
         <div className="flex">
           <Image
             className="mr-3"
-            src={item.profice_picture}
+            src={getPictureApi(item.profile_picture)}
             alt={item.title}
             width={60}
             height={60}
@@ -19,6 +34,19 @@ const ChannelItem: FC<{ item: IChannelResponse }> = ({ item }) => {
             <div className="text-xl mt-[-6px]">{item.title}</div>
             <div>@{item.vertical}</div>
           </div>
+        </div>
+      </div>
+      <div
+        className={cn(
+          'absolute top-0 right-0 flex items-center',
+          styles.editItems
+        )}
+      >
+        <div onClick={() => edit(item)} className="cursor-pointer w-6 h-6">
+          <MaterialIcon name="PencilSquareIcon" />
+        </div>
+        <div onClick={() => remove(item)} className="cursor-pointer w-6 h-6">
+          <MaterialIcon name="TrashIcon" />
         </div>
       </div>
     </li>

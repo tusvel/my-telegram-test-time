@@ -7,8 +7,8 @@ export interface IChannelBase extends IBasic {
   language: LanguageType;
   timezone: Date;
   title: string;
-  profice_picture: string;
+  profile_picture: string;
   contact: string;
   is_preview: boolean;
-  buttons_text: string;
+  button_texts: string[];
 }

@@ -4,7 +4,6 @@ import { ITagResponse } from '@/shared/types/tag/tag-response.interface';
 
 import { getAllTags } from '@/store/tag/tag.actions';
 import { ITagInitialState } from '@/store/tag/tag.interface';
-import { textEditSlice } from '@/store/textEdit/textEdit.slice';
 
 const initialState: ITagInitialState = {
   items: null,
@@ -17,6 +16,10 @@ export const tagSlice = createSlice({
   reducers: {
     add: (state, { payload }: PayloadAction<ITagResponse>) => {
       state.items = [...(state.items || []), payload];
+    },
+    remove: (state, { payload }: PayloadAction<ITagResponse>) => {
+      state.items =
+        state.items && state.items.filter((item) => item.id !== payload.id);
     }
   },
   extraReducers: (builder) => {
@@ -35,4 +38,4 @@ export const tagSlice = createSlice({
   }
 });
 export const { reducer } = tagSlice;
-export const { add: addTag } = textEditSlice.actions;
+export const { add: addTag, remove: removeTag } = tagSlice.actions;

@@ -16,7 +16,6 @@ const RoleField: FC<any> = ({
       <Controller
         control={control}
         name={name}
-        defaultValue={'ru'}
         rules={
           isRequired
             ? {

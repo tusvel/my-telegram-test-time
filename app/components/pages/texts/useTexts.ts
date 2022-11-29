@@ -28,7 +28,6 @@ export const useCreateText = (setError: any) => {
   const onSubmit: SubmitHandler<ITextCreate> = async (data) => {
     delete data.search_tags;
     delete data.search_vertical;
-    data.channel_id && delete data.channel_id;
 
     data.text = telegramConverter(useSave(editor), null, 'html') as string;
     if (data.text?.length < 8) {

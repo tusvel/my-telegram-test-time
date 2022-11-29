@@ -8,7 +8,6 @@ import { useSave } from '@/hooks/textEditor/useSave';
 
 import { IButton } from '@/shared/types/form/button.interface';
 
-import { MediaService } from '@/services/media/media.service';
 import { PostService } from '@/services/post/post.service';
 
 import { getStoreLocal } from '@/utils/local-storage';
@@ -50,13 +49,13 @@ export const usePostForm: any = (
     //---------------
 
     //работа с медиа
-    let responseMedias = [];
+    /*    let responseMedias: number[] = [];
     for (const value of data.media.values()) {
       const responseMedia = await MediaService.upload(value);
-      responseMedias.push(responseMedia);
+      responseMedias.push(responseMedia.path);
     }
     data.media_id = [...(data?.media_id || []), ...responseMedias];
-    delete data.media;
+    delete data.media;*/
     //-----------
 
     data.text = telegramConverter(useSave(editor), null, 'html') as string;

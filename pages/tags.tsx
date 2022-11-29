@@ -1,4 +1,4 @@
-import Tags from '@/components/pages/tags/tags';
+import Tags from '@/pages/tags/Tags';
 
 import { NextPageAuth } from '@/shared/types/auth/auth.types';
 

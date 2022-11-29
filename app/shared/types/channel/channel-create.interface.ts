@@ -8,8 +8,8 @@ export interface IChannelCreateRequest extends IChannelSlotCreate {
   language: LanguageType;
   timezone: string;
   title: string;
-  profice_picture: any;
+  profile_picture: any;
   contact: string;
   is_preview: boolean;
-  buttons_text: string;
+  button_texts: string[];
 }

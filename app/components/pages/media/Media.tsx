@@ -9,6 +9,7 @@ import { useCreateMedia } from '@/pages/media/useMedia';
 
 import ChannelField from '@/components/shared/fields/ChannelField/ChannelField';
 import DropField from '@/components/shared/fields/DropField/DropField';
+import VerticalField from '@/components/shared/fields/VerticalField/VerticalField';
 
 import Modal from '@/ui/Modal/Modal';
 import Button from '@/ui/form-elements/Button';
@@ -128,6 +129,12 @@ const Media: FC = () => {
                 name="channel_id"
               />
             </div>
+            <VerticalField
+              className="my-5"
+              control={control}
+              name="vertical"
+              isRequired
+            />
             <DropField
               title="Добавить изображения"
               multiple={false}

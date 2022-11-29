@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 const defaultTimes = [
   ['08:00', '09:00'],
@@ -19,6 +19,11 @@ const IntervalInputItem: FC<any> = ({
     defaultTimes[keyItem] ? defaultTimes[keyItem][1] : ''
   );
 
+  useEffect(() => {
+    setFirst(defaultTimes[keyItem] ? defaultTimes[keyItem][0] : '');
+    setSecond(defaultTimes[keyItem] ? defaultTimes[keyItem][1] : '');
+  }, [keyItem]);
+
   return (
     <div className="flex items-center">
       <div
@@ -33,7 +38,6 @@ const IntervalInputItem: FC<any> = ({
           value={first}
           onChange={(e) => {
             setFirst(e.target.value);
-            console.log(itemsTime);
             return setItemsTime({
               ...itemsTime,
               [keyItem]: [first, second]
