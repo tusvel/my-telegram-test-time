@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
+import TagItem from '@/pages/tags/TagItem';
 import TagsCreate from '@/pages/tags/TagsCreate';
 
-import ListItem from '@/ui/List/ListItem/ListItem';
 import EditModal from '@/ui/Modal/EditModal/EditModal';
 import Button from '@/ui/form-elements/Button';
 import Toggle from '@/ui/form-elements/Toggle';
@@ -15,7 +15,7 @@ import { ITagResponse } from '@/shared/types/tag/tag-response.interface';
 
 import { TagService } from '@/services/tag/tag.service';
 
-import { removeTag } from '@/store/tag/tag.slice';
+import { removeTag, updateTag } from '@/store/tag/tag.slice';
 
 const Tags: FC = () => {
   const dispatch = useAppDispatch();
@@ -47,30 +47,44 @@ const Tags: FC = () => {
       description: data.description,
       is_special: data.is_special
     });
+    dispatch(updateTag(data));
   };
+
+  //filter
+  const gamblingItems =
+    items?.filter((item) => item.vertical === 'gambling') || [];
+  const casinoItems = items?.filter((item) => item.vertical === 'casino') || [];
+  const cryptoItems = items?.filter((item) => item.vertical === 'crypto') || [];
 
   return (
     <div>
       <TagsCreate />
-      <ul role="list" className="space-y-3 mt-5">
-        {Array.isArray(items) &&
-          items.map((item) => (
-            <div key={item.id}>
-              <ListItem
-                style={{ width: 400 }}
-                remove={remove}
-                edit={edit}
-                item={{
-                  id: item.id,
-                  tags: [item],
-                  description: item.description,
-                  vertical: item.vertical,
-                  is_special: item.is_special
-                }}
-              />
-            </div>
-          ))}
-      </ul>
+      <div className="flex">
+        <ul role="list" className="space-y-3 mt-5 mr-10">
+          {Array.isArray(gamblingItems) &&
+            gamblingItems.map((item) => (
+              <div key={item.id}>
+                <TagItem item={item} edit={edit} remove={remove} />
+              </div>
+            ))}
+        </ul>
+        <ul role="list" className="space-y-3 mt-5 mr-10">
+          {Array.isArray(casinoItems) &&
+            casinoItems.map((item) => (
+              <div key={item.id}>
+                <TagItem item={item} edit={edit} remove={remove} />
+              </div>
+            ))}
+        </ul>
+        <ul role="list" className="space-y-3 mt-5">
+          {Array.isArray(cryptoItems) &&
+            cryptoItems.map((item) => (
+              <div key={item.id}>
+                <TagItem item={item} edit={edit} remove={remove} />
+              </div>
+            ))}
+        </ul>
+      </div>
       <EditModal
         setValue={setValue}
         setOpenEdit={setOpenEdit}

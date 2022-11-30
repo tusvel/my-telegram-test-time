@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { IUserResponse } from '@/shared/types/user/user-response.interface';
 
 import {
   addClient,
@@ -14,7 +16,19 @@ const initialState: IClientInitialState = {
 export const clientSlice = createSlice({
   name: 'client',
   initialState,
-  reducers: {},
+  reducers: {
+    update: (state, { payload }: PayloadAction<IUserResponse>) => {
+      state.clients =
+        (state.clients &&
+          state.clients.filter((item) => item.id !== payload.id)) ||
+        [];
+      payload.role = payload.role.toLowerCase() as
+        | 'admin'
+        | 'superadmin'
+        | 'user';
+      state.clients = [...(state.clients || []), payload];
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllClients.fulfilled, (state, { payload }) => {
@@ -40,3 +54,4 @@ export const clientSlice = createSlice({
 });
 
 export const { reducer } = clientSlice;
+export const { update: updateUser } = clientSlice.actions;

@@ -16,7 +16,7 @@ const ButtonTextsIntervalItem: FC<any> = ({
         className="h-10 w-10 flex items-center justify-center bg-white mr-3 cursor-pointer"
         onClick={() => deleteItem(keyItem)}
       >
-        × {keyItem}
+        ×
       </div>
       <div className="flex items-center">
         <input
@@ -25,9 +25,9 @@ const ButtonTextsIntervalItem: FC<any> = ({
           placeholder="Текст кнопки"
           onChange={(e) => {
             setFirst(e.target.value);
-            return setItems({
+            setItems({
               ...items,
-              [keyItem]: first
+              [keyItem]: e.target.value
             });
           }}
         />

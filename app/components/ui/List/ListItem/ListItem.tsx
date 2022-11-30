@@ -18,6 +18,7 @@ const ListItem: FC<{
     role?: string;
     description?: string;
     is_special?: boolean;
+    value?: string;
   };
   style?: CSSProperties;
   remove?: Function;

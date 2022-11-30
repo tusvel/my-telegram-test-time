@@ -45,7 +45,7 @@ const ChannelsCreate: FC = () => {
   });
   const [itemsButton, setItemsButton] = useState({});
 
-  const { onSubmit } = useCreateChannel(itemsTime, itemsButton);
+  const { onSubmit } = useCreateChannel(itemsTime, itemsButton, reset);
 
   return (
     <Modal title="Добавить канал">

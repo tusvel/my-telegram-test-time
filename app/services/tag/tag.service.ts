@@ -7,7 +7,7 @@ import { getTagApi } from '@/config/api.config';
 import { $auth, $host } from '../../api/interceptors';
 
 export const TagService = {
-  async getAll(offset_type = 'first', offset_id = 0, limit = 10) {
+  async getAll(offset_type = 'first', offset_id = 0, limit = 100) {
     const response = await $auth.get<ITagResponse[]>(getTagApi('/'), {
       params: {
         offset_type,

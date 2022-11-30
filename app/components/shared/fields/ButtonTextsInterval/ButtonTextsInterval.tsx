@@ -8,7 +8,6 @@ const ButtonTextsInterval: FC<any> = ({ setItems, items }) => {
     const lastIndex = +(itemsElem.pop() || 0);
     const lastNumber = lastIndex + 1;
     setItems({ ...items, [lastNumber]: '' });
-    console.log(items);
   };
 
   const deleteItem = (keyItem: number) => {

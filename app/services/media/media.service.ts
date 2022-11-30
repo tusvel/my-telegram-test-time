@@ -7,8 +7,14 @@ import { getMediaApi } from '@/config/api.config';
 import { $auth } from '../../api/interceptors';
 
 export const MediaService = {
-  async getAll() {
-    const response = await $auth.get<IMediaResponse[]>(getMediaApi(''));
+  async getAll(offset_type = 'first', offset_id = 0, limit = 100) {
+    const response = await $auth.get<IMediaResponse[]>(getMediaApi(''), {
+      params: {
+        offset_type,
+        offset_id,
+        limit
+      }
+    });
     return response.data;
   },
 

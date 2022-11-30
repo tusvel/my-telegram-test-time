@@ -6,7 +6,6 @@ const ContactField: FC<any> = forwardRef(({ default_value, ...rest }, ref) => {
   return (
     <>
       <span>Контакт</span>
-      <br />
       <input
         {...rest}
         ref={ref}

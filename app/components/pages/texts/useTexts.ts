@@ -36,7 +36,7 @@ export const useCreateText = (setError: any) => {
     console.log(data);
     await mutateAsync({
       text: data.text,
-      tags: data.tag_ids,
+      tag_ids: data.tag_ids,
       channel_id: data.channel_id,
       language: data.language,
       vertical: data.vertical

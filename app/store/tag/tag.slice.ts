@@ -20,6 +20,10 @@ export const tagSlice = createSlice({
     remove: (state, { payload }: PayloadAction<ITagResponse>) => {
       state.items =
         state.items && state.items.filter((item) => item.id !== payload.id);
+    },
+    update: (state, { payload }: PayloadAction<ITagResponse>) => {
+      state.items = state.items?.filter((item) => item.id !== payload.id) || [];
+      state.items = [...(state.items || []), payload];
     }
   },
   extraReducers: (builder) => {
@@ -38,4 +42,8 @@ export const tagSlice = createSlice({
   }
 });
 export const { reducer } = tagSlice;
-export const { add: addTag, remove: removeTag } = tagSlice.actions;
+export const {
+  add: addTag,
+  remove: removeTag,
+  update: updateTag
+} = tagSlice.actions;

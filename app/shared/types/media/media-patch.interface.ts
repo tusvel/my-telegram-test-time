@@ -3,7 +3,7 @@ import { LanguageType } from '@/shared/types/language/language.type';
 import { VerticalType } from '@/shared/types/vertical/vertical.types';
 
 export interface IMediaPatchRequest extends IBasic {
-  tags: number[];
+  tag_ids: number[];
   vertical: VerticalType;
   language: LanguageType;
   channel_id: number;

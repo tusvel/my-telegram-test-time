@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
@@ -14,12 +15,13 @@ const Login: FC = () => {
   const { control, handleSubmit, reset } = useForm<IEmailPassword>({
     mode: 'onChange'
   });
-
+  const { replace } = useRouter();
   const { login } = useActions();
 
   const onsubmit = async (data: IEmailPassword) => {
     await login(data);
     reset();
+    await replace('/');
   };
 
   return (

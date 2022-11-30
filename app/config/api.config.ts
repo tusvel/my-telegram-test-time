@@ -9,7 +9,7 @@ export const getChannelApi = (string: string) => `/channels${string}`;
 export const getPostTextApi = (string: string) => `/post_texts${string}`;
 export const getPartialTextApi = (string: string) => `/partial_texts${string}`;
 export const getMediaApi = (string: string) => `/media${string}`;
-export const getTagApi = (string: string) => `/tags${string}`;
+export const getTagApi = (string: string) => `/tag_ids${string}`;
 export const getUserApi = (string: string) => `/users${string}`;
 export const getAuthenticateApi = (string: string) => `/auth${string}`;
 

@@ -5,8 +5,6 @@ import { IUserResponse } from '@/shared/types/user/user-response.interface';
 import { AuthService } from '@/services/auth/auth.service';
 import { UserService } from '@/services/user/user.service';
 
-import { errorHandler } from '@/utils/errorHandler';
-
 import { IEmailPassword } from '@/store/user/user.interface';
 
 export const login = createAsyncThunk<IUserResponse, IEmailPassword>(
@@ -31,9 +29,7 @@ export const checkAuth = createAsyncThunk(
     try {
       return await AuthService.getNewTokens();
     } catch (error) {
-      if (errorHandler(error) === 'jwt expired') {
-        thunkApi.dispatch(logout());
-      }
+      thunkApi.dispatch(logout());
       return thunkApi.rejectWithValue(error);
     }
   }

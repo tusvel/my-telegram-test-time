@@ -67,7 +67,7 @@ const Media: FC = () => {
               <div className="mr-5">
                 <Controller
                   control={control}
-                  name="tags"
+                  name="tag_ids"
                   render={({ field, fieldState: { error } }) => (
                     <DynamicSelect
                       field={field}
@@ -137,9 +137,9 @@ const Media: FC = () => {
             />
             <DropField
               title="Добавить изображения"
-              multiple={false}
+              multiple
               control={control}
-              name="profice_picture"
+              name="profile_picture"
               className="mb-5 mr-[40px] w-[350px]"
             />
             <Button>Создать медиа</Button>

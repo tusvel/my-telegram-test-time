@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import ChannelItem from '@/pages/channels/ChannelItem/ChannelItem';
@@ -21,7 +21,7 @@ import { ChannelService } from '@/services/channel/channel.service';
 
 import Meta from '@/utils/meta/Meta';
 
-import { removeChannel } from '@/store/channel/channel.slice';
+import { removeChannel, updateChannel } from '@/store/channel/channel.slice';
 
 const Channels: FC = () => {
   const { items } = useTypedSelector((state) => state.channel);
@@ -45,8 +45,6 @@ const Channels: FC = () => {
     setValue,
     register,
     handleSubmit,
-    control,
-    watch,
     formState: { errors }
   } = useForm<IChannelResponse>({
     mode: 'onChange'
@@ -54,11 +52,13 @@ const Channels: FC = () => {
   const [editItem, setEditItem] = useState<IChannelResponse>();
   const [openEdit, setOpenEdit] = useState(false);
   const editAction = async (item: IChannelResponse) => {
-    setOpenEdit(true);
     await setEditItem(item);
-    editItem?.button_texts.map(async (item, index) => {
+    await setItemsButton({});
+    item?.button_texts.map(async (item, index) => {
       await setItemsButton((prev) => ({ ...prev, [index]: item }));
     });
+    setOpenEdit(true);
+    console.log(itemsButton);
   };
   const onSubmit: SubmitHandler<IChannelResponse> = async (data) => {
     const arrBtn = Object.values(itemsButton) as string[];
@@ -67,30 +67,59 @@ const Channels: FC = () => {
       button_texts: arrBtn,
       contact: data.contact
     });
+    data.button_texts = arrBtn;
+    dispatch(updateChannel(data));
   };
 
-  useEffect(() => {
-    editItem?.button_texts.map(async (item, index) => {
-      await setItemsButton((prev) => ({ ...prev, [index]: item }));
-    });
-  }, [editItem]);
+  const gamblingItems =
+    items?.filter((item) => item.vertical === 'gambling') || [];
+  const casinoItems = items?.filter((item) => item.vertical === 'casino') || [];
+  const cryptoItems = items?.filter((item) => item.vertical === 'crypto') || [];
 
   return (
     <Meta title="Channels" description="Channels in telegram">
       <ChannelsCreate />
-      {items && items?.length > 0 && (
-        <ul role="list" className="space-y-3 mt-5">
-          {items?.length &&
-            items.map((item) => (
-              <ChannelItem
-                edit={editAction}
-                remove={remove}
-                key={item.id}
-                item={item}
-              />
-            ))}
-        </ul>
-      )}
+      <div className="flex">
+        {gamblingItems && gamblingItems?.length > 0 && (
+          <ul role="list" className="space-y-3 mt-5 mr-10">
+            {gamblingItems?.length &&
+              gamblingItems.map((item) => (
+                <ChannelItem
+                  edit={editAction}
+                  remove={remove}
+                  key={item.id}
+                  item={item}
+                />
+              ))}
+          </ul>
+        )}
+        {casinoItems && casinoItems?.length > 0 && (
+          <ul role="list" className="space-y-3 mt-5 mr-10">
+            {casinoItems?.length &&
+              casinoItems.map((item) => (
+                <ChannelItem
+                  edit={editAction}
+                  remove={remove}
+                  key={item.id}
+                  item={item}
+                />
+              ))}
+          </ul>
+        )}
+        {cryptoItems && cryptoItems?.length > 0 && (
+          <ul role="list" className="space-y-3 mt-5">
+            {cryptoItems?.length &&
+              cryptoItems.map((item) => (
+                <ChannelItem
+                  edit={editAction}
+                  remove={remove}
+                  key={item.id}
+                  item={item}
+                />
+              ))}
+          </ul>
+        )}
+      </div>
       <EditModal
         setValue={setValue}
         setOpenEdit={setOpenEdit}

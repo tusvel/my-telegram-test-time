@@ -6,9 +6,16 @@ import { getChannelSlotApi } from '@/config/api.config';
 import { $auth } from '../../api/interceptors';
 
 export const ChannelSlotService = {
-  async getAll() {
+  async getAll(offset_type = 'first', offset_id = 0, limit = 100) {
     const response = await $auth.get<IChannelSlotResponse[]>(
-      getChannelSlotApi('')
+      getChannelSlotApi(''),
+      {
+        params: {
+          offset_type,
+          offset_id,
+          limit
+        }
+      }
     );
     return response.data;
   },

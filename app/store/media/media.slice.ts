@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { IMediaResponse } from '@/shared/types/media/media-response.interface';
 
 import { getAllMedia } from '@/store/media/media.actions';
 import { IMediaInitialState } from '@/store/media/media.interface';
@@ -11,7 +13,20 @@ const initialState: IMediaInitialState = {
 export const mediaSlice = createSlice({
   name: 'media',
   initialState,
-  reducers: {},
+  reducers: {
+    add: (state, { payload }: PayloadAction<IMediaResponse>) => {
+      state.items = [...(state.items || []), payload];
+    },
+    remove: (state, { payload }: PayloadAction<IMediaResponse>) => {
+      state.items =
+        state.items && state.items.filter((item) => item.id !== payload.id);
+    },
+    update: (state, { payload }: PayloadAction<IMediaResponse>) => {
+      state.items =
+        state.items && state.items.filter((item) => item.id !== payload.id);
+      state.items = [...(state.items || []), payload];
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllMedia.pending, (state) => {
@@ -28,3 +43,8 @@ export const mediaSlice = createSlice({
   }
 });
 export const { reducer } = mediaSlice;
+export const {
+  add: addMedia,
+  remove: removeMedia,
+  update: updateMedia
+} = mediaSlice.actions;

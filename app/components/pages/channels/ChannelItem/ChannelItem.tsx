@@ -24,11 +24,11 @@ const ChannelItem: FC<{
       <div>
         <div className="flex">
           <Image
-            className="mr-3"
             src={getPictureApi(item.profile_picture)}
             alt={item.title}
-            width={60}
             height={60}
+            width={60}
+            className="mr-3 h-[60px] w-[60px]"
           />
           <div className="flex flex-col justify-between">
             <div className="text-xl mt-[-6px]">{item.title}</div>

@@ -20,6 +20,11 @@ export const channelSlice = createSlice({
     remove: (state, { payload }: PayloadAction<IChannelResponse>) => {
       state.items =
         state.items && state.items.filter((item) => item.id !== payload.id);
+    },
+    update: (state, { payload }: PayloadAction<IChannelResponse>) => {
+      state.items =
+        state.items && state.items.filter((item) => item.id !== payload.id);
+      state.items = [...(state.items || []), payload];
     }
   },
   extraReducers: (builder) => {
@@ -38,4 +43,8 @@ export const channelSlice = createSlice({
   }
 });
 export const { reducer } = channelSlice;
-export const { add: addChannel, remove: removeChannel } = channelSlice.actions;
+export const {
+  add: addChannel,
+  remove: removeChannel,
+  update: updateChannel
+} = channelSlice.actions;

@@ -10,7 +10,11 @@ import { MediaService } from '@/services/media/media.service';
 
 import { addChannel } from '@/store/channel/channel.slice';
 
-export const useCreateChannel: any = (timeItems: any, itemsButton: any) => {
+export const useCreateChannel: any = (
+  timeItems: any,
+  itemsButton: any,
+  reset: any
+) => {
   const dispatch = useAppDispatch();
   const onSubmit: SubmitHandler<IChannelCreateRequest> = async (data) => {
     data.profile_picture.map(async (item: Blob) => {
@@ -36,6 +40,7 @@ export const useCreateChannel: any = (timeItems: any, itemsButton: any) => {
           });
         }));
       dispatch(addChannel(channel));
+      reset();
     });
   };
 

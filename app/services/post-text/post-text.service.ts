@@ -7,7 +7,7 @@ import { getPostTextApi } from '@/config/api.config';
 import { $auth } from '../../api/interceptors';
 
 export const PostTextService = {
-  async getAll(offset_type = 'first', offset_id = 0, limit = 10) {
+  async getAll(offset_type = 'first', offset_id = 0, limit = 100) {
     const response = await $auth.get<IPostTextResponse[]>(getPostTextApi(''), {
       params: {
         offset_type,

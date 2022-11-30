@@ -6,7 +6,7 @@ export interface IMediaCreateRequest {
   type: MediaType;
   vertical: VerticalType;
   language: LanguageType;
-  tags: number[];
+  tag_ids: number[];
   url: string;
   channel_id: number;
 }

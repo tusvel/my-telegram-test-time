@@ -63,7 +63,11 @@ const Texts: FC = () => {
           <Modal title="Добавить текст">
             <form onSubmit={handleSubmit(onSubmit)}>
               <TextFields control={control} />
-              <TagField control={control} name="tags" className="mr-5 mb-8" />
+              <TagField
+                control={control}
+                name="tag_ids"
+                className="mr-5 mb-8"
+              />
               <SelectText />
               <div className="relative">
                 <TextEditor setEditor={setEditor} />

@@ -5,6 +5,6 @@ export interface IPostTextCreate {
   vertical: VerticalType;
   language: LanguageType;
   text: string;
-  tags: number[];
+  tag_ids: number[];
   channel_id: number;
 }

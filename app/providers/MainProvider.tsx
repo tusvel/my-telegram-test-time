@@ -9,7 +9,7 @@ import { TypeComponentAuthFields } from '@/shared/types/auth/auth.types';
 import { store } from '@/store/store';
 
 import AuthProvider from './AuthProvider/AuthProvider';
-import QueryProvider from './QueryProvider';
+import { QueryProvider } from './QueryProvider';
 
 const queryClient = new QueryClient({
   defaultOptions: {

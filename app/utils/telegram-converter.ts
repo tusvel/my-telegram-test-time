@@ -26,6 +26,9 @@ export const telegramConverter = (
       .forEach((el) => {
         el.outerHTML = `<s>${el.innerHTML}</s>`;
       });
+    document.querySelectorAll('span').forEach((el) => {
+      el.outerHTML = el.innerHTML;
+    });
     document.querySelectorAll('a.editor-link').forEach((el) => {
       el.querySelectorAll('span').forEach((span) => {
         span.outerHTML = span.innerHTML;
