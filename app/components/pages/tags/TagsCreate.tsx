@@ -1,11 +1,10 @@
 import { FC } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import VerticalField from '@/components/shared/fields/VerticalField/VerticalField';
 
 import Modal from '@/ui/Modal/Modal';
 import Button from '@/ui/form-elements/Button';
-import Toggle from '@/ui/form-elements/Toggle';
 
 import { useActions } from '@/hooks/useActions';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
@@ -31,7 +30,7 @@ const TagsCreate: FC = () => {
 
   const onSubmit: SubmitHandler<ITagCreateRequest> = async (data) => {
     try {
-      const tag = await TagService.create(data);
+      const tag = await TagService.create({ ...data, is_special: false });
       dispatch(addTag(tag));
       setValue('value', '');
       setValue('description', '');
@@ -43,37 +42,28 @@ const TagsCreate: FC = () => {
   return (
     <Modal title="Добавить тег">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-7 flex">
+        <div className="my-5 flex">
           <input
             {...register('value', { required: 'Укажите текст тега' })}
             type="text"
-            placeholder="Текст тега"
+            placeholder="Название тега"
             className="mr-5"
           />
-          <input
+          <VerticalField
+            className="mr-5"
+            control={control}
+            name="vertical"
+            isRequired
+          />
+        </div>
+        <div className="flex flex-col">
+          <textarea
             {...register('description', { required: 'Укажите текст тега' })}
-            type="text"
+            className="h-[100px] w-[300px]"
             placeholder="Описание тега"
           />
+          <Button className="mt-5">Создать тег</Button>
         </div>
-        <VerticalField
-          className="mr-5"
-          control={control}
-          name="vertical"
-          isRequired
-        />
-        <div className="my-2">
-          <div>Тег - особенный?</div>
-          <Controller
-            control={control}
-            name="is_special"
-            defaultValue={false}
-            render={({ field: { value, onChange } }) => (
-              <Toggle value={value} onChange={onChange} />
-            )}
-          />
-        </div>
-        <Button>Создать тег</Button>
       </form>
     </Modal>
   );

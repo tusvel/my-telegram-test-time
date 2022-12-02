@@ -109,14 +109,14 @@ const CreatePost: FC = () => {
               <div>Наличие кнопки</div>
               <Controller
                 control={control}
-                name="has_button"
+                name="button_enabled"
                 defaultValue={false}
                 render={({ field: { value, onChange } }) => (
                   <Toggle value={value} onChange={onChange} />
                 )}
               />
             </div>
-            {watch('has_button') && (
+            {watch('button_enabled') && (
               <div className="mb-3">
                 <div className="flex mb-3">
                   <Toggle
@@ -148,7 +148,7 @@ const CreatePost: FC = () => {
                     <>
                       <Controller
                         control={control}
-                        name="text_button"
+                        name="button_text"
                         render={({ field: { onChange, value } }) => (
                           <div className={styles.emojiInput}>
                             <input
@@ -164,7 +164,7 @@ const CreatePost: FC = () => {
                         <Field
                           {...register('button_url')}
                           placeholder="Ссылка кнопки"
-                          error={errors.text_button}
+                          error={errors.button_text}
                           style={{ width: '300px' }}
                         />
                       </div>

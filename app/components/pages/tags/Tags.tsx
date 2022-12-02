@@ -1,12 +1,11 @@
 import { FC, useState } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import TagItem from '@/pages/tags/TagItem';
 import TagsCreate from '@/pages/tags/TagsCreate';
 
 import EditModal from '@/ui/Modal/EditModal/EditModal';
 import Button from '@/ui/form-elements/Button';
-import Toggle from '@/ui/form-elements/Toggle';
 
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
@@ -45,7 +44,7 @@ const Tags: FC = () => {
     await TagService.update({
       tag_id: data.id,
       description: data.description,
-      is_special: data.is_special
+      is_special: false
     });
     dispatch(updateTag(data));
   };
@@ -92,23 +91,15 @@ const Tags: FC = () => {
         item={editItem}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            {...register('description', { required: 'Укажите текст тега' })}
-            type="text"
-            placeholder="Описание тега"
-          />
-          <div className="my-2">
-            <div>Тег - особенный?</div>
-            <Controller
-              control={control}
-              name="is_special"
-              defaultValue={false}
-              render={({ field: { value, onChange } }) => (
-                <Toggle value={value} onChange={onChange} />
-              )}
+          <div className="flex flex-col">
+            Описание тега
+            <textarea
+              {...register('description', { required: 'Укажите текст тега' })}
+              className="h-[100px] w-[300px]"
+              placeholder="Описание тега"
             />
+            <Button className="mt-5">Обновить</Button>
           </div>
-          <Button>Обновить</Button>
         </form>
       </EditModal>
     </div>

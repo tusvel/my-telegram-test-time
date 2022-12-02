@@ -34,9 +34,9 @@ export const useCreateChannel: any = (
           await ChannelSlotService.create({
             channel_id: channel.id,
             button_enabled: data.button_enabled,
-            tags: data.tags,
-            time_start: timeItems[key][0],
-            time_end: timeItems[key][1]
+            tags: timeItems[key][1],
+            time_start: timeItems[key][0][0],
+            time_end: timeItems[key][0][1]
           });
         }));
       dispatch(addChannel(channel));

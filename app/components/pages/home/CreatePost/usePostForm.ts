@@ -7,7 +7,9 @@ import { ICreatePost } from '@/pages/home/CreatePost/create-post.interface';
 import { useSave } from '@/hooks/textEditor/useSave';
 
 import { IButton } from '@/shared/types/form/button.interface';
+import { MediaType } from '@/shared/types/media/media.type';
 
+import { MediaService } from '@/services/media/media.service';
 import { PostService } from '@/services/post/post.service';
 
 import { getStoreLocal } from '@/utils/local-storage';
@@ -37,35 +39,65 @@ export const usePostForm: any = (
     //-------------
 
     //Работа с кнопками
-    saveButton({ label: data.text_button, value: data.button_url });
+    saveButton({ label: data.button_text, value: data.button_url });
     if (applyButton) {
       const item: IButton = getStoreLocal('buttons').find(
         (item: IButton) => item.value === data.local_button
       );
-      data.text_button = item.label;
+      data.button_text = item.label;
       data.button_url = item.value;
     }
     delete data.local_button;
     //---------------
-
-    //работа с медиа
-    /*    let responseMedias: number[] = [];
-    for (const value of data.media.values()) {
-      const responseMedia = await MediaService.upload(value);
-      responseMedias.push(responseMedia.path);
-    }
-    data.media_id = [...(data?.media_id || []), ...responseMedias];
-    delete data.media;*/
-    //-----------
 
     data.text = telegramConverter(useSave(editor), null, 'html') as string;
     if (data.text?.length < 8) {
       return setError('text', { type: 'custom', message: 'Введите текст' });
     }
 
-    console.log(data);
+    const promises = data.media.map(async (item: Blob) => {
+      const formData = new FormData();
+      formData.append('file', item);
+      const picture = await MediaService.upload(formData);
+      const format = picture.path.split('.')[2];
+      let type: MediaType = 'photo';
+      if (format === 'mp4') {
+        type = 'video';
+      } else if (format === 'jpg') {
+        type = 'photo';
+      }
+      const media = await MediaService.create({
+        url: picture.path,
+        type: type,
+        is_single_used: true
+      });
+      data.media_id = [...(data.media_id || []), media.id];
+    });
+
+    delete data.media;
+
+    await Promise.all(promises).then(async (res) => {
+      await mutateAsync(data);
+      reset();
+    });
+
+    //работа с медиа
+    /*await data.media.map(async (item: Blob) => {
+      const formData = new FormData();
+      formData.append('file', item);
+      const picture = await MediaService.upload(formData);
+      const media = await MediaService.create({
+        url: picture.path,
+        type: 'photo', //TODO
+        is_single_used: true
+      });
+      data.media_id = [...(data?.media_id || []), media.id];
+      console.log(data.media_id);
+    });
+    delete data.media;
+
     await mutateAsync(data);
-    reset();
+    reset();*/
   };
 
   return { onSubmit, setEditor };

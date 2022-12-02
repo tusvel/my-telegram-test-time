@@ -3,7 +3,7 @@ export const API_SERVER_URL = `${process.env.APP_SERVER_URL}/api/v1`;
 
 export const getPublishPostApi = (string: string) =>
   `/published_posts${string}`;
-export const getPostApi = (string: string) => `/posts${string}`;
+export const getPostApi = (string: string) => `/scheduled_posts${string}`;
 export const getChannelSlotApi = (string: string) => `/channel_slots${string}`;
 export const getChannelApi = (string: string) => `/channels${string}`;
 export const getPostTextApi = (string: string) => `/post_texts${string}`;

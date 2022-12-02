@@ -7,7 +7,7 @@ let lastNumber = 2;
 const IntervalInput: FC<any> = ({ setItemsTime, itemsTime }) => {
   const addTimeItem = () => {
     lastNumber = lastNumber + 1;
-    setItemsTime({ ...itemsTime, [lastNumber]: ['', ''] });
+    setItemsTime({ ...itemsTime, [lastNumber]: [['', ''], []] });
   };
 
   const deleteTimeItem = (keyItem: number) => {
@@ -25,7 +25,7 @@ const IntervalInput: FC<any> = ({ setItemsTime, itemsTime }) => {
         +
       </div>
       {Object.keys(itemsTime).map((keyItem) => (
-        <div className="mb-3">
+        <div key={keyItem} className="mb-3">
           <IntervalInputItem
             itemsTime={itemsTime}
             setItemsTime={setItemsTime}

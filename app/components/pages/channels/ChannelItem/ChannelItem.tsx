@@ -28,7 +28,7 @@ const ChannelItem: FC<{
             alt={item.title}
             height={60}
             width={60}
-            className="mr-3 h-[60px] w-[60px]"
+            className="mr-3 h-[60px] w-[60px] image-like-bg"
           />
           <div className="flex flex-col justify-between">
             <div className="text-xl mt-[-6px]">{item.title}</div>

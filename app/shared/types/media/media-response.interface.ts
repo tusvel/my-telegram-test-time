@@ -11,5 +11,5 @@ export interface IMediaResponse extends IBasic {
   language: LanguageType;
   url: string;
   channel: IChannelBase;
-  tags: ITagResponse;
+  tags: ITagResponse[];
 }

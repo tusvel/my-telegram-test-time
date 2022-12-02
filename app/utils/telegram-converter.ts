@@ -26,6 +26,9 @@ export const telegramConverter = (
       .forEach((el) => {
         el.outerHTML = `<s>${el.innerHTML}</s>`;
       });
+    document.querySelectorAll('span[style]').forEach((el) => {
+      el.outerHTML = `<tg-spoiler>${el.innerHTML}</tg-spoiler>`;
+    });
     document.querySelectorAll('span').forEach((el) => {
       el.outerHTML = el.innerHTML;
     });
@@ -41,9 +44,6 @@ export const telegramConverter = (
       } else {
         el.outerHTML = `<a href=${link}>${el.innerHTML}</a>`;
       }
-    });
-    document.querySelectorAll('span[style]').forEach((el) => {
-      el.outerHTML = `<tg-spoiler>${el.innerHTML}</tg-spoiler>`;
     });
     return document.body.innerHTML || '';
   } else {

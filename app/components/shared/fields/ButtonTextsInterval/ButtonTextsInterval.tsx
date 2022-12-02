@@ -25,7 +25,7 @@ const ButtonTextsInterval: FC<any> = ({ setItems, items }) => {
         +
       </div>
       {Object.keys(items).map((keyItem) => (
-        <div className="mb-3">
+        <div key={keyItem} className="mb-3">
           <ButtonTextsIntervalItem
             items={items}
             setItems={setItems}

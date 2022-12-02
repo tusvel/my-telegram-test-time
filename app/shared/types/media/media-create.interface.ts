@@ -4,9 +4,10 @@ import { VerticalType } from '@/shared/types/vertical/vertical.types';
 
 export interface IMediaCreateRequest {
   type: MediaType;
-  vertical: VerticalType;
-  language: LanguageType;
-  tag_ids: number[];
   url: string;
-  channel_id: number;
+  is_single_used: boolean;
+  vertical?: VerticalType;
+  language?: LanguageType;
+  tag_ids?: number[];
+  channel_id?: number;
 }

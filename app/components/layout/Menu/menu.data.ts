@@ -25,7 +25,7 @@ export const menuList: IMenuList = [
   },
   {
     href: '/partial_text',
-    name: 'Сохранённые текста',
+    name: 'Временные текста',
     icon: 'ClockIcon',
     role: ['superadmin', 'admin', 'user']
   },

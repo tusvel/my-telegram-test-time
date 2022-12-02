@@ -32,7 +32,8 @@ export const useCreateMedia: any = (save: any) => {
           channel_id: data.channel_id,
           language: data.language,
           type: data.type,
-          vertical: data.vertical
+          vertical: data.vertical,
+          is_single_used: false
         });
         dispatch(addMedia(channelRes));
       });

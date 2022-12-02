@@ -1,10 +1,21 @@
+import dynamic from 'next/dynamic';
 import { FC, useEffect, useState } from 'react';
+import ReactSelect, { OnChangeValue } from 'react-select';
+
+import { IOption } from '@/ui/select/select.interface';
+
+import { useTypedSelector } from '@/hooks/useTypedSelector';
+
+import { convertSelect } from '@/utils/convertSelect';
 
 const defaultTimes = [
   ['08:00', '09:00'],
   ['15:00', '16:00'],
   ['19:00', '20:00']
 ];
+const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
+  ssr: false
+});
 
 const IntervalInputItem: FC<any> = ({
   itemsTime,
@@ -12,17 +23,39 @@ const IntervalInputItem: FC<any> = ({
   deleteTimeItem,
   setItemsTime
 }) => {
+  const { items: tagItems } = useTypedSelector((state) => state.tag);
+  const selectTags = convertSelect(tagItems, 'value', 'id') || [];
+
   const [first, setFirst] = useState(
-    defaultTimes[keyItem] ? defaultTimes[keyItem][0] : ''
+    defaultTimes[keyItem] ? defaultTimes[keyItem][0] : '10:00'
   );
   const [second, setSecond] = useState(
-    defaultTimes[keyItem] ? defaultTimes[keyItem][1] : ''
+    defaultTimes[keyItem] ? defaultTimes[keyItem][1] : '11:00'
   );
 
   useEffect(() => {
-    setFirst(defaultTimes[keyItem] ? defaultTimes[keyItem][0] : '');
-    setSecond(defaultTimes[keyItem] ? defaultTimes[keyItem][1] : '');
+    setFirst(defaultTimes[keyItem] ? defaultTimes[keyItem][0] : '10:00');
+    setSecond(defaultTimes[keyItem] ? defaultTimes[keyItem][1] : '11:00');
   }, [keyItem]);
+
+  //Tags
+  const onChange = (newValue: unknown | OnChangeValue<IOption, boolean>) => {
+    if (newValue === null) {
+      return setItemsTime({
+        ...itemsTime,
+        [keyItem]: [[first, second], []]
+      });
+    }
+    const prev = itemsTime[keyItem][1];
+    const values = (newValue as IOption[]).map((item) => item.value);
+    setItemsTime({
+      ...itemsTime,
+      [keyItem]: [
+        [first, second],
+        [...prev, ...values]
+      ]
+    });
+  };
 
   return (
     <div className="flex items-center">
@@ -40,7 +73,7 @@ const IntervalInputItem: FC<any> = ({
             setFirst(e.target.value);
             return setItemsTime({
               ...itemsTime,
-              [keyItem]: [first, second]
+              [keyItem]: [[first, second], []]
             });
           }}
         />
@@ -52,10 +85,19 @@ const IntervalInputItem: FC<any> = ({
             setSecond(e.target.value);
             return setItemsTime({
               ...itemsTime,
-              [keyItem]: [first, second]
+              [keyItem]: [[first, second], []]
             });
           }}
         />
+        <div className="ml-5">
+          <ReactSelect
+            classNamePrefix="custom-select"
+            options={selectTags}
+            isMulti={true}
+            onChange={onChange}
+            isClearable
+          />
+        </div>
       </div>
     </div>
   );
