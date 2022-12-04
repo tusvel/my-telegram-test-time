@@ -1,5 +1,7 @@
 import { FC, PropsWithChildren, useEffect, useRef } from 'react';
 
+import { ITagResponse } from '@/shared/types/tag/tag-response.interface';
+
 import { getKeys } from '@/utils/object/getKeys';
 
 import styles from '../Modal.module.scss';
@@ -20,7 +22,11 @@ const EditModal: FC<PropsWithChildren & EditModalProps> = ({
 }) => {
   useEffect(() => {
     if (item) {
+      const tags = item.tags?.map((item: ITagResponse) => item.id);
       getKeys(item).forEach((key: any) => {
+        if (key === 'tags') {
+          return setValue(key, tags);
+        }
         setValue(key, item[key]);
       });
     }

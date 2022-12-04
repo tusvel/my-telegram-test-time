@@ -12,6 +12,7 @@ import { PostTextService } from '@/services/post-text/post-text.service';
 
 import { getKeys } from '@/utils/object/getKeys';
 import { telegramConverter } from '@/utils/telegram-converter';
+import {ITagResponse} from "@/shared/types/tag/tag-response.interface";
 
 export const useTextEdit = (
   setValue: UseFormSetValue<IPostTextResponse>,
@@ -20,28 +21,29 @@ export const useTextEdit = (
   setError: any
 ) => {
   const [editor, setEditor] = useState<any>();
-  const htmlInEdit = (editor: LexicalEditor) => {
-    editor.update(() => {
-      const parser = new DOMParser();
-      const dom = parser.parseFromString(item.text, 'text/html');
-      const nodes = $generateNodesFromDOM(editor, dom);
-      $getRoot().select();
-      $insertNodes(nodes);
-    });
-  };
-  const tags = item.tags.map((item: any) => item);
 
   useEffect(() => {
+    const htmlInEdit = editor ? (editor: LexicalEditor) => {
+      editor.update(() => {
+        const parser = new DOMParser();
+        const dom = parser.parseFromString(item.text, 'text/html');
+        const nodes = $generateNodesFromDOM(editor, dom);
+        $getRoot().select();
+        $insertNodes(nodes);
+      });
+    } : null
+    const tags = item.tags.map((item: ITagResponse) => item.id);
     getKeys(item).forEach((key: keyof IPostTextResponse) => {
       if (key === 'tags') {
-        return setValue(key, tags);
+        console.log('FUCK', key, tags)
+        return setValue(key, tags)
       }
       setValue(key, item[key]);
     });
-    if (editor) {
+    if (editor && htmlInEdit) {
       htmlInEdit(editor);
     }
-  }, [editor]);
+  }, [item, editor]);
 
   const { mutateAsync } = useMutation(
     'update movie',

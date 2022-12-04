@@ -15,9 +15,10 @@ export const Dropzone = ({
   onDeleteFiles,
   showPreview,
   showFileSize,
-  onChange
+  onChange,
+  myFiles,
+  setMyFiles
 }) => {
-  const [myFiles, setMyFiles] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const containerRef = createRef();
   const onDrop = useCallback(

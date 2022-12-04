@@ -51,7 +51,11 @@ const CreatePost: FC = () => {
     isSendTime,
     setIsSendTime
   } = useCreatePost(register);
-  const { onSubmit, setEditor } = usePostForm(reset, setError, applyButton);
+  const { onSubmit, setEditor, myFiles, setMyFiles } = usePostForm(
+    reset,
+    setError,
+    applyButton
+  );
 
   return (
     <div>
@@ -71,6 +75,8 @@ const CreatePost: FC = () => {
                   control={control}
                   name="media"
                   className="mb-10 mr-[40px] w-[350px]"
+                  myFiles={myFiles}
+                  setMyFiles={setMyFiles}
                 />
                 <MediaField
                   control={control}

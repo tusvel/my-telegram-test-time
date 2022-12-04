@@ -8,7 +8,9 @@ const DropField: FC<any> = ({
   name,
   className,
   multiple = true,
-  title = 'Выберите файлы'
+  title = 'Выберите файлы',
+  myFiles,
+  setMyFiles
 }) => {
   return (
     <div className={className}>
@@ -17,7 +19,13 @@ const DropField: FC<any> = ({
         control={control}
         name={name}
         render={({ field: { onChange } }) => (
-          <Dropzone multiple={multiple} showPreview onChange={onChange} />
+          <Dropzone
+            myFiles={myFiles}
+            setMyFiles={setMyFiles}
+            multiple={multiple}
+            showPreview
+            onChange={onChange}
+          />
         )}
       />
     </div>

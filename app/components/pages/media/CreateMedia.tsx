@@ -7,7 +7,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { useCreateMedia } from '@/pages/media/useMedia';
 
 import ChannelField from '@/components/shared/fields/ChannelField/ChannelField';
-import DropField from '@/components/shared/fields/DropField/DropField';
 import VerticalField from '@/components/shared/fields/VerticalField/VerticalField';
 
 import Modal from '@/ui/Modal/Modal';
@@ -24,6 +23,12 @@ import { convertSelect } from '@/utils/convertSelect';
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
 });
+const DropField = dynamic(
+  () => import('@/components/shared/fields/DropField/DropField'),
+  {
+    ssr: false
+  }
+);
 const CreateMedia: FC = () => {
   const {
     text: { items: textItems },
@@ -33,7 +38,7 @@ const CreateMedia: FC = () => {
   const {
     handleSubmit,
     formState: { errors },
-    control,
+    control
   } = useForm<IMediaCreateRequest>({
     mode: 'onChange'
   });

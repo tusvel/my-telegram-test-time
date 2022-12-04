@@ -1,3 +1,4 @@
+import { $getRoot } from 'lexical';
 import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { useMutation } from 'react-query';
@@ -22,6 +23,8 @@ export const usePostForm: any = (
   setError: any,
   applyButton: boolean
 ) => {
+  const [myFiles, setMyFiles] = useState([]);
+
   const { mutateAsync } = useMutation('Create post', (data: ICreatePost) =>
     PostService.create(data)
   );
@@ -55,24 +58,26 @@ export const usePostForm: any = (
       return setError('text', { type: 'custom', message: 'Введите текст' });
     }
 
-    const promises = data.media.map(async (item: Blob) => {
-      const formData = new FormData();
-      formData.append('file', item);
-      const picture = await MediaService.upload(formData);
-      const format = picture.path.split('.')[2];
-      let type: MediaType = 'photo';
-      if (format === 'mp4') {
-        type = 'video';
-      } else if (format === 'jpg') {
-        type = 'photo';
-      }
-      const media = await MediaService.create({
-        url: picture.path,
-        type: type,
-        is_single_used: true
+    const promises =
+      data.media?.length &&
+      data.media.map(async (item: Blob) => {
+        const formData = new FormData();
+        formData.append('file', item);
+        const picture = await MediaService.upload(formData);
+        const format = picture.path.split('.')[2];
+        let type: MediaType = 'photo';
+        if (format === 'mp4') {
+          type = 'video';
+        } else if (format === 'jpg') {
+          type = 'photo';
+        }
+        const media = await MediaService.create({
+          url: picture.path,
+          type: type,
+          is_single_used: true
+        });
+        data.media_id = [...(data.media_id || []), media.id];
       });
-      data.media_id = [...(data.media_id || []), media.id];
-    });
 
     delete data.media;
 
@@ -81,24 +86,11 @@ export const usePostForm: any = (
       reset();
     });
 
-    //работа с медиа
-    /*await data.media.map(async (item: Blob) => {
-      const formData = new FormData();
-      formData.append('file', item);
-      const picture = await MediaService.upload(formData);
-      const media = await MediaService.create({
-        url: picture.path,
-        type: 'photo', //TODO
-        is_single_used: true
-      });
-      data.media_id = [...(data?.media_id || []), media.id];
-      console.log(data.media_id);
+    editor.update(() => {
+      $getRoot().clear();
     });
-    delete data.media;
-
-    await mutateAsync(data);
-    reset();*/
+    setMyFiles([]);
   };
 
-  return { onSubmit, setEditor };
+  return { onSubmit, setEditor, myFiles, setMyFiles };
 };

@@ -27,5 +27,11 @@
   &__menu {
     z-index: 5 !important;
     width: 350px !important;
+    height: 500px !important;
+    max-height: 500px !important;
+    > div {
+      height: 500px !important;
+      max-height: 500px !important;
+    }
   }
 }
