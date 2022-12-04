@@ -22,7 +22,7 @@ import { useState } from 'react';
 
 import emojiSmile from '@/assets/icons/emojiSmile.svg';
 
-import { useOutside } from '../../../hooks/useOutside';
+import { useOutside } from '@/hooks/useOutside';
 import styles from '../form-elements/form.module.scss';
 
 import AutoLinkPlugin from './plugins/AutoLinkPlugin';

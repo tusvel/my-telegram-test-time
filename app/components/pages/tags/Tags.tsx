@@ -15,6 +15,9 @@ import { ITagResponse } from '@/shared/types/tag/tag-response.interface';
 import { TagService } from '@/services/tag/tag.service';
 
 import { removeTag, updateTag } from '@/store/tag/tag.slice';
+import MaterialIcon from "@/ui/MaterialIcon/MaterialIcon";
+import cn from "classnames";
+import styles from "@/ui/List/ListItem/ListItem.module.scss";
 
 const Tags: FC = () => {
   const dispatch = useAppDispatch();
@@ -60,26 +63,53 @@ const Tags: FC = () => {
       <TagsCreate />
       <div className="flex">
         <ul role="list" className="space-y-3 mt-5 mr-10">
+          <span className="mb-5">Gambling</span>
           {Array.isArray(gamblingItems) &&
             gamblingItems.map((item) => (
-              <div key={item.id}>
-                <TagItem item={item} edit={edit} remove={remove} />
+              <div key={item.id} className={cn("relative", styles.item)}>
+                <TagItem item={item}/>
+                <div className={cn('absolute top-0 right-0 flex items-center', styles.editItems)}>
+                  <div onClick={() => edit(item)} className="cursor-pointer w-6 h-6">
+                    <MaterialIcon name="PencilSquareIcon" />
+                  </div>
+                  <div onClick={() => remove(item)} className="cursor-pointer w-6 h-6">
+                    <MaterialIcon name="TrashIcon" />
+                  </div>
+                </div>
               </div>
             ))}
         </ul>
         <ul role="list" className="space-y-3 mt-5 mr-10">
+          <span className="mb-5">Casino</span>
           {Array.isArray(casinoItems) &&
             casinoItems.map((item) => (
-              <div key={item.id}>
-                <TagItem item={item} edit={edit} remove={remove} />
+              <div key={item.id} className={cn("relative", styles.item)}>
+                <TagItem item={item}/>
+                <div className={cn('absolute top-0 right-0 flex items-center', styles.editItems)}>
+                  <div onClick={() => edit(item)} className="cursor-pointer w-6 h-6">
+                    <MaterialIcon name="PencilSquareIcon" />
+                  </div>
+                  <div onClick={() => remove(item)} className="cursor-pointer w-6 h-6">
+                    <MaterialIcon name="TrashIcon" />
+                  </div>
+                </div>
               </div>
             ))}
         </ul>
         <ul role="list" className="space-y-3 mt-5">
+          <span className="mb-5">Crypto</span>
           {Array.isArray(cryptoItems) &&
             cryptoItems.map((item) => (
-              <div key={item.id}>
-                <TagItem item={item} edit={edit} remove={remove} />
+              <div key={item.id} className={cn("relative", styles.item)}>
+                <TagItem item={item}/>
+                <div className={cn('absolute top-0 right-0 flex items-center', styles.editItems)}>
+                  <div onClick={() => edit(item)} className="cursor-pointer w-6 h-6">
+                    <MaterialIcon name="PencilSquareIcon" />
+                  </div>
+                  <div onClick={() => remove(item)} className="cursor-pointer w-6 h-6">
+                    <MaterialIcon name="TrashIcon" />
+                  </div>
+                </div>
               </div>
             ))}
         </ul>

@@ -28,6 +28,7 @@ const MediaItem: FC<{ item: IMediaResponse }> = ({ item }) => {
         >
           {item.tags?.map((item) => (
             <span
+              key={item.id}
               className={cn({
                 ['text-violet-800']: item.is_special
               })}

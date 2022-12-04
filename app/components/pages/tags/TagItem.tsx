@@ -6,10 +6,8 @@ import MaterialIcon from '@/ui/MaterialIcon/MaterialIcon';
 
 import { ITagResponse } from '@/shared/types/tag/tag-response.interface';
 
-const TagItem: FC<{ item: ITagResponse; edit: Function; remove: Function }> = ({
+const TagItem: FC<{ item: ITagResponse }> = ({
   item,
-  edit,
-  remove
 }) => {
   return (
     <li
@@ -29,20 +27,6 @@ const TagItem: FC<{ item: ITagResponse; edit: Function; remove: Function }> = ({
       </div>
       <div className={cn('absolute bottom-0 right-1 text-slate-600 text-sm')}>
         @{item.vertical}
-      </div>
-
-      <div
-        className={cn(
-          'absolute top-0 right-0 flex items-center',
-          styles.editItems
-        )}
-      >
-        <div onClick={() => edit(item)} className="cursor-pointer w-6 h-6">
-          <MaterialIcon name="PencilSquareIcon" />
-        </div>
-        <div onClick={() => remove(item)} className="cursor-pointer w-6 h-6">
-          <MaterialIcon name="TrashIcon" />
-        </div>
       </div>
     </li>
   );

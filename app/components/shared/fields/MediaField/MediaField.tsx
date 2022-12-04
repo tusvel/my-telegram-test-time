@@ -5,6 +5,8 @@ import { Controller } from 'react-hook-form';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 import { convertSelect } from '@/utils/convertSelect';
+import {getPictureApi} from "@/config/api.config";
+import Image from "next/image";
 
 const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
   ssr: false
@@ -12,12 +14,13 @@ const DynamicSelect = dynamic(() => import('@/ui/select/Select'), {
 const MediaField: FC<any> = ({ control, name, className }) => {
   const { items: mediaItems } = useTypedSelector((state) => state.media);
 
-  const mediaItemsSelect = convertSelect(mediaItems, 'url', 'url', 'url');
+  const mediaItemsSelect = convertSelect(mediaItems, 'url', 'id', 'url');
 
   const formatOptionLabel = ({ image, label }: any) => (
     <div className="flex image-select__image-option">
-      <img src={image} alt="golden gate bridge" className="w-20 h-20" />
-      {label}
+      <div className="w-[150px] h-[150px] relative">
+        <Image src={getPictureApi(image)} alt="golden gate bridge" fill={true} className="image-like-bg"/>
+      </div>
     </div>
   );
 
@@ -35,6 +38,7 @@ const MediaField: FC<any> = ({ control, name, className }) => {
             error={error}
             formatOptionLabel={formatOptionLabel}
             classNamePrefix="media-select"
+
           />
         )}
       />

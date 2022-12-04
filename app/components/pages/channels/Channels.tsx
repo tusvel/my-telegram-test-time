@@ -82,6 +82,7 @@ const Channels: FC = () => {
       <div className="flex">
         {gamblingItems && gamblingItems?.length > 0 && (
           <ul role="list" className="space-y-3 mt-5 mr-10">
+            <span className="mb-5">Gambling</span>
             {gamblingItems?.length &&
               gamblingItems.map((item) => (
                 <ChannelItem
@@ -95,6 +96,7 @@ const Channels: FC = () => {
         )}
         {casinoItems && casinoItems?.length > 0 && (
           <ul role="list" className="space-y-3 mt-5 mr-10">
+            <span className="mb-5">Casino</span>
             {casinoItems?.length &&
               casinoItems.map((item) => (
                 <ChannelItem
@@ -108,6 +110,7 @@ const Channels: FC = () => {
         )}
         {cryptoItems && cryptoItems?.length > 0 && (
           <ul role="list" className="space-y-3 mt-5">
+            <span className="mb-5">Crypto</span>
             {cryptoItems?.length &&
               cryptoItems.map((item) => (
                 <ChannelItem

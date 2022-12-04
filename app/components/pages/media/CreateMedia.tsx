@@ -32,11 +32,8 @@ const CreateMedia: FC = () => {
   const selectTags = convertSelect(tagItems || [], 'value', 'id');
   const {
     handleSubmit,
-    register,
     formState: { errors },
     control,
-    reset,
-    watch
   } = useForm<IMediaCreateRequest>({
     mode: 'onChange'
   });
